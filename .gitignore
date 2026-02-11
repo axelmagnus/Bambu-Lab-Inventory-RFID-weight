@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .DS_Store
 copilot-instructions.md
 .venv/
@@ -10,3 +11,46 @@ scripts/secrets.env
 **/secrets.env
 arduino/secrets.h
 arduino/**/secrets.h
+=======
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# debug information files
+*.dwo
+>>>>>>> 22f2ce5ef0944f80cce29b2699ddd9227d8a3bba
