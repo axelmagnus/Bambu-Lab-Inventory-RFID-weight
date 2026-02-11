@@ -1,0 +1,74 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "arduino: compile (ESP32-S2 loadcell)",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "compile",
+                "--fqbn",
+                "esp32:esp32:adafruit_feather_esp32s2_reversetft",
+                "firmware/load_cell_adc_logger/load_cell_adc_logger.ino"
+            ],
+            {
+                "label": "arduino: compile (TFT)",
+                "type": "shell",
+                "command": "arduino-cli",
+                "args": [
+                    "compile",
+                    "--fqbn",
+                    "esp32:esp32:adafruit_feather_esp32s2_reversetft",
+                    "arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "group": "build",
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "arduino: compile+upload (TFT)",
+                "type": "shell",
+                "command": "bash",
+                "args": [
+                    "-lc",
+                    "PORT=${input:serialPort}; echo Using port $PORT; arduino-cli compile --fqbn esp32:esp32:adafruit_feather_esp32s2_reversetft arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino && arduino-cli upload -p \"$PORT\" --fqbn esp32:esp32:adafruit_feather_esp32s2_reversetft arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ],
+                "dependsOn": []
+            },
+        }
+    },
+    {
+        "label": "arduino: upload (set PORT, ESP32-S2 loadcell)",
+        "type": "shell",
+        "command": "sh",
+        "args": [
+            "-c",
+            "PORT=\"${input:serialPort}\" && esptool.py --chip esp32s2 --port \"$PORT\" write_flash 0x0 arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.bin"
+        ],
+        "options": {
+            "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [
+            "$gcc"
+        ]
+    }
+],
+"inputs": [
+    {
+        "id": "serialPort",
+        "type": "promptString",
+        "description": "Enter serial port (e.g. /dev/tty.usbmodem101)",
+        "default": "/dev/tty.usbmodem101"
+    }
+]
+}

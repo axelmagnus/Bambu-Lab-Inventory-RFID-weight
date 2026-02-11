@@ -1,0 +1,24 @@
+---- Sent utf8 encoded message: "130.4" ----
+Tagging weight (g): 130.400
+Reading: raw=1408, mV=474, avg_raw=1407.63, avg_mV=473.87
+---- Sent utf8 encoded message: "781.6" ----
+Tagging weight (g): 781.600
+Reading: raw=2533, mV=827, avg_raw=2533.88, avg_mV=827.29
+---- Sent utf8 encoded message: "1087" ----
+Tagging weight (g): 1087.000
+Reading: raw=2944, mV=960, avg_raw=2880.38, avg_mV=939.25
+---- Sent utf8 encoded message: "582.5" ----
+Tagging weight (g): 582.500
+Reading: raw=2193, mV=721, avg_raw=2206.50, avg_mV=725.44
+---- Sent utf8 encoded message: "226.4" ----
+Tagging weight (g): 226.400
+Reading: raw=1609, mV=540, avg_raw=1613.88, avg_mV=541.64
+---- Sent utf8 encoded message: "198.7" ----
+Tagging weight (g): 198.700
+Reading: raw=1564, mV=522, avg_raw=1561.50, avg_mV=521.17
+---- Sent utf8 encoded message: "446.7" ----
+Tagging weight (g): 446.700
+Reading: raw=2032, mV=670, avg_raw=2043.50, avg_mV=673.79
+Tagging weight (g): 0.000
+Reading: raw=1209, mV=410, avg_raw=1210.00, avg_mV=410.34
+Est gross (g): 50.85, est filament (g): -195.05

@@ -1,0 +1,12 @@
+.DS_Store
+copilot-instructions.md
+.venv/
+__pycache__/
+*.pyc
+.env
+scripts/secret.env
+scripts/secrets.env
+**/secret.env
+**/secrets.env
+arduino/secrets.h
+arduino/**/secrets.h

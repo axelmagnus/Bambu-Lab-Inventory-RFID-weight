@@ -1,0 +1,7 @@
+{
+    "arduino.defaultBoard": "esp32:esp32:adafruit_feather_esp32s2_reversetft",
+    "chat.tools.terminal.autoApprove": {
+        "rsync": true,
+        "lsof": true
+    }
+}
