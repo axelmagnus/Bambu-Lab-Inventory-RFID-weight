@@ -96,3 +96,30 @@ static const MaterialInfo MATERIALS[] = {
 };
 
 static const size_t MATERIAL_COUNT = sizeof(MATERIALS) / sizeof(MATERIALS[0]);
+
+// Lookup MaterialInfo by filament code (returns nullptr if not found)
+inline const MaterialInfo *lookupMaterial(const char *filamentCode)
+{
+    for (size_t i = 0; i < MATERIAL_COUNT; ++i)
+    {
+        if (MATERIALS[i].filamentCode && filamentCode && strcmp(MATERIALS[i].filamentCode, filamentCode) == 0)
+        {
+            return &MATERIALS[i];
+        }
+    }
+    return nullptr;
+}
+
+// Overload: lookup by materialId and variantId
+inline const MaterialInfo *lookupMaterial(const char *materialId, const char *variantId)
+{
+    for (size_t i = 0; i < MATERIAL_COUNT; ++i)
+    {
+        if (MATERIALS[i].materialId && MATERIALS[i].variantId && materialId && variantId &&
+            strcmp(MATERIALS[i].materialId, materialId) == 0 && strcmp(MATERIALS[i].variantId, variantId) == 0)
+        {
+            return &MATERIALS[i];
+        }
+    }
+    return nullptr;
+}

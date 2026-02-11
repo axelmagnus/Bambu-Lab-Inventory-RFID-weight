@@ -1,8 +1,8 @@
+
 // RFID_Bambu_reader_TFT_weight.ino
 // For Adafruit ESP32-S2 Reverse TFT
 // Requirements (see .github/copilot-instructions.md):
-// - D0 button: Tare for weighing empty filament roll.
-// - D1 button: Scan RFID tag (read UID, code, type, color, TrayUID, weight from load cell). Do NOT send to inventory yet. Display all info on TFT, set TFT background to filament color (HEX if possible). Use a local mapping (e.g., JSON object) to look up filament details from UID.
+// - at startup Scan RFID tag (read UID, code, type, color, TrayUID, weight from load cell). Do NOT send to inventory yet. Display all info on TFT, set TFT background to filament color (HEX if possible). Use a local mapping (e.g., JSON object) to look up filament details from UID.
 // - D2 button: Option to send data to inventory sheet. Connect to WiFi if not already on.
 // - Apps Script: Accepts filament code and weight, updates inventory sheet. If code exists, update weight; else, add new row. Columns: Time scanned, Filament Code, Type, Name, Weight (g), Image, Tray UID for roll.
 // - At startup, print "Tare = D0", "Send to inventory = D2" on TFT.
@@ -10,6 +10,7 @@
 // - Use only SpreadsheetApp in Apps Script (no UrlFetch).
 // - No secrets in code; use local env or Script Properties.
 
+// ...existing code...
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -18,16 +19,20 @@
 #include <Adafruit_GFX.h> // Core graphics library
 #include <Adafruit_ST7789.h>
 #include <SPI.h>
-// --- WiFi/HTTP secrets (from secrets.h, not in code) ---
-#include "secrets.h"
-// --- Pin definitions (update as needed) ---
+#include <MFRC522.h>
+#include "material_lookup.h"
+#include <mbedtls/md.h>
+#include <secrets.h>
+// --- HKDF constants and sector key array ---
+static const uint8_t HKDF_SALT[16] = {0x9a, 0x75, 0x9c, 0xf2, 0xc4, 0xf7, 0xca, 0xff, 0x22, 0x2c, 0xb9, 0x76, 0x9b, 0x41, 0xbc, 0x96};
+static const uint8_t HKDF_INFO[7] = {'R', 'F', 'I', 'D', '-', 'A', 0x00};
+static byte SECTOR_KEY_A[16][6];
 
-// --- Pin definitions (update as needed) ---
-// Pin mapping for 128x64 TFT (ST7735 or similar)
 #define LOAD_CELL_PIN A0
 #define BUTTON_SEND 2 // D2
-// #define RFID_SS 7
-// #define RFID_RST 6
+// RFID pins (update as needed)
+#define RFID_SS 13
+#define RFID_RST 11
 
 #define TFT_CS 42
 #define TFT_DC 40
@@ -36,25 +41,15 @@
 #define TFT_I2C_POWER 7
 
 Adafruit_ST7789 tft(TFT_CS, TFT_DC, TFT_RST);
-// MFRC522 rfid(RFID_SS, RFID_RST);
+MFRC522 rfid(RFID_SS, RFID_RST);
 
-// --- Filament metadata mapping (UID to info) ---
-struct FilamentInfo
-{
-    const char *code;
-    const char *color_name;
-    const char *type;
-    const char *tray_uid;
-    uint32_t color_hex; // 0xRRGGBB
-};
-
-// Example: replace with real UIDs and data
-FilamentInfo filament_db[] = {
-    {"A1B2C3D4", "Red", "PLA", "TRAY123", 0xFF0000},
-    {"E5F6A7B8", "Blue", "PETG", "TRAY456", 0x0000FF},
-    // ...
-};
-const int FILAMENT_DB_SIZE = sizeof(filament_db) / sizeof(filament_db[0]);
+// --- Decoded filament info ---
+char filament_code[8] = "";
+char filament_type[16] = "";
+char filament_color[16] = "";
+char tray_uid[33] = "";
+char tray_uid_short[7] = "";
+float last_weight = 0;
 
 // --- Weight constants ---
 static constexpr float CAL_SLOPE = 1.80f;
@@ -63,16 +58,63 @@ static constexpr float EMPTY_SPOOL_WEIGHT = 247.0f; // grams
 
 // --- State ---
 char last_uid[16] = "";
-FilamentInfo *last_filament = nullptr;
-float last_weight = 0;
 bool wifi_connected = false;
 
 // --- Function prototypes ---
 // void scanRFID();
 void readLoadCell();
 void showOnTFT();
+void scanRFID();
 void handleSend();
 void connectWiFi();
+const MaterialInfo *lookupMaterial(const char *materialId, const char *variantId);
+
+void hkdfFromUid(const uint8_t *uid, size_t uidLen, uint8_t *out, size_t outLen)
+{
+    // Step 1: Extract (PRK = HMAC-SHA256(salt, uid))
+    uint8_t prk[32];
+    mbedtls_md_context_t ctx;
+    mbedtls_md_init(&ctx);
+    const mbedtls_md_info_t *info = mbedtls_md_info_from_type(MBEDTLS_MD_SHA256);
+    mbedtls_md_setup(&ctx, info, 1);
+    mbedtls_md_hmac_starts(&ctx, HKDF_SALT, sizeof(HKDF_SALT));
+    mbedtls_md_hmac_update(&ctx, uid, uidLen);
+    mbedtls_md_hmac_finish(&ctx, prk);
+    mbedtls_md_free(&ctx);
+
+    // Step 2: Expand
+    size_t pos = 0;
+    uint8_t counter = 1;
+    uint8_t t[32];
+    size_t infoLen = sizeof(HKDF_INFO);
+    while (pos < outLen)
+    {
+        mbedtls_md_context_t ctx2;
+        mbedtls_md_init(&ctx2);
+        mbedtls_md_setup(&ctx2, info, 1);
+        mbedtls_md_hmac_starts(&ctx2, prk, sizeof(prk));
+        if (counter > 1)
+            mbedtls_md_hmac_update(&ctx2, t, sizeof(t));
+        mbedtls_md_hmac_update(&ctx2, HKDF_INFO, infoLen);
+        mbedtls_md_hmac_update(&ctx2, &counter, 1);
+        mbedtls_md_hmac_finish(&ctx2, t);
+        mbedtls_md_free(&ctx2);
+        size_t take = (outLen - pos < sizeof(t)) ? (outLen - pos) : sizeof(t);
+        memcpy(out + pos, t, take);
+        pos += take;
+        counter++;
+    }
+}
+
+void deriveKeysFromUid(const byte *uid, byte uidLen)
+{
+    uint8_t derived[16 * 6];
+    hkdfFromUid(uid, uidLen, derived, sizeof(derived));
+    for (uint8_t s = 0; s < 16; s++)
+    {
+        memcpy(SECTOR_KEY_A[s], derived + s * 6, 6);
+    }
+}
 
 // --- WiFi connect ---
 void connectWiFi()
@@ -101,18 +143,19 @@ void connectWiFi()
 // --- Send to inventory sheet ---
 void handleSend()
 {
+    // Placeholder for future webhook logic
     if (!wifi_connected)
         connectWiFi();
-    if (!wifi_connected || !last_filament)
+    if (!wifi_connected)
         return;
     HTTPClient http;
     http.begin(WEB_APP_URL);
     http.addHeader("Content-Type", "application/json");
-    String payload = String("{\"code\":\"") + last_filament->code +
-                     "\",\"type\":\"" + last_filament->type +
-                     "\",\"name\":\"" + last_filament->color_name +
+    String payload = String("{\"code\":\"") + filament_code +
+                     "\",\"type\":\"" + filament_type +
+                     "\",\"name\":\"" + filament_color +
                      "\",\"weight\":" + String(last_weight, 1) +
-                     ",\"trayUid\":\"" + last_filament->tray_uid +
+                     ",\"trayUid\":\"" + tray_uid +
                      "\",\"uid\":\"" + last_uid + "\"}";
     int httpCode = http.POST(payload);
     tft.fillScreen(ST77XX_BLACK);
@@ -122,82 +165,46 @@ void handleSend()
     tft.print(httpCode > 0 && httpCode < 400 ? "Sent!" : "Send FAIL");
     http.end();
 }
-
-FilamentInfo *lookupFilament(const char *uid);
-void setTFTBackground(uint32_t color);
-void printButtonFunctions();
-
 void setup()
 {
     Serial.begin(115200);
-    // Print TFT pin assignments
-    Serial.print("TFT_CS=");
-    Serial.println(TFT_CS);
-    Serial.print("TFT_DC=");
-    Serial.println(TFT_DC);
-    Serial.print("TFT_RST=");
-    Serial.println(TFT_RST);
-    // Turn on backlight and TFT power as per Adafruit example
+
     pinMode(TFT_BACKLITE, OUTPUT);
     digitalWrite(TFT_BACKLITE, HIGH);
     pinMode(TFT_I2C_POWER, OUTPUT);
     digitalWrite(TFT_I2C_POWER, HIGH);
-    // pinMode(BUTTON_SEND, INPUT_PULLUP);
+    pinMode(BUTTON_SEND, INPUT_PULLDOWN);
 
-    Serial.println("RFID Bambu reader with TFT and weight");
-    // printButtonFunctions();
-    delay(10); // Allow power to stabilize
+    rfid.PCD_Init(); // Initialize RFID reader
 
-    Serial.println("Initializing TFT...");
     tft.init(135, 240); // Init ST7789 240x135
-    tft.setRotation(1); // Adafruit recommends rotation 3 for landscape
+    tft.setRotation(3); // Adafruit recommends rotation 3 for landscape
     tft.fillScreen(ST77XX_BLACK);
-    // rfid.PCD_Init(); // RFID not used
-
-    Serial.println("Setup complete. Ready to scan.");
-    tft.setCursor(0, 0);
-    tft.setTextColor(ST77XX_WHITE);
-
-    Serial.println("Scan RFID + weight, then press D2 to send to inventory.");
-    tft.setTextSize(1);
-    tft.print("Scan RFID + weight\nPress D2 to send");
+    tft.setCursor(0, 72);
+    tft.setTextColor(ST77XX_GREEN);
+    tft.setTextSize(3);
+    tft.print("Scan RFID!");
+    tft.setCursor(0, 110);
+    tft.setTextSize(2);
+    tft.print("Press D2 to send.");
 }
 
 void loop()
 {
-    // No debounceButtons() needed; removed undefined function
-    // Default mode: always scan RFID and weight, show on TFT
-    // scanRFID(); // RFID not used
+    scanRFID();
     readLoadCell();
     showOnTFT();
-    // Only BUTTON_SEND (D2) is used for sending/updating inventory
+    // Wait for D2 press to send (no WiFi in loop)
     if (digitalRead(BUTTON_SEND) == HIGH) // Active HIGH button
     {
-        handleSend();
+        // Placeholder: send to inventory (not implemented)
+        tft.setTextColor(ST77XX_GREEN);
+        tft.setTextSize(2);
+        tft.setCursor(0, 100);
+        tft.print("Ready to send!");
     }
 }
-/**
-// --- Function implementations ---
-void scanRFID()
-{
-    if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial())
-    {
-        strcpy(last_uid, "");
-        last_filament = nullptr;
-        return;
-    }
-    char uid_buf[16] = "";
-    for (byte i = 0; i < rfid.uid.size; i++)
-    {
-        sprintf(uid_buf + i * 2, "%02X", rfid.uid.uidByte[i]);
-    }
-    strncpy(last_uid, uid_buf, sizeof(last_uid) - 1);
-    last_uid[sizeof(last_uid) - 1] = '\0';
-    last_filament = lookupFilament(last_uid);
-    rfid.PICC_HaltA();
-    rfid.PCD_StopCrypto1();
-}
-*/
+
 void readLoadCell()
 {
     // Average 10 samples for stable reading
@@ -214,49 +221,152 @@ void readLoadCell()
     if (net_weight < 0)
         net_weight = 0;
     last_weight = net_weight;
-    Serial.print("Reading load cell... Weight: ");
-    Serial.print(last_weight, 1);
-    Serial.println(" g");
 }
 
 void showOnTFT()
 {
-    tft.fillScreen(last_filament ? last_filament->color_hex : ST77XX_BLACK);
-    tft.setCursor(0, 0);
-    tft.setTextColor(ST77XX_WHITE);
-    tft.setTextSize(2);
-    if (last_filament)
+    if (strlen(filament_code))
     {
-        tft.printf("Code: %s\nType: %s\nColor: %s\nTray: %s\nWeight: %.1f g", last_filament->code, last_filament->type, last_filament->color_name, last_filament->tray_uid, last_weight);
+        // Top left: filament code and weight (size 3)
+        tft.setTextColor(ST77XX_WHITE);
+        tft.setTextSize(3);
+        tft.setCursor(0, 0);
+        tft.printf("%s %.0f g", filament_code, last_weight);
+
+        // Next row: color (size 2)
+        tft.setCursor(0, 26);
+        tft.setTextSize(2);
+        tft.printf("%s", filament_color);
+        // Next row: type and trayUID (size 2)
+        tft.setCursor(0, 43);
+        tft.setTextSize(2);
+        tft.printf(filament_type);
+        tft.setCursor(0, 60);
+        tft.setTextSize(2);
+        tft.printf("TrayUID %s...", tray_uid_short);
+
+        // Next row: send to inventory (size 3)
+        tft.setCursor(0, 112);
+        tft.setTextSize(2);
+        tft.printf("<- Send to inventory");
     }
     else
     {
-        tft.printf("Weight: %.1f g", last_weight);
+        // Show only weight if no tag present
+        tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); // White text, black background
+        tft.setTextSize(3);
+        tft.setCursor(0, 0);
+        tft.printf("Net weight,g:");
+        tft.setCursor(0, 26);
+        tft.printf("    ");
+        tft.setCursor(0, 26);
+        tft.printf("%.0f", last_weight);
     }
 }
 
-FilamentInfo *lookupFilament(const char *uid)
+void scanRFID()
 {
-    for (int i = 0; i < FILAMENT_DB_SIZE; ++i)
+    if (!rfid.PICC_IsNewCardPresent())
     {
-        if (strcmp(uid, filament_db[i].code) == 0)
-            return &filament_db[i];
+        filament_code[0] = '\0';
+        filament_type[0] = '\0';
+        filament_color[0] = '\0';
+        tray_uid[0] = '\0';
+        tray_uid_short[0] = '\0';
+        return;
     }
-    return nullptr;
-}
+    if (!rfid.PICC_ReadCardSerial())
+    {
+        filament_code[0] = '\0';
+        filament_type[0] = '\0';
+        filament_color[0] = '\0';
+        tray_uid[0] = '\0';
+        tray_uid_short[0] = '\0';
+        return;
+    }
 
-void setTFTBackground(uint32_t color)
-{
-    tft.fillScreen(color);
-}
+    tft.fillScreen(ST77XX_BLACK);
 
-void printButtonFunctions()
-{
-    Serial.println("Scan = D1, Send = D2");
-    tft.setCursor(0, 56);
-    tft.setTextColor(ST77XX_WHITE);
-    tft.setTextSize(2);
-    tft.print("Scan=D1 Send=D2");
-}
+    // UID to hex string
+    char uid_buf[16] = "";
+    for (byte i = 0; i < rfid.uid.size; i++)
+    {
+        sprintf(uid_buf + i * 2, "%02X", rfid.uid.uidByte[i]);
+    }
+    strncpy(last_uid, uid_buf, sizeof(last_uid) - 1);
+    last_uid[sizeof(last_uid) - 1] = '\0';
+    // ...existing code...
 
-// TODO: Add functions for:
+    // Derive sector keys from UID
+    deriveKeysFromUid(rfid.uid.uidByte, rfid.uid.size);
+
+    MFRC522::MIFARE_Key key;
+    byte buffer[18];
+    byte size = sizeof(buffer);
+
+    // --- Block 1: Use HKDF-derived Key A for sector 0 ---
+    bool block1_ok = false;
+    memcpy(key.keyByte, SECTOR_KEY_A[0], 6);
+    // ...existing code...
+    if (rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 1, &key, &(rfid.uid)) == MFRC522::STATUS_OK && rfid.MIFARE_Read(1, buffer, &size) == MFRC522::STATUS_OK)
+    {
+        // ...existing code...
+        block1_ok = true;
+    }
+    if (block1_ok)
+    {
+        char variant[9], material[9];
+        strncpy(variant, (char *)buffer, 8);
+        variant[8] = '\0';
+        strncpy(material, (char *)buffer + 8, 8);
+        material[8] = '\0';
+        // ...existing code...
+        const MaterialInfo *info = lookupMaterial(material, variant);
+        if (info)
+        {
+            strncpy(filament_code, info->filamentCode, sizeof(filament_code) - 1);
+            strncpy(filament_type, info->name, sizeof(filament_type) - 1);
+            strncpy(filament_color, info->color, sizeof(filament_color) - 1);
+            // ...existing code...
+        }
+        else
+        {
+            strncpy(filament_code, "?", sizeof(filament_code) - 1);
+            strncpy(filament_type, material, sizeof(filament_type) - 1);
+            strncpy(filament_color, variant, sizeof(filament_color) - 1);
+            // ...existing code...
+        }
+    }
+    else
+    {
+        // ...existing code...
+    }
+
+    // --- Block 9: Use HKDF-derived Key A for sector 2 ---
+    bool block9_ok = false;
+    memcpy(key.keyByte, SECTOR_KEY_A[2], 6);
+    // ...existing code...
+    if (rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 9, &key, &(rfid.uid)) == MFRC522::STATUS_OK && rfid.MIFARE_Read(9, buffer, &size) == MFRC522::STATUS_OK)
+    {
+        // ...existing code...
+        block9_ok = true;
+    }
+    if (block9_ok)
+    {
+        for (int i = 0; i < 16; i++)
+        {
+            snprintf(tray_uid + i * 2, 3, "%02X", buffer[i]);
+        }
+        tray_uid[32] = '\0';
+        strncpy(tray_uid_short, tray_uid, 6);
+        tray_uid_short[6] = '\0';
+        // ...existing code...
+    }
+    else
+    {
+        // ...existing code...
+    }
+    // ...existing code...
+    rfid.PICC_HaltA();
+    rfid.PCD_StopCrypto1();
+}

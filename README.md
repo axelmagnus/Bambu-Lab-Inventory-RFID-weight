@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Bambu Lab RFID Filament Inventory
 
 Apps Script Web App/Arduino code to log RFID filament scans into a Google Sheet to keep track of your filaments. The ESP8266/RC522 posts the filament code plus tray/chip UID; the script enriches from a `Store Index` tab (name/color/material/variant/imageUrl) and displays an image of the material in the Image column. It uses only `SpreadsheetApp`—no external fetches. There is also a script to scrape the Bambu Store.
@@ -129,7 +128,3 @@ Timestamp | Code | Type (material) | Name (color) | Image (formula) | Tray/Chip 
 - New analog logger: `firmware/load_cell_adc_logger/` (ESP32-S2) prints raw ADC + mV so you can record weight/voltage pairs for calibration. Set `LOAD_CELL_PIN` to your ADC pin.
 - Choose MCU with enough pins (ESP32-S2/ESP32 recommended if RFID + analog load cell exceed ESP8266 pin budget).
 - Keep secrets out of git; store any calibration constants locally in ignored headers/env files.
-=======
-# Bambu-Lab-Inventory-with-RFID-and-weight
-Scans Bambu lab RDI tags and uses a load cell to weigh the roll. Sends that to a Google sheet that keeps track of your inventory
->>>>>>> 22f2ce5ef0944f80cce29b2699ddd9227d8a3bba
