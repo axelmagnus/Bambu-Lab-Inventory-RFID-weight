@@ -1,6 +1,6 @@
 const DEFAULT_SHEET_NAME = 'Inventory';
 const IMAGES_SHEET_NAME = 'Store Index';
-const TRAY_UID_COLUMN_INDEX = 6; // Column F: Tray UID for roll (also holds chip UID when tray missing)
+const TRAY_UID_COLUMN_INDEX = 7; // Column G: Tray UID for roll (also holds chip UID when tray missing)
 
 /**
  * Webhook entry: accepts JSON body with RFID scan metadata and appends to a sheet.
@@ -67,20 +67,19 @@ function appendRow(sheetId, data, imageRecord) {
   const productUrl = (imageRecord && imageRecord.productUrl) || data.productUrl || '';
   const codeCell = productUrl ? `=HYPERLINK("${productUrl}"${sep}"${data.code || ''}")` : (data.code || '');
 
+  const type = data.type || (imageRecord && imageRecord.type) || '';
   const name = data.name || (imageRecord && imageRecord.name) || '';
-  const color = data.color || (imageRecord && imageRecord.color) || '';
-  const material = data.material || (imageRecord && imageRecord.material) || '';
-  const variantId = data.variantId || (imageRecord && imageRecord.variantId) || '';
-
   const trayCellValue = trayUid || chipUid || 'Tray ID missing';
 
+  const weight = data.weight || '';
   const row = [
     ts,                  // A: Time scanned
-    codeCell,            // B: Filament Code (hyperlinked when productUrl known)
-    name || material,    // C: Type (prefer name/display; fallback to material)
-    color,               // D: Name (color / human label)
-    imageCell,           // E: Image
-    trayCellValue        // F: Tray UID for roll (or chip UID if tray missing)
+    codeCell,            // B: Filament Code
+    type,                // C: Type
+    name,                // D: Name (color / human label)
+    weight,              // E: Weight (g)
+    imageCell,           // F: Image
+    trayCellValue        // G: Tray UID for roll (or chip UID if tray missing)
   ];
 
   const cleanTrayUid = trayUid && trayUid !== 'Tray ID missing' ? trayUid : '';

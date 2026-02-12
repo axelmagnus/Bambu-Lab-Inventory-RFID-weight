@@ -43,7 +43,11 @@ static byte SECTOR_KEY_A[16][6];
 Adafruit_ST7789 tft(TFT_CS, TFT_DC, TFT_RST);
 MFRC522 rfid(RFID_SS, RFID_RST);
 
+// --- State ---
+bool wifi_connected = false;
+
 // --- Decoded filament info ---
+char last_uid[16] = "";
 char filament_code[8] = "";
 char filament_type[16] = "";
 char filament_color[21] = "";
@@ -55,10 +59,6 @@ float last_weight = 0;
 static constexpr float CAL_SLOPE = 1.80f;
 static constexpr float CAL_INTERCEPT = -741.0f;
 static constexpr float EMPTY_SPOOL_WEIGHT = 247.0f; // grams
-
-// --- State ---
-char last_uid[16] = "";
-bool wifi_connected = false;
 
 // --- Function prototypes ---
 // void scanRFID();
@@ -127,7 +127,9 @@ void connectWiFi()
     tft.setCursor(0, 0);
     tft.setTextColor(ST77XX_WHITE);
     tft.setTextSize(2);
-    tft.print("Connecting WiFi...");
+    tft.print("Connecting to\n");
+    tft.setCursor(0, 32);
+    tft.print(WIFI_SSID);
     while (WiFi.status() != WL_CONNECTED && millis() - start < 10000)
     {
         delay(200);
@@ -155,7 +157,7 @@ void handleSend()
     String payload = String("{\"code\":\"") + filament_code +
                      "\",\"type\":\"" + filament_type +
                      "\",\"name\":\"" + filament_color +
-                     "\",\"weight\":" + String(last_weight, 1) +
+                     "\",\"weight\":" + String((int)last_weight) +
                      ",\"trayUid\":\"" + tray_uid +
                      "\",\"uid\":\"" + last_uid + "\"}";
     int httpCode = http.POST(payload);
@@ -193,14 +195,14 @@ void loop()
     scanRFID();
     readLoadCell();
     showOnTFT();
+    Serial.printf("UID: %s  Code: %s  Type: %s  Color: %s  TrayUID: %s  Weight: %d g\n",
+                  last_uid, filament_code, filament_type, filament_color, tray_uid, (int)last_weight);
     // Wait for D2 press to send (no WiFi in loop)
-    if (digitalRead(BUTTON_SEND) == HIGH) // Active HIGH button
+    if (digitalRead(BUTTON_SEND) == HIGH) // && strlen(filament_code) > 0) // Only send if RFID scanned
     {
-        // Placeholder: send to inventory (not implemented)
-        tft.setTextColor(ST77XX_GREEN);
-        tft.setTextSize(2);
-        tft.setCursor(0, 100);
-        tft.print("Ready to send!");
+        Serial.printf("Send button pressed %s\n", filament_code);
+        handleSend();
+        delay(500); // debounce: prevent multiple sends per press
     }
 }
 
@@ -217,9 +219,7 @@ void readLoadCell()
     int mv = mv_sum / samples;
     float gross_weight = CAL_SLOPE * mv + CAL_INTERCEPT;
     float net_weight = gross_weight - EMPTY_SPOOL_WEIGHT;
-    // if (net_weight < 0)
-    //     net_weight = 0;
-    last_weight = net_weight;
+    last_weight = (int)net_weight;
 }
 
 void showOnTFT()
@@ -231,7 +231,7 @@ void showOnTFT()
     tft.setCursor(0, 26);
     tft.printf("    ");
     tft.setCursor(0, 26);
-    tft.printf("%.0f", last_weight);
+    tft.printf("%d", (int)last_weight);
 
     if (strlen(filament_code))
     {
@@ -329,14 +329,7 @@ void scanRFID()
             tray_uid_short[6] = '\0';
         }
     }
-    else
-    {
-        filament_code[0] = '\0';
-        filament_type[0] = '\0';
-        filament_color[0] = '\0';
-        tray_uid[0] = '\0';
-        tray_uid_short[0] = '\0';
-    }
+    // Do not clear fields if no new card is present; info persists until next scan
     // Always halt and stop crypto to allow repeated scans
     rfid.PICC_HaltA();
     rfid.PCD_StopCrypto1();
