@@ -53,8 +53,8 @@ bool wifi_connected = false;
 // --- Decoded filament info ---
 char last_uid[16] = "";
 char filament_code[8] = "";
-char filament_type[16] = "";
-char filament_color[21] = "";
+char filament_type[64] = "";
+char filament_color[64] = "";
 char tray_uid[33] = "";
 char tray_uid_short[7] = "";
 float last_weight = 0;
@@ -143,15 +143,12 @@ void connectWiFi()
         delay(200);
     }
     wifi_connected = (WiFi.status() == WL_CONNECTED);
-    if (!wifi_connected)
-    {
-        tft.fillScreen(ST77XX_BLACK);
-        tft.setCursor(0, 0);
-        tft.setTextColor(wifi_connected ? ST77XX_GREEN : ST77XX_RED);
-        tft.setTextSize(2);
-        tft.print(wifi_connected ? "WiFi OK" : "WiFi FAIL");
-        delay(800);
-    }
+    tft.fillScreen(ST77XX_BLACK);
+    tft.setCursor(0, 0);
+    tft.setTextColor(wifi_connected ? ST77XX_GREEN : ST77XX_RED);
+    tft.setTextSize(2);
+    tft.print(wifi_connected ? "Connected!" : "WiFi FAIL");
+    delay(800);
 }
 
 // --- Send to inventory sheet ---
@@ -189,11 +186,16 @@ void handleSend()
         tft.printf("Send FAIL          ");
     }
     http.end();
-    delay(1000);
-    // Restore 'Send to inventory' prompt
+    delay(800);
+    // Clear the sent/sent fail message by overwriting at the same position
+    tft.setCursor(0, 118);
+    tft.setTextColor(ST77XX_BLACK, ST77XX_BLACK);
+    tft.setTextSize(2);
+    tft.printf("                    ");
+    // Immediately restore the green prompt
+    tft.setCursor(0, 118);
     tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
     tft.setTextSize(2);
-    tft.setCursor(0, 118);
     tft.printf("<- Send to inventory");
 }
 
@@ -238,7 +240,6 @@ void loop()
     {
         Serial.printf("Send button pressed %s\n", filament_code);
         handleSend();
-        delay(500); // debounce: prevent multiple sends per press
     }
 }
 
@@ -250,7 +251,7 @@ void readLoadCell()
     for (int i = 0; i < samples; ++i)
     {
         mv_sum += analogReadMilliVolts(LOAD_CELL_PIN);
-        // delay(5); // Short delay between samples
+        delay(5); // Short delay between samples
     }
     int mv = mv_sum / samples;
     float gross_weight = CAL_SLOPE * mv + CAL_INTERCEPT;
@@ -275,16 +276,24 @@ void showOnTFT()
         tft.setTextColor(ST77XX_WHITE);
         tft.setTextSize(3);
         tft.setCursor(0, 51);
-        tft.printf("%s", filament_code);
+        tft.printf("%s  %s", filament_code, tray_uid_short[0] ? tray_uid_short : "NoTray");
 
         // Next row: color (size 2)
         tft.setCursor(0, 77);
         tft.setTextSize(2);
-        tft.printf("%s", filament_color);
+        // Only display first 20 chars of filament_color
+        char color_display[21];
+        strncpy(color_display, filament_color, 20);
+        color_display[20] = '\0';
+        tft.printf("%s", color_display);
         // Next row: type and trayUID (size 2)
         tft.setCursor(0, 95);
         tft.setTextSize(2);
-        tft.printf("%s  %s", filament_type, tray_uid_short);
+        // Only display first 20 chars of filament_type
+        char type_display[21];
+        strncpy(type_display, filament_type, 20);
+        type_display[20] = '\0';
+        tft.printf(type_display);
 
         // Next row: send to inventory (size 3)
         tft.setCursor(0, 118);
