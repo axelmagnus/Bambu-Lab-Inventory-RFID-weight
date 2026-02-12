@@ -37,8 +37,12 @@ static byte SECTOR_KEY_A[16][6];
 #define TFT_CS 42
 #define TFT_DC 40
 #define TFT_RST 41
+
 #define TFT_BACKLITE 45
 #define TFT_I2C_POWER 7
+
+// Buzzer pin (suggested: GPIO 6, not used by TFT or RFID)
+#define BUZZER_PIN 6
 
 Adafruit_ST7789 tft(TFT_CS, TFT_DC, TFT_RST);
 MFRC522 rfid(RFID_SS, RFID_RST);
@@ -123,24 +127,31 @@ void connectWiFi()
     WiFi.mode(WIFI_STA);
     WiFi.begin(WIFI_SSID, WIFI_PASS);
     unsigned long start = millis();
-    tft.fillScreen(ST77XX_BLACK);
-    tft.setCursor(0, 0);
-    tft.setTextColor(ST77XX_WHITE);
-    tft.setTextSize(2);
-    tft.print("Connecting to\n");
-    tft.setCursor(0, 32);
-    tft.print(WIFI_SSID);
+    // Only show splash if not already connected
+    if (!wifi_connected)
+    {
+        tft.fillScreen(ST77XX_BLACK);
+        tft.setCursor(0, 0);
+        tft.setTextColor(ST77XX_WHITE);
+        tft.setTextSize(2);
+        tft.print("Connecting to\n");
+        tft.setCursor(0, 32);
+        tft.print(WIFI_SSID);
+    }
     while (WiFi.status() != WL_CONNECTED && millis() - start < 10000)
     {
         delay(200);
     }
     wifi_connected = (WiFi.status() == WL_CONNECTED);
-    tft.fillScreen(ST77XX_BLACK);
-    tft.setCursor(0, 0);
-    tft.setTextColor(wifi_connected ? ST77XX_GREEN : ST77XX_RED);
-    tft.setTextSize(2);
-    tft.print(wifi_connected ? "WiFi OK" : "WiFi FAIL");
-    delay(800);
+    if (!wifi_connected)
+    {
+        tft.fillScreen(ST77XX_BLACK);
+        tft.setCursor(0, 0);
+        tft.setTextColor(wifi_connected ? ST77XX_GREEN : ST77XX_RED);
+        tft.setTextSize(2);
+        tft.print(wifi_connected ? "WiFi OK" : "WiFi FAIL");
+        delay(800);
+    }
 }
 
 // --- Send to inventory sheet ---
@@ -151,6 +162,11 @@ void handleSend()
         connectWiFi();
     if (!wifi_connected)
         return;
+    // Update only last row with 'Sending...'
+    tft.setTextColor(ST77XX_YELLOW, ST77XX_BLACK);
+    tft.setTextSize(2);
+    tft.setCursor(0, 118);
+    tft.printf("Sending....         ");
     HTTPClient http;
     http.begin(WEB_APP_URL);
     http.addHeader("Content-Type", "application/json");
@@ -161,15 +177,31 @@ void handleSend()
                      ",\"trayUid\":\"" + tray_uid +
                      "\",\"uid\":\"" + last_uid + "\"}";
     int httpCode = http.POST(payload);
-    tft.fillScreen(ST77XX_BLACK);
-    tft.setCursor(0, 0);
-    tft.setTextColor(httpCode > 0 && httpCode < 400 ? ST77XX_GREEN : ST77XX_RED);
+    tft.setTextColor((httpCode > 0 && httpCode < 400) ? ST77XX_GREEN : ST77XX_RED, ST77XX_BLACK);
     tft.setTextSize(2);
-    tft.print(httpCode > 0 && httpCode < 400 ? "Sent!" : "Send FAIL");
+    tft.setCursor(0, 118);
+    if (httpCode > 0 && httpCode < 400)
+    {
+        tft.printf("Sent!              ");
+    }
+    else
+    {
+        tft.printf("Send FAIL          ");
+    }
     http.end();
+    delay(1000);
+    // Restore 'Send to inventory' prompt
+    tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
+    tft.setTextSize(2);
+    tft.setCursor(0, 118);
+    tft.printf("<- Send to inventory");
 }
+
 void setup()
 {
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, LOW);
+
     Serial.begin(115200);
 
     pinMode(TFT_BACKLITE, OUTPUT);
@@ -177,6 +209,10 @@ void setup()
     pinMode(TFT_I2C_POWER, OUTPUT);
     digitalWrite(TFT_I2C_POWER, HIGH);
     pinMode(BUTTON_SEND, INPUT_PULLDOWN);
+
+    // Buzzer setup
+    pinMode(BUZZER_PIN, OUTPUT);
+    digitalWrite(BUZZER_PIN, LOW);
 
     SPI.begin();
     rfid.PCD_Init(); // Initialize RFID reader
@@ -198,7 +234,7 @@ void loop()
     Serial.printf("UID: %s  Code: %s  Type: %s  Color: %s  TrayUID: %s  Weight: %d g\n",
                   last_uid, filament_code, filament_type, filament_color, tray_uid, (int)last_weight);
     // Wait for D2 press to send (no WiFi in loop)
-    if (digitalRead(BUTTON_SEND) == HIGH) // && strlen(filament_code) > 0) // Only send if RFID scanned
+    if (digitalRead(BUTTON_SEND) == HIGH && strlen(filament_code) > 0) // Only send if RFID scanned
     {
         Serial.printf("Send button pressed %s\n", filament_code);
         handleSend();
@@ -261,10 +297,12 @@ void showOnTFT()
 void scanRFID()
 {
     bool scanned = false;
+    bool tray_missing = true;
     if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial())
     {
         scanned = true;
         Serial.println(F("RFID Scanned"));
+        digitalWrite(LED_BUILTIN, HIGH);
         tft.fillScreen(ST77XX_BLACK);
 
         // UID to hex string
@@ -327,10 +365,31 @@ void scanRFID()
             tray_uid[32] = '\0';
             strncpy(tray_uid_short, tray_uid, 6);
             tray_uid_short[6] = '\0';
+            tray_missing = false;
         }
+
+        // --- Buzzer feedback: two-tone ---
+        if (tray_missing)
+        {
+            // High then low: tray missing
+            tone(BUZZER_PIN, 1200, 120);
+            delay(150);
+            tone(BUZZER_PIN, 900, 120);
+        }
+        else
+        {
+            // Low then high: tray present
+            tone(BUZZER_PIN, 900, 120);
+            delay(150);
+            tone(BUZZER_PIN, 1200, 120);
+        }
+        delay(150);
+        noTone(BUZZER_PIN);
     }
     // Do not clear fields if no new card is present; info persists until next scan
     // Always halt and stop crypto to allow repeated scans
     rfid.PICC_HaltA();
     rfid.PCD_StopCrypto1();
+    // Turn off LED after scan
+    digitalWrite(LED_BUILTIN, LOW);
 }
