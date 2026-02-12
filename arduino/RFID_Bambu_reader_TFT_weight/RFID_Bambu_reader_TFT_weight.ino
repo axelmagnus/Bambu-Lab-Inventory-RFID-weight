@@ -46,7 +46,7 @@ MFRC522 rfid(RFID_SS, RFID_RST);
 // --- Decoded filament info ---
 char filament_code[8] = "";
 char filament_type[16] = "";
-char filament_color[16] = "";
+char filament_color[21] = "";
 char tray_uid[33] = "";
 char tray_uid_short[7] = "";
 float last_weight = 0;
@@ -105,6 +105,7 @@ void hkdfFromUid(const uint8_t *uid, size_t uidLen, uint8_t *out, size_t outLen)
         counter++;
     }
 }
+// ...existing code...
 
 void deriveKeysFromUid(const byte *uid, byte uidLen)
 {
@@ -175,6 +176,7 @@ void setup()
     digitalWrite(TFT_I2C_POWER, HIGH);
     pinMode(BUTTON_SEND, INPUT_PULLDOWN);
 
+    SPI.begin();
     rfid.PCD_Init(); // Initialize RFID reader
 
     tft.init(135, 240); // Init ST7789 240x135
@@ -184,9 +186,6 @@ void setup()
     tft.setTextColor(ST77XX_GREEN);
     tft.setTextSize(3);
     tft.print("Scan RFID!");
-    tft.setCursor(0, 110);
-    tft.setTextSize(2);
-    tft.print("Press D2 to send.");
 }
 
 void loop()
@@ -209,164 +208,136 @@ void readLoadCell()
 {
     // Average 10 samples for stable reading
     long mv_sum = 0;
-    const int samples = 10;
+    const int samples = 20;
     for (int i = 0; i < samples; ++i)
     {
         mv_sum += analogReadMilliVolts(LOAD_CELL_PIN);
-        delay(5); // Short delay between samples
+        // delay(5); // Short delay between samples
     }
     int mv = mv_sum / samples;
     float gross_weight = CAL_SLOPE * mv + CAL_INTERCEPT;
     float net_weight = gross_weight - EMPTY_SPOOL_WEIGHT;
-    if (net_weight < 0)
-        net_weight = 0;
+    // if (net_weight < 0)
+    //     net_weight = 0;
     last_weight = net_weight;
 }
 
 void showOnTFT()
 {
+    tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); // White text, black background
+    tft.setTextSize(3);
+    tft.setCursor(0, 0);
+    tft.printf("Net weight,g:");
+    tft.setCursor(0, 26);
+    tft.printf("    ");
+    tft.setCursor(0, 26);
+    tft.printf("%.0f", last_weight);
+
     if (strlen(filament_code))
     {
         // Top left: filament code and weight (size 3)
         tft.setTextColor(ST77XX_WHITE);
         tft.setTextSize(3);
-        tft.setCursor(0, 0);
-        tft.printf("%s %.0f g", filament_code, last_weight);
+        tft.setCursor(0, 51);
+        tft.printf("%s", filament_code);
 
         // Next row: color (size 2)
-        tft.setCursor(0, 26);
+        tft.setCursor(0, 77);
         tft.setTextSize(2);
         tft.printf("%s", filament_color);
         // Next row: type and trayUID (size 2)
-        tft.setCursor(0, 43);
+        tft.setCursor(0, 95);
         tft.setTextSize(2);
-        tft.printf(filament_type);
-        tft.setCursor(0, 60);
-        tft.setTextSize(2);
-        tft.printf("TrayUID %s...", tray_uid_short);
+        tft.printf("%s  %s", filament_type, tray_uid_short);
 
         // Next row: send to inventory (size 3)
-        tft.setCursor(0, 112);
+        tft.setCursor(0, 118);
+        tft.setTextColor(ST77XX_GREEN);
         tft.setTextSize(2);
         tft.printf("<- Send to inventory");
-    }
-    else
-    {
-        // Show only weight if no tag present
-        tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); // White text, black background
-        tft.setTextSize(3);
-        tft.setCursor(0, 0);
-        tft.printf("Net weight,g:");
-        tft.setCursor(0, 26);
-        tft.printf("    ");
-        tft.setCursor(0, 26);
-        tft.printf("%.0f", last_weight);
     }
 }
 
 void scanRFID()
 {
-    if (!rfid.PICC_IsNewCardPresent())
+    bool scanned = false;
+    if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial())
+    {
+        scanned = true;
+        Serial.println(F("RFID Scanned"));
+        tft.fillScreen(ST77XX_BLACK);
+
+        // UID to hex string
+        char uid_buf[16] = "";
+        for (byte i = 0; i < rfid.uid.size; i++)
+        {
+            sprintf(uid_buf + i * 2, "%02X", rfid.uid.uidByte[i]);
+        }
+        strncpy(last_uid, uid_buf, sizeof(last_uid) - 1);
+        last_uid[sizeof(last_uid) - 1] = '\0';
+
+        // Derive sector keys from UID
+        deriveKeysFromUid(rfid.uid.uidByte, rfid.uid.size);
+
+        MFRC522::MIFARE_Key key;
+        byte buffer[18];
+        byte size = sizeof(buffer);
+
+        // --- Block 1: Use HKDF-derived Key A for sector 0 ---
+        bool block1_ok = false;
+        memcpy(key.keyByte, SECTOR_KEY_A[0], 6);
+        if (rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 1, &key, &(rfid.uid)) == MFRC522::STATUS_OK && rfid.MIFARE_Read(1, buffer, &size) == MFRC522::STATUS_OK)
+        {
+            block1_ok = true;
+        }
+        if (block1_ok)
+        {
+            char variant[9], material[9];
+            strncpy(variant, (char *)buffer, 8);
+            variant[8] = '\0';
+            strncpy(material, (char *)buffer + 8, 8);
+            material[8] = '\0';
+            const MaterialInfo *info = lookupMaterial(material, variant);
+            if (info)
+            {
+                strncpy(filament_code, info->filamentCode, sizeof(filament_code) - 1);
+                strncpy(filament_type, info->name, sizeof(filament_type) - 1);
+                strncpy(filament_color, info->color, sizeof(filament_color) - 1);
+            }
+            else
+            {
+                strncpy(filament_code, "?", sizeof(filament_code) - 1);
+                strncpy(filament_type, material, sizeof(filament_type) - 1);
+                strncpy(filament_color, variant, sizeof(filament_color) - 1);
+            }
+        }
+        // --- Block 9: Use HKDF-derived Key A for sector 2 ---
+        bool block9_ok = false;
+        memcpy(key.keyByte, SECTOR_KEY_A[2], 6);
+        if (rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 9, &key, &(rfid.uid)) == MFRC522::STATUS_OK && rfid.MIFARE_Read(9, buffer, &size) == MFRC522::STATUS_OK)
+        {
+            block9_ok = true;
+        }
+        if (block9_ok)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                snprintf(tray_uid + i * 2, 3, "%02X", buffer[i]);
+            }
+            tray_uid[32] = '\0';
+            strncpy(tray_uid_short, tray_uid, 6);
+            tray_uid_short[6] = '\0';
+        }
+    }
+    else
     {
         filament_code[0] = '\0';
         filament_type[0] = '\0';
         filament_color[0] = '\0';
         tray_uid[0] = '\0';
         tray_uid_short[0] = '\0';
-        return;
     }
-    if (!rfid.PICC_ReadCardSerial())
-    {
-        filament_code[0] = '\0';
-        filament_type[0] = '\0';
-        filament_color[0] = '\0';
-        tray_uid[0] = '\0';
-        tray_uid_short[0] = '\0';
-        return;
-    }
-
-    tft.fillScreen(ST77XX_BLACK);
-
-    // UID to hex string
-    char uid_buf[16] = "";
-    for (byte i = 0; i < rfid.uid.size; i++)
-    {
-        sprintf(uid_buf + i * 2, "%02X", rfid.uid.uidByte[i]);
-    }
-    strncpy(last_uid, uid_buf, sizeof(last_uid) - 1);
-    last_uid[sizeof(last_uid) - 1] = '\0';
-    // ...existing code...
-
-    // Derive sector keys from UID
-    deriveKeysFromUid(rfid.uid.uidByte, rfid.uid.size);
-
-    MFRC522::MIFARE_Key key;
-    byte buffer[18];
-    byte size = sizeof(buffer);
-
-    // --- Block 1: Use HKDF-derived Key A for sector 0 ---
-    bool block1_ok = false;
-    memcpy(key.keyByte, SECTOR_KEY_A[0], 6);
-    // ...existing code...
-    if (rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 1, &key, &(rfid.uid)) == MFRC522::STATUS_OK && rfid.MIFARE_Read(1, buffer, &size) == MFRC522::STATUS_OK)
-    {
-        // ...existing code...
-        block1_ok = true;
-    }
-    if (block1_ok)
-    {
-        char variant[9], material[9];
-        strncpy(variant, (char *)buffer, 8);
-        variant[8] = '\0';
-        strncpy(material, (char *)buffer + 8, 8);
-        material[8] = '\0';
-        // ...existing code...
-        const MaterialInfo *info = lookupMaterial(material, variant);
-        if (info)
-        {
-            strncpy(filament_code, info->filamentCode, sizeof(filament_code) - 1);
-            strncpy(filament_type, info->name, sizeof(filament_type) - 1);
-            strncpy(filament_color, info->color, sizeof(filament_color) - 1);
-            // ...existing code...
-        }
-        else
-        {
-            strncpy(filament_code, "?", sizeof(filament_code) - 1);
-            strncpy(filament_type, material, sizeof(filament_type) - 1);
-            strncpy(filament_color, variant, sizeof(filament_color) - 1);
-            // ...existing code...
-        }
-    }
-    else
-    {
-        // ...existing code...
-    }
-
-    // --- Block 9: Use HKDF-derived Key A for sector 2 ---
-    bool block9_ok = false;
-    memcpy(key.keyByte, SECTOR_KEY_A[2], 6);
-    // ...existing code...
-    if (rfid.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 9, &key, &(rfid.uid)) == MFRC522::STATUS_OK && rfid.MIFARE_Read(9, buffer, &size) == MFRC522::STATUS_OK)
-    {
-        // ...existing code...
-        block9_ok = true;
-    }
-    if (block9_ok)
-    {
-        for (int i = 0; i < 16; i++)
-        {
-            snprintf(tray_uid + i * 2, 3, "%02X", buffer[i]);
-        }
-        tray_uid[32] = '\0';
-        strncpy(tray_uid_short, tray_uid, 6);
-        tray_uid_short[6] = '\0';
-        // ...existing code...
-    }
-    else
-    {
-        // ...existing code...
-    }
-    // ...existing code...
+    // Always halt and stop crypto to allow repeated scans
     rfid.PICC_HaltA();
     rfid.PCD_StopCrypto1();
 }

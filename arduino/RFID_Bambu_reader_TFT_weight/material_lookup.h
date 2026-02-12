@@ -67,9 +67,9 @@ static const MaterialInfo MATERIALS[] = {
     {"GFA01", "A01-D0", "11104", "PLA Matte", "Nardo Gray", ""},
     {"GFA01", "A01-K1", "11101", "PLA Matte", "Charcoal", ""},
     // PLA Marble (subset)
-    {"", "A07-D4", "13103", "PLA Marble", "White Marble", ""},
+    {"GFA07", "A07-D4", "13103", "PLA Marble", "White Marble", ""},
     // PLA Metal (subset)
-    {"", "A02-Y1", "13400", "PLA Metal", "Iridium Gold Metallic", ""},
+    {"GFA02", "A02-Y1", "13400", "PLA Metal", "Iridium Gold Metallic", ""},
     // PETG HF (subset)
     {"GFH02", "G02-K0", "33102", "PETG HF", "Black", ""},
     {"GFH02", "G02-W0", "33100", "PETG HF", "White", ""},
