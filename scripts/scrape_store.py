@@ -327,6 +327,49 @@ def main() -> int:
     html = fetch(collection_url)
     products = parse_product_list(html)
     records = build_records(products)
+    # --- PATCH: Add fallback entries for any code in READMEqueen.md not present in records ---
+    def parse_readme_materials():
+        readme_path = ROOT / "READMEqueen.md"
+        import re
+        lines = readme_path.read_text(encoding="utf-8").splitlines()
+        materials = []
+        current_category = None
+        for line in lines:
+            if line.startswith('#### '):
+                current_category = line[5:].strip()
+            elif line.strip().startswith('|') and not re.match(r'^\|\s*[-: ]+\|', line):
+                parts = [p.strip() for p in line.strip('|').split('|')]
+                if len(parts) >= 4 and parts[1].isdigit():
+                    color = parts[0]
+                    code = parts[1]
+                    variant = parts[2]
+                    variant = variant if variant and variant != '?' else ''
+                    materialId = variant.split('-')[0] if '-' in variant and len(variant.split('-')[0]) > 0 else ''
+                    name = current_category or ''
+                    materials.append({
+                        'materialId': materialId,
+                        'variantId': variant,
+                        'filamentCode': code,
+                        'name': name,
+                        'color': color
+                    })
+        return materials
+
+    readme_materials = parse_readme_materials()
+    codes_in_store = set(r.get("code") for r in records)
+    for m in readme_materials:
+        code = m["filamentCode"]
+        if code not in codes_in_store:
+            print(f"Adding fallback entry for missing code {code} from READMEqueen.md")
+            records.append({
+                "code": code,
+                "name": m["name"],
+                "color": m["color"],
+                "material": m["name"],
+                "variantId": m["variantId"],
+                "imageUrl": "",  # Placeholder, update if you have a real image
+                "productUrl": ""  # Placeholder, update if you have a real URL
+            })
     write_json(records)
     write_csv(records)
     write_tsv(records)

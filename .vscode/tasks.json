@@ -50,10 +50,14 @@
     {
         "label": "arduino: upload (set PORT, ESP32-S2 loadcell)",
         "type": "shell",
-        "command": "sh",
+        "command": "arduino-cli",
         "args": [
-            "-c",
-            "PORT=\"${input:serialPort}\" && esptool.py --chip esp32s2 --port \"$PORT\" write_flash 0x0 arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.bin"
+            "upload",
+            "-p",
+            "${input:serialPort}",
+            "--fqbn",
+            "esp32:esp32:adafruit_feather_esp32s2_reversetft",
+            "arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
         ],
         "options": {
             "cwd": "${workspaceFolder}"

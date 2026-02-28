@@ -60,9 +60,10 @@ char tray_uid_short[7] = "";
 float last_weight = 0;
 
 // --- Weight constants ---
-static constexpr float CAL_SLOPE = 1.80f;
-static constexpr float CAL_INTERCEPT = -741.0f;
-static constexpr float EMPTY_SPOOL_WEIGHT = 247.0f; // grams
+static constexpr float CAL_SLOPE = 1.750685f;
+static constexpr float CAL_INTERCEPT = -1006.87f;
+// EMPTY_SPOOL_WEIGHT removed: calibration now uses empty spool as zero
+static constexpr float TARE_MV = 575.14f;
 
 // --- Function prototypes ---
 // void scanRFID();
@@ -255,7 +256,7 @@ void readLoadCell()
     }
     int mv = mv_sum / samples;
     float gross_weight = CAL_SLOPE * mv + CAL_INTERCEPT;
-    float net_weight = gross_weight - EMPTY_SPOOL_WEIGHT;
+    float net_weight = CAL_SLOPE * (mv - TARE_MV);
     last_weight = (int)net_weight;
 }
 

@@ -1,10 +1,10 @@
 # Bambu Lab RFID Filament Inventory
 
-Apps Script Web App/Arduino code to log RFID filament scans into a Google Sheet to keep track of your filaments. The ESP8266/RC522 posts the filament code plus tray/chip UID; the script enriches from a `Store Index` tab (name/color/material/variant/imageUrl) and displays an image of the material in the Image column. It uses only `SpreadsheetApp`—no external fetches. There is also a script to scrape the Bambu Store.
+Apps Script Web App/Arduino code to log RFID filament scans into a Google Sheet to keep track of your filaments. The ESP32-S2 posts the filament code, tray UID, chip UID, weight, and (if available) type and name; the script enriches from a `Store Index` tab (name/color/material/variant/imageUrl) and displays an image of the material in the Image column. It uses only `SpreadsheetApp`—no external fetches. There is also a script to scrape the Bambu Store, and material/variant/code data is based in part on [queengooborg/Bambu-Lab-RFID-Library](https://github.com/queengooborg/Bambu-Lab-RFID-Library/tree/main).
 
 <table>
   <tr>
-    <td><img src="assets/Inventory%20example.png" alt="Inventory sheet example" width="520" /></td>
+    <td><img src="assets/Inventory%20example.png" alt="Inventory sheet example" width="600" /></td>
     <td style="vertical-align: top; padding-left: 12px;">
       <img src="assets/RFID scanner.jpg" alt="RFID, OLED, Buzzer" width="260" /><br />
     </td>
@@ -13,7 +13,7 @@ Apps Script Web App/Arduino code to log RFID filament scans into a Google Sheet 
 
 ## Features
 - Appends to the first empty row (fills gaps) on the `Inventory` tab.
-- Writes timestamp, filament code, type (name/material), color, image, tray/chip UID.
+- Writes timestamp, filament code, type (material), color (name), weight, image, tray/chip UID.
 - Status probe (`{"action":"status"}`) reports sheet connectivity and a sample of recent rows for quick debugging.
 - Deduplicates by tray UID (or chip UID if tray missing). Matching rows are updated in place with fresh data and timestamp, returning `duplicate:true`.
 
@@ -35,12 +35,11 @@ Response should be `{"ok":true,"duplicate":false}`; a repeat with the same uid r
 
 - Quick, no-scrape option (recommended): use the bundled [data/store_index.json](data/store_index.json).
   - Fastest: run `python scripts/push_store_index.py` after setting `WEB_APP_URL` in `scripts/secret.env`; it uploads the bundled JSON (`data/store_index.json`) via `action:"uploadStoreIndex"`.
-  - Regenerate Arduino lookup snippets without scraping: run `python scripts/generate_material_snippets.py` (uses the same `data/store_index.json` to rewrite `arduino/**/generated/materials_snippet.h`).
-  - Store Index uploads/imports now auto-pick the formula separator based on the sheet locale (comma vs semicolon). Column D shows the image via `=IMAGE(...)`, with the raw image URL kept in column F alongside the product URL in column E.
+  - Regenerate Arduino lookup snippets without scraping the store: run `python scripts/generate_material_snippets.py` (uses the same `data/store_index.json` to rewrite `arduino/**/generated/materials_snippet.h`).
 
-- Scrape-and-push option: set environment variables (see below), then run `python scripts/scrape_store.py`. It scrapes the store in current state, writes `data/store_index.{json,csv,tsv}`, and, if `WEB_APP_URL` is set, POSTs records to that same Web App using `action:"uploadStoreIndex"` (same endpoint, different action field). Run sparingly and respect store rate limits to avoid hammering the site. The bundled JSON already covers most filaments; if a new one appears, you can also add manually to the JSON/CSV/TSV and import without re-scraping. To create a virtual environment in order to run the scripts, see below.
+- Scrape-and-push option: set environment variables (see below), then run `scripts/scrape_store.py`. It scrapes the store in current state, writes `data/store_index.{json,csv,tsv}`, and, if `WEB_APP_URL` is set, POSTs records to that same Web App using `action:"uploadStoreIndex"` (same endpoint, different action field). Run sparingly and respect store rate limits to avoid hammering the site. The bundled JSON already covers most filaments; if a new one appears, you can also add manually to the JSON/CSV/TSV and import without re-scraping. To create a virtual environment in order to run the scripts, see below.
 
-- Manual POST example (same Web App URL):
+- Manual POST example to check your apps script without the ESP32 (same Web App URL):
     ```bash
     WEB_APP_URL="https://script.google.com/macros/s/<WEB_APP_ID>/exec"
     curl -X POST "$WEB_APP_URL" \
@@ -74,57 +73,69 @@ Quick setup: rename `scripts/secret.example.env` to `scripts/secret.env`, set `W
 - Material/variant/code seeds from [queengooborg/Bambu-Lab-RFID-Library](https://github.com/queengooborg/Bambu-Lab-RFID-Library/tree/main); used its README mapping table to bootstrap the curated entries in [arduino/RFID_Bambu_lab_reader/material_lookup.h](arduino/RFID_Bambu_lab_reader/material_lookup.h).
 
 
+
 ## Payload shape
 ```json
 {
-  "code": "10503",      // required (filament code)
-  "uid": "DEADBEEF",    // strongly recommended (chip UID); used for dedupe if trayUid missing
-  "trayUid": "abcd1234" // optional; preferred dedupe key when present
+  "code": "10503",         // required (filament code)
+  "uid": "DEADBEEF",       // strongly recommended (chip UID); used for dedupe if trayUid missing
+  "trayUid": "abcd1234",   // optional; preferred dedupe key when present
+  "weight": 123,            // optional; weight in grams
+  "type": "PLA Basic",     // optional; filament type (if available)
+  "name": "Bright Green"   // optional; filament color/name (if available)
 }
 ```
-Only `code` is required. The Arduino sketches already send `trayUid` (preferred) and `chipUid`/`uid` automatically; you just set Wi-Fi and `WEB_APP_URL` in secrets.h. Additional fields are ignored by the Web App.
+Only `code` is required. The Arduino sketches send `trayUid` (preferred), `chipUid`/`uid`, and `weight` automatically; `type` and `name` are included if available. Additional fields are ignored by the Web App.
 
-## ESP8266 POST example
-```cpp
-const char* webhook = "https://script.google.com/macros/s/<WEB_APP_URL>/exec"; // your WEB_APP_URL from secrets.h
 
-void postScan() {
-    WiFiClientSecure client;
-    client.setInsecure();
-    if (!client.connect("script.google.com", 443)) return;
-    String payload = R"PAY({"code":"10100","trayUid":"abcd1234"})PAY";
-    String req;
-    req += String("POST ") + web_app_url + " HTTP/1.1\r\n";
-    req += "Host: script.google.com\r\n";
-    req += "Content-Type: application/json\r\n";
-    req += "Content-Length: " + String(payload.length()) + "\r\n\r\n";
-    req += payload;
-    client.print(req);
-}
-```
+<!-- Legacy ESP8266 sketches are included for reference, but the main project requires ESP32-S2 Reverse TFT for full functionality (RFID + analog load cell + TFT). -->
 
 ## Columns written (Inventory tab)
-Timestamp | Code | Type (material) | Name (color) | Image (formula) | Tray/Chip UID
+Timestamp | Code | Type (material) | Name (color) | Weight (g) | Image (formula) | Tray/Chip UID
 
 ## Security and privacy
 - Keep `SHEET_ID` out of source control.
 - Web app should run as you; set access to “Anyone” only if you expect anonymous posts.
 - Web App URL (the `/exec` URL) comes from the Apps Script deployment dialog; treat it as sensitive. Wi-Fi creds and the Web App URL for the Arduino sketches should live in a local, untracked header (e.g., `arduino/secrets.h`), not in commits.
 
-## Arduino sketches
+
+## Hardware and Firmware
+
+### Hardware
+- **MCU:** Adafruit ESP32-S2 Reverse TFT (recommended; required for analog load cell + RFID + display)
+- **RFID:** MFRC522 (SPI)
+- **Load cell:** TE FX29 amplified analog (e.g., FX293X-100A-0010-L). With 5 V supply, outputs ~0.5–4.5 V; with 3.3 V supply, output is within ESP32-S2 ADC range. Always verify your sensor's output does not exceed 3.3 V before connecting to the ADC input.
+  - *Note:* HX711 is **not** needed for the amplified analog part.
+- **Display:** Built-in TFT (on ESP32-S2 Reverse TFT)
+- **Buzzer:** Passive piezo on GPIO15 (D8) to GND (add ~100–220 Ω series resistor if available)
+
+### Firmware
 - `RFID_Bambu_lab_reader/` (serial + webhook POST)
 - `RFID_Bambu_lab_reader_OLED/` (OLED + webhook POST)
 - Configure Wi-Fi and Web App URL via a local header: copy `arduino/secrets.example.h` → `arduino/secrets.h` (gitignored) and set `WIFI_SSID`, `WIFI_PASS`, `WEB_APP_URL`. Each scan sends JSON `{ "code": "<filament code>", "trayUid": "<tray uid>", "uid": "<tag uid hex>" }` to the Web App; repeats with the same UID are ignored server-side.
-- Build with `arduino-cli` (ESP8266 HUZZAH example):
-  - `arduino-cli compile --fqbn esp8266:esp8266:huzzah arduino/RFID_Bambu_lab_reader/RFID_Bambu_lab_reader.ino`
-  - `arduino-cli compile --fqbn esp8266:esp8266:huzzah arduino/RFID_Bambu_lab_reader_OLED/RFID_Bambu_lab_reader_OLED.ino`
-- Upload example: `arduino-cli upload -p /dev/cu.usbserial-<port> --fqbn esp8266:esp8266:huzzah arduino/RFID_Bambu_lab_reader_OLED/RFID_Bambu_lab_reader_OLED.ino`
+- Build with `arduino-cli` (ESP32-S2 Reverse TFT example):
+  - `arduino-cli compile --fqbn esp32:esp32s2:adafruit_feather_esp32s2_tft arduino/RFID_Bambu_lab_reader/RFID_Bambu_lab_reader.ino`
+  - `arduino-cli compile --fqbn esp32:esp32s2:adafruit_feather_esp32s2_tft arduino/RFID_Bambu_lab_reader_OLED/RFID_Bambu_lab_reader_OLED.ino`
+- Upload example: `arduino-cli upload -p /dev/cu.usbserial-<port> --fqbn esp32:esp32s2:adafruit_feather_esp32s2_tft arduino/RFID_Bambu_lab_reader_OLED/RFID_Bambu_lab_reader_OLED.ino`
 - Both sketches include `material_lookup.h` and generated `materials_snippet.h` with filament codes; extend if you add new materials. The snippets under `arduino/**/generated/` are now produced by this repo’s scraper (`python scripts/scrape_store.py`) so the Arduino lookup, Store Index, and Sheets data stay in sync. After running the scraper, it writes `data/store_index.{json,csv,tsv}` and regenerates both Arduino snippet headers automatically.
-- Buzzer: passive piezo on GPIO15 (D8) to GND (add ~100–220 Ω series resistor if available). Each successful scan plays a two-tone chirp.
+- Each successful scan plays a two-tone chirp on the buzzer.
 
-## Load cell integration (new work)
-- Target load cell: TE FX29 amplified analog (e.g., FX293X-100A-0010-L outputs ~0.5–4.5 V at 3.3 V). Use an ADC input; HX711 is not needed for the amplified part.
-- If using an I2C FX29 variant instead, see `firmware/fx29_i2c_example/`.
-- New analog logger: `firmware/load_cell_adc_logger/` (ESP32-S2) prints raw ADC + mV so you can record weight/voltage pairs for calibration. Set `LOAD_CELL_PIN` to your ADC pin.
-- Choose MCU with enough pins (ESP32-S2/ESP32 recommended if RFID + analog load cell exceed ESP8266 pin budget).
-- Keep secrets out of git; store any calibration constants locally in ignored headers/env files.
+
+## Load cell integration
+- **Target:** TE FX29 amplified analog (e.g., FX293X-100A-0010-L). With 5 V supply, outputs ~0.5–4.5 V; with 3.3 V supply, output is within ESP32-S2 ADC range. Connect directly to an ADC input on the ESP32-S2 Reverse TFT, but always verify your sensor's output does not exceed 3.3 V.
+- **No HX711 needed:** The amplified analog output is compatible with the ESP32-S2 ADC.
+- **I2C variant:** If using another load cell, adjust code accordingly. This repo uses FX29, ut calibration depend on your design and used load cell.
+- **Analog logger:** `firmware/load_cell_adc_logger/` (ESP32-S2) prints raw ADC + mV for calibration. Set `LOAD_CELL_PIN` to your ADC pin.
+- **Calibration:** Store calibration constants locally in ignored headers/env files. You can use any tool (trendline in Google Sheets or any regression analysis tool, or copilot) to use a csv file and set these.
+
+### Calibrating your load FX29 cell
+1. Open and upload the `firmware/load_cell_adc_logger/` sketch to your ESP32-S2.
+2. With the load cell connected, open the Serial Monitor. The sketch will print raw ADC values and calculated mV readings.
+3. Place known weights (e.g., empty spool, full spool, calibration weights) on the load cell and record the weight and ADC/mV readings for each.
+4. Use these readings to determine the slope and offset for your calibration formula (e.g., `weight = slope * (mV - offset)`).
+5. Edit the Arduino firmware (e.g., in `RFID_Bambu_reader_TFT_weight.ino`) to set these calibration constants. Example:
+  ```cpp
+  #define LOAD_CELL_SLOPE 1.80
+  #define LOAD_CELL_OFFSET 549
+  // weight (g) = LOAD_CELL_SLOPE * (mV - LOAD_CELL_OFFSET)
+  ```

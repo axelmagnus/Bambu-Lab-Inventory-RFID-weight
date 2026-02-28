@@ -23,11 +23,11 @@ static float latest_avg_raw = 0;
 static float latest_avg_mv = 0;
 
 // Calibration (using avg mV): weight_g ≈ slope * mV + intercept
-// Updated with zero-weight reading (~410 mV) and full spool (~1100 mV @ 1247.5 g)
-static constexpr float CAL_SLOPE = 1.80f;
-static constexpr float CAL_INTERCEPT = -741.0f;
+// Calibration now uses empty spool as zero (TARE_MV)
+static constexpr float CAL_SLOPE = 1.750685f;
+static constexpr float CAL_INTERCEPT = -1006.87f;
 // Tare assumes empty spool ~247 g → mV_tare ≈ (247 - intercept) / slope ≈ 549 mV
-static constexpr float TARE_MV = 549.0f;
+static constexpr float TARE_MV = 575.14f;
 
 void handleSerialInput()
 {

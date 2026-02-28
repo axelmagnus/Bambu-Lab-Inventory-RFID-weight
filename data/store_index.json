@@ -1620,33 +1620,6 @@
     "productUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf?variant=593616967859515399"
   },
   {
-    "code": "51900",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Frozen",
-    "material": "TPU",
-    "variantId": "593614659620777987",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/1e1048e6c51a40baaec67935567df949/TPU_90_Frozen.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777987"
-  },
-  {
-    "code": "51901",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Blaze",
-    "material": "TPU",
-    "variantId": "593614659620777988",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/ac8b16c76ee44b50adc7e812d9a6d227/TPU_90_Blaze.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777988"
-  },
-  {
-    "code": "51103",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Black",
-    "material": "TPU",
-    "variantId": "593614659620777989",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/4226afe319284c829f403eebd47c379e/TPU_90_BK.png",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777989"
-  },
-  {
     "code": "51105",
     "name": "TPU 85A / TPU 90A",
     "color": "White",
@@ -1654,51 +1627,6 @@
     "variantId": "593614659620777990",
     "imageUrl": "https://store.bblcdn.eu/s8/default/1eeceedbdb53455aa251f4d32daa0017/TPU_90_White.jpg",
     "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777990"
-  },
-  {
-    "code": "51500",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Light Cyan",
-    "material": "TPU",
-    "variantId": "593614659620777991",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/2077996651f24854be2961775f311286/TPU_85_Cyan.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777991"
-  },
-  {
-    "code": "51305",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Neon Orange",
-    "material": "TPU",
-    "variantId": "593614659620777992",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/6ee88b1694a140b6bb0ffa1ac3d38f8d/TPU_85_Orange.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777992"
-  },
-  {
-    "code": "51700",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Grape Jelly",
-    "material": "TPU",
-    "variantId": "682714606946189312",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/14c747cef36040bda1a8f7caffaa48cf/grape_jelly.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189312"
-  },
-  {
-    "code": "51601",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Crystal Blue",
-    "material": "TPU",
-    "variantId": "682714606946189313",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/0c15199091134d2f92c0ea8ee90a5e51/Crystal_Blue.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189313"
-  },
-  {
-    "code": "51800",
-    "name": "TPU 85A / TPU 90A",
-    "color": "Cocoa Brown",
-    "material": "TPU",
-    "variantId": "682714606946189314",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/8ab92eac89be46ed872419cd6a0ec0a1/Cocoa_Brown.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189314"
   },
   {
     "code": "51107",
@@ -1710,22 +1638,94 @@
     "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189315"
   },
   {
+    "code": "51103",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Black",
+    "material": "TPU",
+    "variantId": "593614659620777989",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/4226afe319284c829f403eebd47c379e/TPU_90_BK.png",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777989"
+  },
+  {
+    "code": "51800",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Cocoa Brown",
+    "material": "TPU",
+    "variantId": "682714606946189314",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/8ab92eac89be46ed872419cd6a0ec0a1/Cocoa_Brown.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189314"
+  },
+  {
+    "code": "51900",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Frozen",
+    "material": "TPU",
+    "variantId": "697574082204368896",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=697574082204368896"
+  },
+  {
+    "code": "51901",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Blaze",
+    "material": "TPU",
+    "variantId": "593614659620777987",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/1e1048e6c51a40baaec67935567df949/TPU_90_Frozen.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777987"
+  },
+  {
+    "code": "51500",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Light Cyan",
+    "material": "TPU",
+    "variantId": "593614659620777988",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/ac8b16c76ee44b50adc7e812d9a6d227/TPU_90_Blaze.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777988"
+  },
+  {
+    "code": "51305",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Neon Orange",
+    "material": "TPU",
+    "variantId": "593614659620777991",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/2077996651f24854be2961775f311286/TPU_85_Cyan.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777991"
+  },
+  {
+    "code": "51700",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Grape Jelly",
+    "material": "TPU",
+    "variantId": "593614659620777992",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/6ee88b1694a140b6bb0ffa1ac3d38f8d/TPU_85_Orange.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=593614659620777992"
+  },
+  {
+    "code": "51601",
+    "name": "TPU 85A / TPU 90A",
+    "color": "Crystal Blue",
+    "material": "TPU",
+    "variantId": "682714606946189312",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/14c747cef36040bda1a8f7caffaa48cf/grape_jelly.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189312"
+  },
+  {
     "code": "51201",
     "name": "TPU 85A / TPU 90A",
     "color": "Flesh",
     "material": "TPU",
-    "variantId": "682714606946189316",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/5c2b2d6f888c4340aff00c078acd0db3/flesh.jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189316"
+    "variantId": "682714606946189313",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/0c15199091134d2f92c0ea8ee90a5e51/Crystal_Blue.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189313"
   },
   {
     "code": "51501",
     "name": "TPU 85A / TPU 90A",
     "color": "Lime Green",
     "material": "TPU",
-    "variantId": "682714606946189317",
-    "imageUrl": "https://store.bblcdn.eu/s8/default/e1f3d4ef598b42a2995f220718893d32/lime_green_(2).jpg",
-    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189317"
+    "variantId": "682714606946189316",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/5c2b2d6f888c4340aff00c078acd0db3/flesh.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a?variant=682714606946189316"
   },
   {
     "code": "14500",
@@ -2059,5 +2059,284 @@
     "variantId": "593613054418694148",
     "imageUrl": "https://store.bblcdn.eu/s8/default/bb78ed96a8354b35942df858bd4b64a0/1_a71ee34c-988e-42db-b355-224daf27e489.jpg",
     "productUrl": "https://eu.store.bambulab.com/products/pc-fr?variant=593613054418694148"
+  },
+  {
+    "code": "16100",
+    "name": "PLA Lite",
+    "color": "Black",
+    "material": "PLA Lite",
+    "variantId": "A18-K0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16101",
+    "name": "PLA Lite",
+    "color": "Gray",
+    "material": "PLA Lite",
+    "variantId": "A18-D0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16103",
+    "name": "PLA Lite",
+    "color": "White",
+    "material": "PLA Lite",
+    "variantId": "A18-W0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16200",
+    "name": "PLA Lite",
+    "color": "Red",
+    "material": "PLA Lite",
+    "variantId": "A18-R0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16400",
+    "name": "PLA Lite",
+    "color": "Yellow",
+    "material": "PLA Lite",
+    "variantId": "A18-Y0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16600",
+    "name": "PLA Lite",
+    "color": "Cyan",
+    "material": "PLA Lite",
+    "variantId": "A18-B0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16601",
+    "name": "PLA Lite",
+    "color": "Blue",
+    "material": "PLA Lite",
+    "variantId": "A18-B1",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "16602",
+    "name": "PLA Lite",
+    "color": "Matte Beige",
+    "material": "PLA Lite",
+    "variantId": "A18-P0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "14103",
+    "name": "PLA Aero",
+    "color": "Black",
+    "material": "PLA Aero",
+    "variantId": "A11-K0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "12005",
+    "name": "PLA Tough",
+    "color": "Lavender Blue",
+    "material": "PLA Tough",
+    "variantId": "A09-B5",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "12004",
+    "name": "PLA Tough",
+    "color": "Light Blue",
+    "material": "PLA Tough",
+    "variantId": "A09-B4",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "12002",
+    "name": "PLA Tough",
+    "color": "Orange",
+    "material": "PLA Tough",
+    "variantId": "A09-A0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "12001",
+    "name": "PLA Tough",
+    "color": "Silver",
+    "material": "PLA Tough",
+    "variantId": "A09-D1",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "12003",
+    "name": "PLA Tough",
+    "color": "Vermilion Red",
+    "material": "PLA Tough",
+    "variantId": "A09-R3",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "12000",
+    "name": "PLA Tough",
+    "color": "Yellow",
+    "material": "PLA Tough",
+    "variantId": "A09-Y0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "41500",
+    "name": "ABS-GF",
+    "color": "Green",
+    "material": "ABS-GF",
+    "variantId": "B50-G0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "41400",
+    "name": "ABS-GF",
+    "color": "Yellow",
+    "material": "ABS-GF",
+    "variantId": "",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "45100",
+    "name": "ASA",
+    "color": "White",
+    "material": "ASA",
+    "variantId": "B01-W0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "45500",
+    "name": "ASA",
+    "color": "Green",
+    "material": "ASA",
+    "variantId": "",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "45101",
+    "name": "ASA",
+    "color": "Black",
+    "material": "ASA",
+    "variantId": "B01-K0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "45102",
+    "name": "ASA",
+    "color": "Gray",
+    "material": "ASA",
+    "variantId": "B01-D0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "45200",
+    "name": "ASA",
+    "color": "Red",
+    "material": "ASA",
+    "variantId": "B01-R0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "45600",
+    "name": "ASA",
+    "color": "Blue",
+    "material": "ASA",
+    "variantId": "",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "46100",
+    "name": "ASA Aero",
+    "color": "White",
+    "material": "ASA Aero",
+    "variantId": "B02-W0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "46101",
+    "name": "ASA-CF",
+    "color": "Black",
+    "material": "ASA-CF",
+    "variantId": "B51-K0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "65102",
+    "name": "Support for PLA/PETG",
+    "color": "Nature",
+    "material": "Support for PLA/PETG",
+    "variantId": "S02-W0 (Old: S00-W0)",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "65103",
+    "name": "Support for PLA/PETG",
+    "color": "Black",
+    "material": "Support for PLA/PETG",
+    "variantId": "S05-C0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "65104",
+    "name": "Support for PLA (New Version)",
+    "color": "White",
+    "material": "Support for PLA (New Version)",
+    "variantId": "S02-W1",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "66100",
+    "name": "Support for ABS",
+    "color": "White",
+    "material": "Support for ABS",
+    "variantId": "S06-W0",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "65500",
+    "name": "Support for PA/PET",
+    "color": "Green",
+    "material": "Support for PA/PET",
+    "variantId": "S03-G1",
+    "imageUrl": "",
+    "productUrl": ""
+  },
+  {
+    "code": "66400",
+    "name": "PVA",
+    "color": "Clear",
+    "material": "PVA",
+    "variantId": "S04-Y0",
+    "imageUrl": "https://store.bblcdn.eu/s8/default/151690be785849e88d3d926351a85a6b/pvasupport12.jpg",
+    "productUrl": "https://eu.store.bambulab.com/products/pva?id=47790189281628"
   }
 ]
