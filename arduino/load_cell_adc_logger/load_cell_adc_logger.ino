@@ -29,6 +29,19 @@ static constexpr float CAL_INTERCEPT = -1006.87f;
 // Tare assumes empty spool ~247 g → mV_tare ≈ (247 - intercept) / slope ≈ 549 mV
 static constexpr float TARE_MV = 575.14f;
 
+// Store calibration points
+struct CalPoint
+{
+    float weight_g;
+    int raw;
+    int mv;
+    float avg_raw;
+    float avg_mv;
+};
+static constexpr int MAX_POINTS = 32;
+CalPoint cal_points[MAX_POINTS];
+int cal_count = 0;
+
 void handleSerialInput()
 {
     if (!Serial.available())
@@ -37,6 +50,30 @@ void handleSerialInput()
     line.trim();
     if (line.length() == 0)
         return;
+    if (line.equalsIgnoreCase("x"))
+    {
+        // Output all calibration points as a list of lists
+        Serial.println(F("\nCalibration points for Python script (copy/paste):"));
+        Serial.print("[");
+        for (int i = 0; i < cal_count; ++i)
+        {
+            Serial.print("[");
+            Serial.print(cal_points[i].weight_g, 3);
+            Serial.print(", ");
+            Serial.print(cal_points[i].raw);
+            Serial.print(", ");
+            Serial.print(cal_points[i].mv);
+            Serial.print(", ");
+            Serial.print(cal_points[i].avg_raw, 2);
+            Serial.print(", ");
+            Serial.print(cal_points[i].avg_mv, 2);
+            Serial.print("]");
+            if (i < cal_count - 1)
+                Serial.print(", ");
+        }
+        Serial.println("]\n");
+        return;
+    }
     float weight = line.toFloat();
     Serial.print(F("Tagging weight (g): "));
     Serial.println(weight, 3);
@@ -48,6 +85,17 @@ void handleSerialInput()
     Serial.print(latest_avg_raw, 2);
     Serial.print(F(", avg_mV="));
     Serial.println(latest_avg_mv, 2);
+
+    // Save calibration point
+    if (cal_count < MAX_POINTS)
+    {
+        cal_points[cal_count].weight_g = weight;
+        cal_points[cal_count].raw = latest_raw;
+        cal_points[cal_count].mv = latest_mv;
+        cal_points[cal_count].avg_raw = latest_avg_raw;
+        cal_points[cal_count].avg_mv = latest_avg_mv;
+        cal_count++;
+    }
 
     // Compute estimated gross and filament-only weights from avg mV
     float est_gross = CAL_SLOPE * latest_avg_mv + CAL_INTERCEPT;

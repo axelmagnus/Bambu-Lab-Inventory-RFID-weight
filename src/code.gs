@@ -1,3 +1,23 @@
+function doGet(e) {
+  // Output the content of the 'store index' tab as JSON
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('store index');
+  if (!sheet) {
+    return ContentService.createTextOutput('{"error":"store index tab not found"}').setMimeType(ContentService.MimeType.JSON);
+  }
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+  var jsonArray = [];
+  for (var i = 1; i < data.length; i++) {
+    var rowObj = {};
+    for (var j = 0; j < headers.length; j++) {
+      rowObj[headers[j]] = data[i][j];
+    }
+    jsonArray.push(rowObj);
+  }
+  var json = JSON.stringify(jsonArray);
+  return ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
+}
 const DEFAULT_SHEET_NAME = 'Inventory';
 const IMAGES_SHEET_NAME = 'Store Index';
 const TRAY_UID_COLUMN_INDEX = 7; // Column G: Tray UID for roll (also holds chip UID when tray missing)
@@ -215,16 +235,18 @@ function importStoreIndexFromJson(jsonText) {
     const code = item.code || '';
     const codeCell = productUrl ? `=HYPERLINK("${productUrl}"${sep}"${code}")` : code;
     const imageCell = imageUrl ? `=IMAGE("${imageUrl}")` : '';
+    const variantId = item.variantId || '';
     return [
       codeCell,
       item.name || '',
       item.color || '',
+      variantId,
       imageCell,
       productUrl,
       imageUrl
     ];
   });
-  const headers = ['Code', 'Name', 'Color', 'Image', 'ProductUrl', 'ImageUrl'];
+  const headers = ['Code', 'Name', 'Color', 'VariantId', 'Image', 'ProductUrl', 'ImageUrl'];
   const sheet = ss.getSheetByName(IMAGES_SHEET_NAME) || ss.insertSheet(IMAGES_SHEET_NAME);
   sheet.clearContents();
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
@@ -286,17 +308,19 @@ function handleStoreIndexUpload(payload) {
   const ss = SpreadsheetApp.openById(sheetId);
   const sheet = ss.getSheetByName(IMAGES_SHEET_NAME) || ss.insertSheet(IMAGES_SHEET_NAME);
   const sep = getArgSeparator(ss);
-  const headers = ['Code', 'Name', 'Color', 'Image', 'ProductUrl', 'ImageUrl'];
+  const headers = ['Code', 'Name', 'Color', 'VariantId', 'Image', 'ProductUrl', 'ImageUrl'];
   const rows = records.map(r => {
     const imageUrl = r.imageUrl || '';
     const productUrl = r.productUrl || '';
     const code = r.code || '';
     const codeCell = productUrl ? `=HYPERLINK("${productUrl}"${sep}"${code}")` : code;
     const imageCell = imageUrl ? `=IMAGE("${imageUrl}")` : '';
+    const variantId = r.variantId || '';
     return [
       codeCell,
       r.name || '',
       r.color || '',
+      variantId,
       imageCell,
       productUrl,
       imageUrl
