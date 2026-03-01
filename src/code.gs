@@ -229,14 +229,40 @@ function importStoreIndexFromJson(jsonText) {
   }
   const ss = SpreadsheetApp.getActive();
   const sep = getArgSeparator(ss);
-  const rows = data.map(item => {
+  const headers = ['Code', 'Name', 'Color', 'VariantId', 'Image', 'ProductUrl', 'ImageUrl'];
+  const sheet = ss.getSheetByName(IMAGES_SHEET_NAME) || ss.insertSheet(IMAGES_SHEET_NAME);
+  // Read existing data
+  const existing = sheet.getDataRange().getValues();
+  const headerMap = (existing.length > 0) ? existing[0].map(h => String(h || '').trim().toLowerCase()) : headers.map(h => h.toLowerCase());
+  const idx = {
+    code: headerMap.indexOf('Code'),
+    variantId: headerMap.indexOf('VariantId')
+  };
+  console.log(`[DEBUG] idx mapping:`, JSON.stringify(idx));
+  
+  // Build a map of existing codes to row index and variantId, using display values for code (handles formulas)
+  const displays = sheet.getDataRange().getDisplayValues();
+  const codeRowMap = {};
+  for (let i = 1; i < existing.length; i++) {
+    const rowDisp = displays[i];
+    const codeDisp = idx.code >= 0 ? String(rowDisp[idx.code] || '').trim() : '';
+    const variantId = idx.variantId >= 0 ? String(rowDisp[idx.variantId] || '').trim() : '';
+    if (codeDisp) {
+      codeRowMap[codeDisp] = { rowIdx: i, variantId: variantId };
+    }
+  }
+  // Prepare new/updated rows
+  let updates = [];
+  let added = 0;
+  let updated = 0;
+  for (let item of data) {
+    const code = String(item.code || '').trim();
+    const variantId = String(item.variantId || '').trim();
     const imageUrl = item.imageUrl || '';
     const productUrl = item.productUrl || '';
-    const code = item.code || '';
     const codeCell = productUrl ? `=HYPERLINK("${productUrl}"${sep}"${code}")` : code;
     const imageCell = imageUrl ? `=IMAGE("${imageUrl}")` : '';
-    const variantId = item.variantId || '';
-    return [
+    const rowArr = [
       codeCell,
       item.name || '',
       item.color || '',
@@ -245,14 +271,32 @@ function importStoreIndexFromJson(jsonText) {
       productUrl,
       imageUrl
     ];
-  });
-  const headers = ['Code', 'Name', 'Color', 'VariantId', 'Image', 'ProductUrl', 'ImageUrl'];
-  const sheet = ss.getSheetByName(IMAGES_SHEET_NAME) || ss.insertSheet(IMAGES_SHEET_NAME);
-  sheet.clearContents();
-  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-  if (rows.length) {
-    sheet.getRange(2, 1, rows.length, headers.length).setValues(rows);
+    if (code in codeRowMap) {
+      const prevVariantId = codeRowMap[code].variantId;
+      console.log(`[DEBUG] Matching code: '${code}' | Existing variantId: '${prevVariantId}' | New variantId: '${variantId}'`);
+      if ((variantId && (!prevVariantId || variantId.length > prevVariantId.length))) {
+        sheet.getRange(codeRowMap[code].rowIdx + 1, idx.variantId + 1).setValue(variantId);
+        updated++;
+        console.log(`[DEBUG] Updated variantId for code '${code}' to '${variantId}' at row ${codeRowMap[code].rowIdx + 1}`);
+      } else {
+        console.log(`[DEBUG] Skipped update for code '${code}': existing variantId is more complete or new is empty.`);
+      }
+    } else {
+      updates.push(rowArr);
+      added++;
+      console.log(`[DEBUG] Added new filament code: '${code}' with variantId: '${variantId}'`);
+    }
   }
+  // If sheet is empty, write headers
+  if (existing.length === 0) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  }
+  // Append new filaments
+  if (updates.length) {
+    sheet.getRange(sheet.getLastRow() + 1, 1, updates.length, headers.length).setValues(updates);
+  }
+  // Optionally, report summary
+  console.log(`importStoreIndexFromJson: ${added} new filaments added, ${updated} variantId updated.`);
 }
 
 /**

@@ -22,15 +22,12 @@ from urllib.parse import urlparse, urlunparse
 
 import requests
 from bs4 import BeautifulSoup
+# Add import for queengooborg fetch
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
+FAILED_429_PATH = ROOT / "data" / "failed_429_urls.json"
 OUT_JSON = ROOT / "data" / "store_index.json"
-OUT_CSV = ROOT / "data" / "store_index.csv"
-OUT_TSV = ROOT / "data" / "store_index.tsv"
-ARDUINO_SNIPPETS = [
-    ROOT / "arduino" / "RFID_Bambu_lab_reader" / "generated" / "materials_snippet.h",
-    ROOT / "arduino" / "RFID_Bambu_lab_reader_OLED" / "generated" / "materials_snippet.h",
-]
 SECRETS_ENV = ROOT / "scripts" / "secret.env"
 
 
@@ -86,17 +83,25 @@ class ColorOption:
 
 
 def fetch(url: str, retries: int = 3, backoff: float = 1.5) -> str:
-    """HTTP GET with basic backoff; retries on 429/5xx to soften rate limits."""
-    for attempt in range(retries):
-        resp = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
-        if resp.status_code in (429, 500, 502, 503, 504):
-            if attempt + 1 == retries:
-                resp.raise_for_status()
-            sleep_time = backoff ** attempt
-            time.sleep(sleep_time)
-            continue
+    """HTTP GET, logs 429, no retry or delay."""
+    import sys
+    resp = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
+    if resp.status_code == 429:
+        print(f"[WARN] Rate limited (429) on {url}. Not retrying.", file=sys.stderr)
+        # Save failed 429 URL for later retry
+        try:
+            failed = []
+            if FAILED_429_PATH.exists():
+                failed = json.loads(FAILED_429_PATH.read_text(encoding="utf-8"))
+            if url not in failed:
+                failed.append(url)
+                FAILED_429_PATH.write_text(json.dumps(failed, indent=2), encoding="utf-8")
+        except Exception as e:
+            print(f"[ERROR] Could not save failed 429 URL: {e}", file=sys.stderr)
         resp.raise_for_status()
-        return resp.text
+    elif resp.status_code in (500, 502, 503, 504):
+        print(f"[WARN] Server error {resp.status_code} on {url}. Not retrying.", file=sys.stderr)
+        resp.raise_for_status()
     resp.raise_for_status()
     return resp.text
 
@@ -194,40 +199,35 @@ def build_records(products: Iterable[Product]) -> List[dict]:
         try:
             page_html = fetch(url)
             time.sleep(0.25)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             print(f"WARN: failed to fetch product page {url}: {exc}", file=sys.stderr)
             continue
         options = parse_colors_from_page(page_html)
         if not options:
             print(f"WARN: no color options found in {url}", file=sys.stderr)
             continue
-        # Align options with colorList order by index.
         color_entries = product.color_list
         if len(color_entries) != len(options):
-            print(
-                f"WARN: color count mismatch for {product.name} ({len(options)} options vs {len(color_entries)} feed)",
-                file=sys.stderr,
-            )
-        # Pair by position; fallback to product-level media if missing.
-        for pos, opt in enumerate(options):
-            color_data = color_entries[pos] if pos < len(color_entries) else {}
-            media_files = color_data.get("mediaFiles") or product.media_files
-            image_url = media_files[0] if media_files else None
-            variant_id = color_data.get("propertyValueId")
-            normalized_base = normalize_product_url(product.product_url)
-            # Shopify-style variant selection uses the `variant` query param; `id` can be ignored by the store.
-            variant_url = f"{normalized_base}?variant={variant_id}" if normalized_base and variant_id else normalized_base
-            records.append(
-                {
-                    "code": opt.code,
-                    "name": product.name,
-                    "color": opt.color,
-                    "material": guess_material(product.name, product.slug),
-                    "variantId": variant_id,
-                    "imageUrl": image_url,
-                    "productUrl": normalize_product_url(variant_url),
-                }
-            )
+            print(f"WARN: color count mismatch for {product.name} ({len(options)} options vs {len(color_entries)} feed)", file=sys.stderr)
+        # Extract imageUrl from product.media_files if available
+        image_url = ""
+        if product.media_files:
+            # Use first image file as default
+            image_url = product.media_files[0]
+            if not image_url.startswith("http"):
+                image_url = f"{BASE_STORE.rstrip('/')}/{image_url.lstrip('/')}"
+        # Build records for each color option
+        for idx, opt in enumerate(options):
+            color_entry = color_entries[idx] if idx < len(color_entries) else {}
+            records.append({
+                "code": opt.code,
+                "name": product.name,
+                "color": opt.color,
+                "material": guess_material(product.name, product.slug),
+                "variantId": color_entry.get("variantId", ""),
+                "imageUrl": image_url,
+                "productUrl": url
+            })
     return records
 
 
@@ -237,68 +237,6 @@ def write_json(records: List[dict]) -> None:
         json.dump(records, fh, ensure_ascii=False, indent=2)
 
 
-def write_csv(records: List[dict]) -> None:
-    """Write CSV with proper CSV escaping; four data columns only."""
-    OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
-    headers = ["Code", "Name", "Color", "ImageUrl"]
-    with OUT_CSV.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.writer(fh, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
-        writer.writerow(headers)
-        for rec in records:
-            image_url = rec.get("imageUrl") or ""
-            product_url = rec.get("productUrl") or ""
-            code_val = rec.get("code") or ""
-            code_cell = f'=HYPERLINK("{product_url}";"{code_val}")' if product_url else code_val
-            writer.writerow([code_cell, rec.get("name") or "", rec.get("color") or "", image_url])
-
-
-def write_tsv(records: List[dict]) -> None:
-    """Write TSV with minimal quoting; four data columns only."""
-    OUT_TSV.parent.mkdir(parents=True, exist_ok=True)
-    headers = ["Code", "Name", "Color", "ImageUrl"]
-    with OUT_TSV.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.writer(fh, delimiter="\t", quotechar="\"", quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
-        writer.writerow(headers)
-        for rec in records:
-            image_url = rec.get("imageUrl") or ""
-            product_url = rec.get("productUrl") or ""
-            code_val = rec.get("code") or ""
-            code_cell = f'=HYPERLINK("{product_url}";"{code_val}")' if product_url else code_val
-            writer.writerow([code_cell, rec.get("name") or "", rec.get("color") or "", image_url])
-
-
-def write_arduino_snippet(records: List[dict]) -> None:
-    """Emit generated/materials_snippet.h for both Arduino sketches from scraped data."""
-
-    def esc(val: Optional[str]) -> str:
-        if not val:
-            return ""
-        # Keep ASCII only to avoid surprises in the sketch sources.
-        return (
-            str(val)
-            .encode("ascii", "ignore")
-            .decode("ascii")
-            .replace("\\", "\\\\")
-            .replace("\"", "\\\"")
-        )
-
-    lines = [
-        "// Generated by scripts/scrape_store.py (store scrape).",
-        "// materialId not scraped; left blank. variantId comes from store feed when present.",
-    ]
-    # Sort deterministically by code then color for readable diffs.
-    for rec in sorted(records, key=lambda r: (r.get("code") or "", r.get("color") or "")):
-        code = esc(rec.get("code"))
-        name = esc(rec.get("name"))
-        color = esc(rec.get("color"))
-        variant = esc(rec.get("variantId"))
-        line = f'    {"{\"\", \"{variant}\", \"{code}\", \"{name}\", \"{color}\"}"},'
-        lines.append(line)
-
-    for path in ARDUINO_SNIPPETS:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-        print(f"Wrote Arduino snippet: {path.relative_to(ROOT)}")
 
 
 def push_store_index(records: List[dict]) -> None:
@@ -323,60 +261,69 @@ def push_store_index(records: List[dict]) -> None:
 
 
 def main() -> int:
+    # Download and parse latest queengooborg README
+    subprocess.run([
+        "python3",
+        str(ROOT / "scripts" / "fetch_queengooborg_readme.py")
+    ], check=True)
+    # Load queengooborg.json for supplementing store index
+    queengooborg_path = ROOT / "data" / "queengooborg.json"
+    if queengooborg_path.exists():
+        with queengooborg_path.open("r", encoding="utf-8") as fh:
+            queengooborg_materials = json.load(fh)
+        print(f"Loaded {len(queengooborg_materials)} entries from queengooborg.json")
+    else:
+        queengooborg_materials = []
+        print("No queengooborg.json found!")
     collection_url = f"{BASE_STORE}{COLLECTION_PATH}"
-    html = fetch(collection_url)
-    products = parse_product_list(html)
-    records = build_records(products)
-    # --- PATCH: Add fallback entries for any code in READMEqueen.md not present in records ---
-    def parse_readme_materials():
-        readme_path = ROOT / "READMEqueen.md"
-        import re
-        lines = readme_path.read_text(encoding="utf-8").splitlines()
-        materials = []
-        current_category = None
-        for line in lines:
-            if line.startswith('#### '):
-                current_category = line[5:].strip()
-            elif line.strip().startswith('|') and not re.match(r'^\|\s*[-: ]+\|', line):
-                parts = [p.strip() for p in line.strip('|').split('|')]
-                if len(parts) >= 4 and parts[1].isdigit():
-                    color = parts[0]
-                    code = parts[1]
-                    variant = parts[2]
-                    variant = variant if variant and variant != '?' else ''
-                    materialId = variant.split('-')[0] if '-' in variant and len(variant.split('-')[0]) > 0 else ''
-                    name = current_category or ''
-                    materials.append({
-                        'materialId': materialId,
-                        'variantId': variant,
-                        'filamentCode': code,
-                        'name': name,
-                        'color': color
-                    })
-        return materials
-
-    readme_materials = parse_readme_materials()
-    codes_in_store = set(r.get("code") for r in records)
-    for m in readme_materials:
+    try:
+        html = fetch(collection_url)
+    except Exception as exc:
+        print(f"ERROR: Failed to fetch collection page: {exc}", file=sys.stderr)
+        html = ""
+    try:
+        products = parse_product_list(html)
+        print(f"Parsed {len(products)} products from store collection page.")
+    except Exception as exc:
+        print(f"ERROR: Failed to parse product list: {exc}", file=sys.stderr)
+        products = []
+    try:
+        records = build_records(products)
+        print(f"Built {len(records)} records from store products.")
+    except Exception as exc:
+        print(f"ERROR: Failed to build records from products: {exc}", file=sys.stderr)
+        records = []
+    # --- PATCH: Merge variantId from queengooborg.json into store records ---
+    codes_in_store = {r.get("code"): r for r in records}
+    for m in queengooborg_materials:
         code = m["filamentCode"]
-        if code not in codes_in_store:
-            print(f"Adding fallback entry for missing code {code} from READMEqueen.md")
+        variant_id = m.get("variantId", "")
+        if code in codes_in_store:
+            store_rec = codes_in_store[code]
+            # Only update if store record is missing or has empty variantId
+            if not store_rec.get("variantId") and variant_id:
+                store_rec["variantId"] = variant_id
+        else:
+            warn_msgs = []
+            if not variant_id or str(variant_id).strip() == "":
+                warn_msgs.append(f"[WARN] Fallback entry for code {code} is missing variantId.")
+            if not m.get("imageUrl") or not m.get("productUrl"):
+                warn_msgs.append(f"[WARN] Fallback entry for code {code} is missing imageUrl/productUrl.")
+            for msg in warn_msgs:
+                print(msg, file=sys.stderr)
             records.append({
                 "code": code,
-                "name": m["name"],
+                "name": m.get("category", ""),
                 "color": m["color"],
-                "material": m["name"],
-                "variantId": m["variantId"],
-                "imageUrl": "",  # Placeholder, update if you have a real image
-                "productUrl": ""  # Placeholder, update if you have a real URL
+                "material": m.get("category", ""),
+                "variantId": variant_id,
+                "imageUrl": m.get("imageUrl", ""),
+                "productUrl": m.get("productUrl", "")
             })
     write_json(records)
-    write_csv(records)
-    write_tsv(records)
-    write_arduino_snippet(records)
     if PUSH_URL:
         push_store_index(records)
-    print(f"Wrote {len(records)} records to {OUT_JSON}, {OUT_CSV}, and {OUT_TSV}")
+    print(f"Wrote {len(records)} records to {OUT_JSON}")
     return 0
 
 

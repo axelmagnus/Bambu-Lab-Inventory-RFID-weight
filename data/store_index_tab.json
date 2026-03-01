@@ -1,0 +1,2786 @@
+[
+  {
+    "Code": "10100",
+    "Name": "PLA Basic",
+    "Color": "Jade White",
+    "VariantId": "A00-W1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10201",
+    "Name": "PLA Basic",
+    "Color": "Beige",
+    "VariantId": "A00-P0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10104",
+    "Name": "PLA Basic",
+    "Color": "Light Gray",
+    "VariantId": "A00-D2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10400",
+    "Name": "PLA Basic",
+    "Color": "Yellow",
+    "VariantId": "A00-Y0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10402",
+    "Name": "PLA Basic",
+    "Color": "Sunflower Yellow",
+    "VariantId": "A00-Y2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10401",
+    "Name": "PLA Basic",
+    "Color": "Gold",
+    "VariantId": "A00-Y4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10301",
+    "Name": "PLA Basic",
+    "Color": "Pumpkin Orange",
+    "VariantId": "A00-A1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10300",
+    "Name": "PLA Basic",
+    "Color": "Orange",
+    "VariantId": "A00-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10503",
+    "Name": "PLA Basic",
+    "Color": "Bright Green",
+    "VariantId": "A00-G3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10501",
+    "Name": "PLA Basic",
+    "Color": "Bambu Green",
+    "VariantId": "A00-G1/G6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10502",
+    "Name": "PLA Basic",
+    "Color": "Mistletoe Green",
+    "VariantId": "A00-G2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10203",
+    "Name": "PLA Basic",
+    "Color": "Pink",
+    "VariantId": "A00-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10204",
+    "Name": "PLA Basic",
+    "Color": "Hot Pink",
+    "VariantId": "A00-R3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10202",
+    "Name": "PLA Basic",
+    "Color": "Magenta",
+    "VariantId": "A00-P6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10200",
+    "Name": "PLA Basic",
+    "Color": "Red",
+    "VariantId": "A00-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10205",
+    "Name": "PLA Basic",
+    "Color": "Maroon Red",
+    "VariantId": "A00-R2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10700",
+    "Name": "PLA Basic",
+    "Color": "Purple",
+    "VariantId": "A00-P5",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10701",
+    "Name": "PLA Basic",
+    "Color": "Indigo Purple",
+    "VariantId": "A00-P2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10605",
+    "Name": "PLA Basic",
+    "Color": "Turquoise",
+    "VariantId": "A00-B5",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10603",
+    "Name": "PLA Basic",
+    "Color": "Cyan",
+    "VariantId": "A00-B8",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10604",
+    "Name": "PLA Basic",
+    "Color": "Cobalt Blue",
+    "VariantId": "A00-B3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10601",
+    "Name": "PLA Basic",
+    "Color": "Blue",
+    "VariantId": "A09-B4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10800",
+    "Name": "PLA Basic",
+    "Color": "Brown",
+    "VariantId": "A00-N0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10802",
+    "Name": "PLA Basic",
+    "Color": "Cocoa Brown",
+    "VariantId": "A00-N1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10801",
+    "Name": "PLA Basic",
+    "Color": "Bronze",
+    "VariantId": "A00-Y3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10103",
+    "Name": "PLA Basic",
+    "Color": "Gray",
+    "VariantId": "A00-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10102",
+    "Name": "PLA Basic",
+    "Color": "Silver",
+    "VariantId": "A00-D1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10602",
+    "Name": "PLA Basic",
+    "Color": "Blue Grey",
+    "VariantId": "A00-B1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10105",
+    "Name": "PLA Basic",
+    "Color": "Dark Gray",
+    "VariantId": "A00-D3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "10101",
+    "Name": "PLA Basic",
+    "Color": "Black",
+    "VariantId": "A00-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg"
+  },
+  {
+    "Code": "11100",
+    "Name": "PLA Matte",
+    "Color": "Matte Ivory White",
+    "VariantId": "A01-W2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11103",
+    "Name": "PLA Matte",
+    "Color": "Matte Bone White",
+    "VariantId": "A01-W3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11400",
+    "Name": "PLA Matte",
+    "Color": "Matte Lemon Yellow",
+    "VariantId": "A01-Y2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11300",
+    "Name": "PLA Matte",
+    "Color": "Matte Mandarin Orange",
+    "VariantId": "A01-A2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11201",
+    "Name": "PLA Matte",
+    "Color": "Matte Sakura Pink",
+    "VariantId": "A01-P3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11700",
+    "Name": "PLA Matte",
+    "Color": "Matte Lilac purple",
+    "VariantId": "A01-P4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11204",
+    "Name": "PLA Matte",
+    "Color": "Matte Plum",
+    "VariantId": "A01-R3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11200",
+    "Name": "PLA Matte",
+    "Color": "Matte Scarlet Red",
+    "VariantId": "A01-R1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11202",
+    "Name": "PLA Matte",
+    "Color": "Matte Dark Red",
+    "VariantId": "A01-R4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11502",
+    "Name": "PLA Matte",
+    "Color": "Matte Apple Green",
+    "VariantId": "A01-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11500",
+    "Name": "PLA Matte",
+    "Color": "Matte Grass Green",
+    "VariantId": "A01-G1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11501",
+    "Name": "PLA Matte",
+    "Color": "Matte Dark Green",
+    "VariantId": "A01-G7",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11601",
+    "Name": "PLA Matte",
+    "Color": "Matte Ice Blue",
+    "VariantId": "A01-B4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11603",
+    "Name": "PLA Matte",
+    "Color": "Matte Sky Blue",
+    "VariantId": "A01-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11600",
+    "Name": "PLA Matte",
+    "Color": "Matte Marine Blue",
+    "VariantId": "A01-B3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11602",
+    "Name": "PLA Matte",
+    "Color": "Matte Dark Blue",
+    "VariantId": "A01-B6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11401",
+    "Name": "PLA Matte",
+    "Color": "Matte Desert Tan",
+    "VariantId": "A01-Y3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11800",
+    "Name": "PLA Matte",
+    "Color": "Matte Latte Brown",
+    "VariantId": "A01-N1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11803",
+    "Name": "PLA Matte",
+    "Color": "Matte Caramel",
+    "VariantId": "A01-N3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11203",
+    "Name": "PLA Matte",
+    "Color": "Matte Terracotta",
+    "VariantId": "A01-R2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11801",
+    "Name": "PLA Matte",
+    "Color": "Matte Dark Brown",
+    "VariantId": "A01-N2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11802",
+    "Name": "PLA Matte",
+    "Color": "Matte Dark Chocolate",
+    "VariantId": "A01-N0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11102",
+    "Name": "PLA Matte",
+    "Color": "Matte Ash Gray",
+    "VariantId": "A01-D3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11104",
+    "Name": "PLA Matte",
+    "Color": "Matte Nardo Gray",
+    "VariantId": "A01-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "11101",
+    "Name": "PLA Matte",
+    "Color": "Matte Charcoal",
+    "VariantId": "A01-K1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-matte",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png"
+  },
+  {
+    "Code": "33200",
+    "Name": "PETG HF",
+    "Color": "Red",
+    "VariantId": "G02-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33600",
+    "Name": "PETG HF",
+    "Color": "Blue",
+    "VariantId": "G02-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33102",
+    "Name": "PETG HF",
+    "Color": "Black",
+    "VariantId": "G02-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33100",
+    "Name": "PETG HF",
+    "Color": "White",
+    "VariantId": "G02-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33101",
+    "Name": "PETG HF",
+    "Color": "Gray",
+    "VariantId": "G02-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33400",
+    "Name": "PETG HF",
+    "Color": "Yellow",
+    "VariantId": "G02-Y0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33300",
+    "Name": "PETG HF",
+    "Color": "Orange",
+    "VariantId": "G02-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33500",
+    "Name": "PETG HF",
+    "Color": "Green",
+    "VariantId": "G02-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33502",
+    "Name": "PETG HF",
+    "Color": "Forest Green",
+    "VariantId": "G02-G2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33801",
+    "Name": "PETG HF",
+    "Color": "Peanut Brown",
+    "VariantId": "G02-N1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33103",
+    "Name": "PETG HF",
+    "Color": "Dark Gray",
+    "VariantId": "G02-D1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33401",
+    "Name": "PETG HF",
+    "Color": "Cream",
+    "VariantId": "G02-Y1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33501",
+    "Name": "PETG HF",
+    "Color": "Lime Green",
+    "VariantId": "G02-G1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "33601",
+    "Name": "PETG HF",
+    "Color": "Lake Blue",
+    "VariantId": "G02-B1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg"
+  },
+  {
+    "Code": "13108",
+    "Name": "PLA Silk+",
+    "Color": "Titan Gray",
+    "VariantId": "A06-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13206",
+    "Name": "PLA Silk+",
+    "Color": "Rose Gold",
+    "VariantId": "A06-R1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13603",
+    "Name": "PLA Silk+",
+    "Color": "Baby Blue",
+    "VariantId": "A06-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13404",
+    "Name": "PLA Silk+",
+    "Color": "Champagne",
+    "VariantId": "A06-Y0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13507",
+    "Name": "PLA Silk+",
+    "Color": "Mint",
+    "VariantId": "A06-G1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13205",
+    "Name": "PLA Silk+",
+    "Color": "Candy Red",
+    "VariantId": "A06-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13506",
+    "Name": "PLA Silk+",
+    "Color": "Candy Green",
+    "VariantId": "A06-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13604",
+    "Name": "PLA Silk+",
+    "Color": "Blue",
+    "VariantId": "A06-B1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13702",
+    "Name": "PLA Silk+",
+    "Color": "Purple",
+    "VariantId": "A06-P0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13207",
+    "Name": "PLA Silk+",
+    "Color": "Pink",
+    "VariantId": "A06-R2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13110",
+    "Name": "PLA Silk+",
+    "Color": "White",
+    "VariantId": "A06-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13109",
+    "Name": "PLA Silk+",
+    "Color": "Silver",
+    "VariantId": "A06-D1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13405",
+    "Name": "PLA Silk+",
+    "Color": "Gold",
+    "VariantId": "A06-Y1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg"
+  },
+  {
+    "Code": "13612",
+    "Name": "PLA Translucent",
+    "Color": "Teal",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13611",
+    "Name": "PLA Translucent",
+    "Color": "Blue",
+    "VariantId": "A17-B1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13710",
+    "Name": "PLA Translucent",
+    "Color": "Purple",
+    "VariantId": "A17-P0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13301",
+    "Name": "PLA Translucent",
+    "Color": "Orange",
+    "VariantId": "A17-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13210",
+    "Name": "PLA Translucent",
+    "Color": "Red",
+    "VariantId": "A17-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13510",
+    "Name": "PLA Translucent",
+    "Color": "Light Jade",
+    "VariantId": "A17-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13410",
+    "Name": "PLA Translucent",
+    "Color": "Mellow Yellow",
+    "VariantId": "A17-Y0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13211",
+    "Name": "PLA Translucent",
+    "Color": "Cherry Pink",
+    "VariantId": "A17-R1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13610",
+    "Name": "PLA Translucent",
+    "Color": "Ice Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "13711",
+    "Name": "PLA Translucent",
+    "Color": "Lavender",
+    "VariantId": "A17-P1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg"
+  },
+  {
+    "Code": "32501",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Teal",
+    "VariantId": "G01-G1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32600",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Light Blue",
+    "VariantId": "G01-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32101",
+    "Name": "PETG Translucent",
+    "Color": "Clear",
+    "VariantId": "G01-C0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32200",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Pink",
+    "VariantId": "G01-P1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32500",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Olive",
+    "VariantId": "G01-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32300",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Orange",
+    "VariantId": "G01-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32700",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Purple",
+    "VariantId": "G01-P0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32800",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Brown",
+    "VariantId": "G01-N0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "32100",
+    "Name": "PETG Translucent",
+    "Color": "Translucent Gray",
+    "VariantId": "G01-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-translucent",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg"
+  },
+  {
+    "Code": "40102",
+    "Name": "ABS",
+    "Color": "ABS Silver",
+    "VariantId": "B00-D1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40101",
+    "Name": "ABS",
+    "Color": "ABS Black",
+    "VariantId": "B00-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40100",
+    "Name": "ABS",
+    "Color": "ABS White",
+    "VariantId": "B00-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40200",
+    "Name": "ABS",
+    "Color": "ABS Red",
+    "VariantId": "B00-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40500",
+    "Name": "ABS",
+    "Color": "ABS Bambu Green",
+    "VariantId": "B00-G6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40300",
+    "Name": "ABS",
+    "Color": "ABS Orange",
+    "VariantId": "B00-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40602",
+    "Name": "ABS",
+    "Color": "ABS Navy Blue",
+    "VariantId": "B00-B6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40402",
+    "Name": "ABS",
+    "Color": "ABS Tangerine Yellow",
+    "VariantId": "B00-Y1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40600",
+    "Name": "ABS",
+    "Color": "ABS Blue",
+    "VariantId": "B00-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40502",
+    "Name": "ABS",
+    "Color": "ABS Olive",
+    "VariantId": "B00-G7",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "40601",
+    "Name": "ABS",
+    "Color": "ABS Azure",
+    "VariantId": "B00-B4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-filament",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png"
+  },
+  {
+    "Code": "12401",
+    "Name": "PLA Tough+",
+    "Color": "Yellow",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "12107",
+    "Name": "PLA Tough+",
+    "Color": "White",
+    "VariantId": "A10-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "12301",
+    "Name": "PLA Tough+",
+    "Color": "Orange",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "12105",
+    "Name": "PLA Tough+",
+    "Color": "Gray",
+    "VariantId": "A10-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "12106",
+    "Name": "PLA Tough+",
+    "Color": "Silver",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "12601",
+    "Name": "PLA Tough+",
+    "Color": "Cyan",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "12104",
+    "Name": "PLA Tough+",
+    "Color": "Black",
+    "VariantId": "A10-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-tough-upgrade",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg"
+  },
+  {
+    "Code": "10907",
+    "Name": "PLA Basic Gradient",
+    "Color": "Cotton Candy Cloud",
+    "VariantId": "A00-M7",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10905",
+    "Name": "PLA Basic Gradient",
+    "Color": "Blueberry Bubblegum",
+    "VariantId": "A00-M5",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10903",
+    "Name": "PLA Basic Gradient",
+    "Color": "Pink Citrus",
+    "VariantId": "A00-M3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10904",
+    "Name": "PLA Basic Gradient",
+    "Color": "Mint Lime",
+    "VariantId": "A00-M4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10906",
+    "Name": "PLA Basic Gradient",
+    "Color": "Dusk Glare",
+    "VariantId": "A00-M6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10902",
+    "Name": "PLA Basic Gradient",
+    "Color": "Ocean to Meadow",
+    "VariantId": "A00-M2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10900",
+    "Name": "PLA Basic Gradient",
+    "Color": "Arctic Whisper",
+    "VariantId": "A00-M0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "10901",
+    "Name": "PLA Basic Gradient",
+    "Color": "Solar Breeze",
+    "VariantId": "A00-M1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-basic-gradient",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg"
+  },
+  {
+    "Code": "13913",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Mystic Magenta",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13916",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Phantom Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13905",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Velvet Eclipse",
+    "VariantId": "A05-T5",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13903",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Neon City",
+    "VariantId": "A05-T3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13902",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Midnight Blaze",
+    "VariantId": "A05-T2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13901",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Gilded Rose",
+    "VariantId": "A05-T1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13904",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Blue Hawaii",
+    "VariantId": "A05-T4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13912",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Dawn Radiance",
+    "VariantId": "A05-M8",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13909",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "Aurora Purple",
+    "VariantId": "A05-M4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13906",
+    "Name": "PLA Silk Multi-Color",
+    "Color": "South Beach",
+    "VariantId": "A05-M1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-silk-multi-color",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg"
+  },
+  {
+    "Code": "13505",
+    "Name": "PLA Wood",
+    "Color": "Classic Birch",
+    "VariantId": "A16-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-wood",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg"
+  },
+  {
+    "Code": "13107",
+    "Name": "PLA Wood",
+    "Color": "Black Walnut",
+    "VariantId": "A16-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-wood",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg"
+  },
+  {
+    "Code": "13204",
+    "Name": "PLA Wood",
+    "Color": "Rosewood",
+    "VariantId": "A16-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-wood",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg"
+  },
+  {
+    "Code": "13801",
+    "Name": "PLA Wood",
+    "Color": "Clay Brown",
+    "VariantId": "A16-N0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-wood",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg"
+  },
+  {
+    "Code": "13106",
+    "Name": "PLA Wood",
+    "Color": "White Oak",
+    "VariantId": "A16-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-wood",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg"
+  },
+  {
+    "Code": "13403",
+    "Name": "PLA Wood",
+    "Color": "Ochre Yellow",
+    "VariantId": "A16-Y0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-wood",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg"
+  },
+  {
+    "Code": "13501",
+    "Name": "PLA Sparkle",
+    "Color": "Alpine Green Sparkle",
+    "VariantId": "A08-G3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-sparkle",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png"
+  },
+  {
+    "Code": "13102",
+    "Name": "PLA Sparkle",
+    "Color": "Slate Gray Sparkle",
+    "VariantId": "A08-D5",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-sparkle",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png"
+  },
+  {
+    "Code": "13700",
+    "Name": "PLA Sparkle",
+    "Color": "Royal Purple Sparkle",
+    "VariantId": "A08-B7",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-sparkle",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png"
+  },
+  {
+    "Code": "13200",
+    "Name": "PLA Sparkle",
+    "Color": "Crimson Red Sparkle",
+    "VariantId": "A08-R2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-sparkle",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png"
+  },
+  {
+    "Code": "13101",
+    "Name": "PLA Sparkle",
+    "Color": "Onyx Black Sparkle",
+    "VariantId": "A08-K2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-sparkle",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png"
+  },
+  {
+    "Code": "13402",
+    "Name": "PLA Sparkle",
+    "Color": "Classic Gold Sparkle",
+    "VariantId": "A08-Y1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-sparkle",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png"
+  },
+  {
+    "Code": "13201",
+    "Name": "PLA Marble",
+    "Color": "Red Granite",
+    "VariantId": "A07-R5",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-marble",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/403434f58f2e4ba8a72159a24315dd2b/A07-R5-1.75-1000-spl.jpg"
+  },
+  {
+    "Code": "13103",
+    "Name": "PLA Marble",
+    "Color": "White Marble",
+    "VariantId": "A07-D4",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-marble",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/403434f58f2e4ba8a72159a24315dd2b/A07-R5-1.75-1000-spl.jpg"
+  },
+  {
+    "Code": "13600",
+    "Name": "PLA Metal",
+    "Color": "Cobalt Blue Metallic",
+    "VariantId": "A02-B2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-metal",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png"
+  },
+  {
+    "Code": "13500",
+    "Name": "PLA Metal",
+    "Color": "Oxide Green Metallic",
+    "VariantId": "A02-G2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-metal",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png"
+  },
+  {
+    "Code": "13400",
+    "Name": "PLA Metal",
+    "Color": "Iridium Gold Metallic",
+    "VariantId": "A02-Y1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-metal",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png"
+  },
+  {
+    "Code": "13800",
+    "Name": "PLA Metal",
+    "Color": "Copper Brown Metallic",
+    "VariantId": "A02-N3",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-metal",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png"
+  },
+  {
+    "Code": "13100",
+    "Name": "PLA Metal",
+    "Color": "Iron Gray Metallic",
+    "VariantId": "A02-D2",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-metal",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png"
+  },
+  {
+    "Code": "13602",
+    "Name": "PLA Galaxy",
+    "Color": "Purple",
+    "VariantId": "A15-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-galaxy",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg"
+  },
+  {
+    "Code": "13503",
+    "Name": "PLA Galaxy",
+    "Color": "Green",
+    "VariantId": "A15-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-galaxy",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg"
+  },
+  {
+    "Code": "13504",
+    "Name": "PLA Galaxy",
+    "Color": "Nebulae",
+    "VariantId": "A15-G1",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-galaxy",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg"
+  },
+  {
+    "Code": "13203",
+    "Name": "PLA Galaxy",
+    "Color": "Brown",
+    "VariantId": "A15-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-galaxy",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg"
+  },
+  {
+    "Code": "15300",
+    "Name": "PLA Glow",
+    "Color": "Glow Orange",
+    "VariantId": "A12-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-glow",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png"
+  },
+  {
+    "Code": "15400",
+    "Name": "PLA Glow",
+    "Color": "Glow Yellow",
+    "VariantId": "A12-Y0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-glow",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png"
+  },
+  {
+    "Code": "15500",
+    "Name": "PLA Glow",
+    "Color": "Glow Green",
+    "VariantId": "A12-G0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-glow",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png"
+  },
+  {
+    "Code": "15200",
+    "Name": "PLA Glow",
+    "Color": "Glow Pink",
+    "VariantId": "A12-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-glow",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png"
+  },
+  {
+    "Code": "15600",
+    "Name": "PLA Glow",
+    "Color": "Glow Blue",
+    "VariantId": "A12-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-glow",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png"
+  },
+  {
+    "Code": "14102",
+    "Name": "PLA Aero",
+    "Color": "White",
+    "VariantId": "A11-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-aero",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/c2e94607bb684af49bcaa25ec9dac8da/AERO_bc503e27-6fed-4b8e-a505-342f6050dc27.png"
+  },
+  {
+    "Code": "14104",
+    "Name": "PLA Aero",
+    "Color": "Gray",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-aero",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/c2e94607bb684af49bcaa25ec9dac8da/AERO_bc503e27-6fed-4b8e-a505-342f6050dc27.png"
+  },
+  {
+    "Code": "53600",
+    "Name": "TPU for AMS",
+    "Color": "Blue",
+    "VariantId": "U02-B0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "53102",
+    "Name": "TPU for AMS",
+    "Color": "Gray",
+    "VariantId": "U02-D0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "53101",
+    "Name": "TPU for AMS",
+    "Color": "Black",
+    "VariantId": "U02-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "53400",
+    "Name": "TPU for AMS",
+    "Color": "Yellow",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "53200",
+    "Name": "TPU for AMS",
+    "Color": "Red",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "53500",
+    "Name": "TPU for AMS",
+    "Color": "Neon Green",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "53100",
+    "Name": "TPU for AMS",
+    "Color": "White",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-for-ams",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg"
+  },
+  {
+    "Code": "51102",
+    "Name": "TPU 95A HF",
+    "Color": "White",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png"
+  },
+  {
+    "Code": "51101",
+    "Name": "TPU 95A HF",
+    "Color": "Gray",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png"
+  },
+  {
+    "Code": "51400",
+    "Name": "TPU 95A HF",
+    "Color": "Yellow",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png"
+  },
+  {
+    "Code": "51600",
+    "Name": "TPU 95A HF",
+    "Color": "Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png"
+  },
+  {
+    "Code": "51200",
+    "Name": "TPU 95A HF",
+    "Color": "Red",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png"
+  },
+  {
+    "Code": "51100",
+    "Name": "TPU 95A HF",
+    "Color": "Black",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-95a-hf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png"
+  },
+  {
+    "Code": "51105",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "White",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51107",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Black",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51103",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Black",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51800",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Cocoa Brown",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51900",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Frozen",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51901",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Blaze",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51500",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Light Cyan",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51305",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Neon Orange",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51700",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Grape Jelly",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51601",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Crystal Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51201",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Flesh",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "51501",
+    "Name": "TPU 85A / TPU 90A",
+    "Color": "Lime Green",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/tpu-85a-tpu-90a",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg"
+  },
+  {
+    "Code": "14500",
+    "Name": "PLA-CF",
+    "Color": "Matcha Green",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "14200",
+    "Name": "PLA-CF",
+    "Color": "Burgundy Red",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "14600",
+    "Name": "PLA-CF",
+    "Color": "Jeans Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "14101",
+    "Name": "PLA-CF",
+    "Color": "Lava Gray",
+    "VariantId": "A50-D6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "14100",
+    "Name": "PLA-CF",
+    "Color": "Black",
+    "VariantId": "A50-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "14601",
+    "Name": "PLA-CF",
+    "Color": "Royal Blue",
+    "VariantId": "A50-B6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "14700",
+    "Name": "PLA-CF",
+    "Color": "Iris Purple",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pla-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png"
+  },
+  {
+    "Code": "31700",
+    "Name": "PETG-CF",
+    "Color": "Violet Purple",
+    "VariantId": "G50-P7",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png"
+  },
+  {
+    "Code": "31500",
+    "Name": "PETG-CF",
+    "Color": "Malachite Green",
+    "VariantId": "G50-G7",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png"
+  },
+  {
+    "Code": "31600",
+    "Name": "PETG-CF",
+    "Color": "Indigo Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png"
+  },
+  {
+    "Code": "31100",
+    "Name": "PETG-CF",
+    "Color": "Black",
+    "VariantId": "G50-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png"
+  },
+  {
+    "Code": "31101",
+    "Name": "PETG-CF",
+    "Color": "Titan Gray",
+    "VariantId": "G50-D6",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png"
+  },
+  {
+    "Code": "31200",
+    "Name": "PETG-CF",
+    "Color": "Brick Red",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/petg-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png"
+  },
+  {
+    "Code": "41300",
+    "Name": "ABS-GF",
+    "Color": "Orange",
+    "VariantId": "B50-A0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png"
+  },
+  {
+    "Code": "41200",
+    "Name": "ABS-GF",
+    "Color": "Red",
+    "VariantId": "B50-R0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png"
+  },
+  {
+    "Code": "41600",
+    "Name": "ABS-GF",
+    "Color": "Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png"
+  },
+  {
+    "Code": "41100",
+    "Name": "ABS-GF",
+    "Color": "White",
+    "VariantId": "B50-W0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png"
+  },
+  {
+    "Code": "41102",
+    "Name": "ABS-GF",
+    "Color": "Gray",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png"
+  },
+  {
+    "Code": "41101",
+    "Name": "ABS-GF",
+    "Color": "Black",
+    "VariantId": "B50-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/abs-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png"
+  },
+  {
+    "Code": "72600",
+    "Name": "PA6-GF",
+    "Color": "Blue",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72200",
+    "Name": "PA6-GF",
+    "Color": "Orange",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72400",
+    "Name": "PA6-GF",
+    "Color": "Yellow",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72500",
+    "Name": "PA6-GF",
+    "Color": "Lime",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72800",
+    "Name": "PA6-GF",
+    "Color": "Brown",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72102",
+    "Name": "PA6-GF",
+    "Color": "White",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72103",
+    "Name": "PA6-GF",
+    "Color": "Gray",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72104",
+    "Name": "PA6-GF",
+    "Color": "Black",
+    "VariantId": "N08-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-gf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg"
+  },
+  {
+    "Code": "72100",
+    "Name": "PA6-CF",
+    "Color": "Black",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pa6-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/a73fe23577b84ea58c333a714eae4cad/PA6-CF.png"
+  },
+  {
+    "Code": "70100",
+    "Name": "PAHT-CF",
+    "Color": "Black",
+    "VariantId": "N04-K0",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/paht-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/1adca385b4fd4502b492ed2651908f51/PAHTCFORIGINAL.png"
+  },
+  {
+    "Code": "71100",
+    "Name": "PET-CF",
+    "Color": "Black",
+    "VariantId": "",
+    "Image": {
+      "valueType": "IMAGE"
+    },
+    "ProductUrl": "https://eu.store.bambulab.com/products/pet-cf",
+    "ImageUrl": "https://store.bblcdn.eu/s8/default/c69a75229e824ec2a92b2e37f8510b01/pet-cr.png"
+  },
+  {
+    "Code": 16100,
+    "Name": "PLA Lite",
+    "Color": "Black",
+    "VariantId": "A18-K0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16101,
+    "Name": "PLA Lite",
+    "Color": "Gray",
+    "VariantId": "A18-D0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16103,
+    "Name": "PLA Lite",
+    "Color": "White",
+    "VariantId": "A18-W0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16200,
+    "Name": "PLA Lite",
+    "Color": "Red",
+    "VariantId": "A18-R0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16400,
+    "Name": "PLA Lite",
+    "Color": "Yellow",
+    "VariantId": "A18-Y0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16600,
+    "Name": "PLA Lite",
+    "Color": "Cyan",
+    "VariantId": "A18-B0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16601,
+    "Name": "PLA Lite",
+    "Color": "Blue",
+    "VariantId": "A18-B1",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 16602,
+    "Name": "PLA Lite",
+    "Color": "Matte Beige",
+    "VariantId": "A18-P0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 14103,
+    "Name": "PLA Aero",
+    "Color": "Black",
+    "VariantId": "A11-K0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 12005,
+    "Name": "PLA Tough",
+    "Color": "Lavender Blue",
+    "VariantId": "A09-B5",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 12004,
+    "Name": "PLA Tough",
+    "Color": "Light Blue",
+    "VariantId": "A09-B4",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 12002,
+    "Name": "PLA Tough",
+    "Color": "Orange",
+    "VariantId": "A09-A0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 12001,
+    "Name": "PLA Tough",
+    "Color": "Silver",
+    "VariantId": "A09-D1",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 12003,
+    "Name": "PLA Tough",
+    "Color": "Vermilion Red",
+    "VariantId": "A09-R3",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 12000,
+    "Name": "PLA Tough",
+    "Color": "Yellow",
+    "VariantId": "A09-Y0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 41500,
+    "Name": "ABS-GF",
+    "Color": "Green",
+    "VariantId": "B50-G0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 41400,
+    "Name": "ABS-GF",
+    "Color": "Yellow",
+    "VariantId": "",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 45100,
+    "Name": "ASA",
+    "Color": "White",
+    "VariantId": "B01-W0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 45500,
+    "Name": "ASA",
+    "Color": "Green",
+    "VariantId": "",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 45101,
+    "Name": "ASA",
+    "Color": "Black",
+    "VariantId": "B01-K0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 45102,
+    "Name": "ASA",
+    "Color": "Gray",
+    "VariantId": "B01-D0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 45200,
+    "Name": "ASA",
+    "Color": "Red",
+    "VariantId": "B01-R0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 45600,
+    "Name": "ASA",
+    "Color": "Blue",
+    "VariantId": "",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 46100,
+    "Name": "ASA Aero",
+    "Color": "White",
+    "VariantId": "B02-W0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 46101,
+    "Name": "ASA-CF",
+    "Color": "Black",
+    "VariantId": "B51-K0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 60103,
+    "Name": "PC",
+    "Color": "Transparent",
+    "VariantId": "C00-C1",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 60102,
+    "Name": "PC",
+    "Color": "Clear Black",
+    "VariantId": "C00-C0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 60101,
+    "Name": "PC",
+    "Color": "Black",
+    "VariantId": "C00-K0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 60100,
+    "Name": "PC",
+    "Color": "White",
+    "VariantId": "C00-W0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 63100,
+    "Name": "PC FR",
+    "Color": "Black",
+    "VariantId": "C01-K0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 63101,
+    "Name": "PC FR",
+    "Color": "White",
+    "VariantId": "C01-W0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 63102,
+    "Name": "PC FR",
+    "Color": "Gray",
+    "VariantId": "C01-D0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 65102,
+    "Name": "Support for PLA/PETG",
+    "Color": "Nature",
+    "VariantId": "S02-W0 (Old: S00-W0)",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 65103,
+    "Name": "Support for PLA/PETG",
+    "Color": "Black",
+    "VariantId": "S05-C0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 65104,
+    "Name": "Support for PLA (New Version)",
+    "Color": "White",
+    "VariantId": "S02-W1",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 66100,
+    "Name": "Support for ABS",
+    "Color": "White",
+    "VariantId": "S06-W0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 65500,
+    "Name": "Support for PA/PET",
+    "Color": "Green",
+    "VariantId": "S03-G1",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  },
+  {
+    "Code": 66400,
+    "Name": "PVA",
+    "Color": "Clear",
+    "VariantId": "S04-Y0",
+    "Image": "",
+    "ProductUrl": "",
+    "ImageUrl": ""
+  }
+]

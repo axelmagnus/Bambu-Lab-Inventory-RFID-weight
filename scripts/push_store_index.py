@@ -44,6 +44,7 @@ def build_payload(records: List[Dict[str, Any]]) -> Dict[str, Any]:
                 "code": rec.get("code") or "",
                 "name": rec.get("name") or "",
                 "color": rec.get("color") or "",
+                "variantId": rec.get("variantId") or "",
                 "imageUrl": rec.get("imageUrl") or "",
                 "productUrl": rec.get("productUrl") or "",
             }
@@ -72,8 +73,13 @@ def main() -> int:
         return 1
 
     payload = build_payload(records)
+    print(f"[DEBUG] Sending to {push_url}")
+    for i, rec in enumerate(records[:10]):
+        print(f"[DEBUG] Record {i}: code={rec.get('code')}, name={rec.get('name')}, color={rec.get('color')}, variantId={rec.get('variantId')}, productUrl={rec.get('productUrl')}")
     try:
         resp = requests.post(push_url, json=payload, timeout=30)
+        print(f"[DEBUG] Response status: {resp.status_code}")
+        print(f"[DEBUG] Response text: {resp.text}")
         resp.raise_for_status()
         print(f"Pushed {len(records)} records to Store Index via {push_url}")
         return 0
