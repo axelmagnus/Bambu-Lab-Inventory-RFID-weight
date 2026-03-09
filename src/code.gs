@@ -20,7 +20,17 @@ function doGet(e) {
 }
 const DEFAULT_SHEET_NAME = 'Inventory';
 const IMAGES_SHEET_NAME = 'Store Index';
-const TRAY_UID_COLUMN_INDEX = 7; // Column G: Tray UID for roll (also holds chip UID when tray missing)
+const TRAY_UID_COLUMN_INDEX = 8; // Column H: Tray UID for roll (also holds chip UID when tray missing)
+
+// New: Inventory columns (1-based):
+// 1: Time scanned
+// 2: Filament Code
+// 3: Type
+// 4: Name
+// 5: Filament variantId
+// 6: Weight (g)
+// 7: Image
+// 8: Tray UID for roll
 
 /**
  * Webhook entry: accepts JSON body with RFID scan metadata and appends to a sheet.
@@ -89,17 +99,28 @@ function appendRow(sheetId, data, imageRecord) {
 
   const type = data.type || (imageRecord && imageRecord.type) || '';
   const name = data.name || (imageRecord && imageRecord.name) || '';
+  const variantId = data.variantId || (imageRecord && imageRecord.variantId) || '';
   const trayCellValue = trayUid || chipUid || 'Tray ID missing';
-
   const weight = data.weight || '';
+
+  // New Inventory columns:
+  // 1: Time scanned
+  // 2: Filament Code
+  // 3: Type
+  // 4: Name
+  // 5: Filament variantId
+  // 6: Weight (g)
+  // 7: Image
+  // 8: Tray UID for roll
   const row = [
     ts,                  // A: Time scanned
     codeCell,            // B: Filament Code
     type,                // C: Type
     name,                // D: Name (color / human label)
-    weight,              // E: Weight (g)
-    imageCell,           // F: Image
-    trayCellValue        // G: Tray UID for roll (or chip UID if tray missing)
+    variantId,           // E: Filament variantId
+    weight,              // F: Weight (g)
+    imageCell,           // G: Image
+    trayCellValue        // H: Tray UID for roll (or chip UID if tray missing)
   ];
 
   const cleanTrayUid = trayUid && trayUid !== 'Tray ID missing' ? trayUid : '';
@@ -116,6 +137,184 @@ function appendRow(sheetId, data, imageRecord) {
   console.log('appendRow -> sheet', sheet.getName(), 'writingRow', targetRow);
   sheet.getRange(targetRow, 1, 1, row.length).setValues([row]);
   return { duplicate: false, row: targetRow };
+}
+
+/**
+ * Convert manual Filament Code entries in Inventory to hyperlinks if found in Store Index.
+ * If not found, fetch product URL and image from Bambu store and add to Store Index, then hyperlink.
+ * Sort Store Index by code.
+ */
+function updateInventoryHyperlinksAndStoreIndex() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const inventory = ss.getSheetByName(DEFAULT_SHEET_NAME);
+  const storeIndex = ss.getSheetByName(IMAGES_SHEET_NAME);
+  if (!inventory || !storeIndex) {
+    throw new Error('Inventory or Store Index sheet not found');
+  }
+  const invData = inventory.getDataRange().getValues();
+  const storeData = storeIndex.getDataRange().getValues();
+  const storeDisplay = storeIndex.getDataRange().getDisplayValues();
+  const storeHeaders = storeData[0].map(h => String(h || '').trim());
+  const idxStore = {
+    code: storeHeaders.indexOf('Code'),
+    name: storeHeaders.indexOf('Name'),
+    color: storeHeaders.indexOf('Color'),
+    variantId: storeHeaders.indexOf('VariantId'),
+    image: storeHeaders.indexOf('Image'),
+    productUrl: storeHeaders.indexOf('ProductUrl'),
+    imageUrl: storeHeaders.indexOf('ImageUrl')
+  };
+  const sep = getArgSeparator(ss);
+  // Build a map of Store Index (code,variantId) to row with productUrl (case-sensitive)
+  const storeMap = {};
+  const codeOnlyMap = {};
+  for (let i = 1; i < storeData.length; i++) {
+    const rawCodeCell = storeData[i][idxStore.code];
+    const code = String(rawCodeCell || '').trim();
+    const variantId = String(storeData[i][idxStore.variantId] || '').trim();
+    let productUrl = storeData[i][idxStore.productUrl] || '';
+    const imageUrl = storeData[i][idxStore.imageUrl] || '';
+    const type = storeData[i][idxStore.name] || '';
+    const name = storeData[i][idxStore.color] || '';
+    if (!productUrl) {
+      // Try to extract from hyperlink formula in Code column
+      productUrl = extractHyperlinkUrl(rawCodeCell) || productUrl;
+    }
+    if (code && variantId) {
+      storeMap[code + '||' + variantId] = { row: i, productUrl: productUrl, imageUrl: imageUrl };
+    }
+    if (code && (!codeOnlyMap[code] || (!codeOnlyMap[code].productUrl && productUrl))) {
+      codeOnlyMap[code] = { productUrl, imageUrl, type, name, variantId };
+    }
+  }
+  let addedToStore = 0;
+  for (let i = 1; i < invData.length; i++) {
+    let code = String(invData[i][1] || '').trim();
+    let variantId = String(invData[i][4] || '').trim();
+    let name = String(invData[i][3] || '').trim(); // Inventory: Name (should map to Color in Store Index)
+    let type = String(invData[i][2] || '').trim(); // Inventory: Type (should map to Name in Store Index)
+    let image = invData[i][6] || '';
+    let cell = inventory.getRange(i+1, 2);
+    let cellValue = cell.getValue();
+    if (!code || !variantId) continue; // Only process if both present
+    let key = code + '||' + variantId;
+    let storeEntry = storeMap[key];
+    // Always add a new row for a new code+variantId combination
+    if (!storeEntry || !storeEntry.productUrl) {
+      // Prefer existing Store Index entry with same code (even if different variant)
+      const fallbackByCode = codeOnlyMap[code] || {};
+      const productUrl = fallbackByCode.productUrl || '';
+      const imageUrl = fallbackByCode.imageUrl || image || '';
+      const fallbackType = fallbackByCode.type || type;
+      const fallbackName = fallbackByCode.name || name;
+      // Always store plain code and image in Store Index, but update to hyperlink if productUrl is found
+      let codeCell = code;
+      if (productUrl) {
+        codeCell = `=HYPERLINK("${productUrl}"${sep}"${code}")`;
+      }
+      const imageCell = imageUrl ? `=IMAGE("${imageUrl}")` : '';
+      let newRow = [codeCell, fallbackType, fallbackName, variantId, imageCell, productUrl, imageUrl];
+      Logger.log(`[updateInventoryHyperlinksAndStoreIndex] Appending to Store Index: code='${code}', variantId='${variantId}', productUrl='${productUrl}', imageUrl='${imageUrl}' (fallbackByCode=${!!fallbackByCode.productUrl})`);
+      storeIndex.appendRow(newRow);
+      // Update storeMap for further lookups
+      storeMap[key] = { row: storeIndex.getLastRow(), productUrl: productUrl, imageUrl: imageUrl };
+      if (!codeOnlyMap[code]) {
+        codeOnlyMap[code] = { productUrl, imageUrl, type: fallbackType, name: fallbackName, variantId };
+      }
+      // Update Inventory cell to hyperlink if productUrl is found
+      if (productUrl && (typeof cellValue !== 'string' || !cellValue.startsWith('=HYPERLINK'))) {
+        Logger.log(`[updateInventoryHyperlinksAndStoreIndex] Setting Inventory hyperlink for code='${code}', productUrl='${productUrl}'`);
+        setHyperlink(cell, productUrl, code, sep);
+      }
+      // Backfill Inventory image if missing and we have one
+      if (imageUrl && (!image || String(image).trim() === '')) {
+        inventory.getRange(i + 1, 7).setFormula(`=IMAGE("${imageUrl}")`);
+      }
+      addedToStore++;
+    } else {
+      // Store Index has productUrl for this code+variantId, hyperlink if not already
+      if (storeEntry.productUrl && (typeof cellValue !== 'string' || !cellValue.startsWith('=HYPERLINK')) ) {
+        Logger.log(`[updateInventoryHyperlinksAndStoreIndex] Setting Inventory hyperlink for code='${code}', productUrl='${storeEntry.productUrl}' (from Store Index)`);
+        setHyperlink(cell, storeEntry.productUrl, code, sep);
+      }
+      // Backfill Inventory image from Store Index if missing
+      if (storeEntry.imageUrl && (!image || String(image).trim() === '')) {
+        inventory.getRange(i + 1, 7).setFormula(`=IMAGE("${storeEntry.imageUrl}")`);
+      }
+    }
+  }
+
+  // After updating Store Index, ensure all Inventory codes are hyperlinked if a Store Index entry exists
+  for (let i = 1; i < invData.length; i++) {
+    let code = String(invData[i][1] || '').trim();
+    let variantId = String(invData[i][4] || '').trim();
+    let cell = inventory.getRange(i+1, 2);
+    let cellValue = cell.getValue();
+    if (!code || !variantId) continue;
+    let key = code + '||' + variantId;
+    let storeEntry = storeMap[key];
+    // Try to get productUrl from Store Index if not in storeMap (in case new rows were just added)
+    if ((!storeEntry || !storeEntry.productUrl) && storeIndex) {
+      // Find the row in Store Index with matching code and variantId
+      const storeDataRows = storeIndex.getDataRange().getValues();
+      for (let j = 1; j < storeDataRows.length; j++) {
+        const row = storeDataRows[j];
+        const codeVal = String(row[idxStore.code] || '').trim();
+        const variantVal = String(row[idxStore.variantId] || '').trim();
+        const productUrl = row[idxStore.productUrl] || '';
+        if (codeVal === code && variantVal === variantId && productUrl) {
+          storeEntry = { row: j, productUrl };
+          break;
+        }
+      }
+    }
+    if (storeEntry && storeEntry.productUrl) {
+      if (typeof cellValue !== 'string' || !cellValue.startsWith('=HYPERLINK')) {
+        setHyperlink(cell, storeEntry.productUrl, code, sep);
+      }
+    }
+  }
+  // Sort Store Index by the value of the Code column (A-Z), skipping the header row, using built-in sort
+  if (addedToStore > 0) {
+    const lastRow = storeIndex.getLastRow();
+    const lastCol = storeIndex.getLastColumn();
+    if (lastRow > 1) {
+      // Activate the range excluding the header
+      const sortRange = storeIndex.getRange(2, 1, lastRow - 1, lastCol);
+      sortRange.sort({column: 1, ascending: true});
+    }
+  }
+}
+
+/**
+ * Fetch product URL and image from Bambu store for a given filament code.
+ * Returns { productUrl, imageUrl } or empty strings if not found.
+ */
+function fetchBambuStoreProduct(code) {
+  try {
+    // Example: search page for code, then parse first result
+    // Adjust URL and selectors as needed for Bambu store
+    var searchUrl = 'https://eu.store.bambulab.com/search?q=' + encodeURIComponent(code) + '&type=product';
+    Logger.log(`[fetchBambuStoreProduct] Fetching URL: ${searchUrl}`);
+    var html = UrlFetchApp.fetch(searchUrl, {muteHttpExceptions: true, followRedirects: true, validateHttpsCertificates: true}).getContentText();
+      // Try to find product link in HTML (look for the first product link in the search results)
+      var productMatch = html.match(/<a[^>]+href="([^"]*\/products\/[^"?#]*)"[^>]*>\s*([^<]*)\s*<\/a>/i);
+      var productUrl = productMatch ? 'https://eu.store.bambulab.com' + productMatch[1] : '';
+      // Try to find the product image by looking for an <img> tag near the product link (fallback: any product image)
+      var imageUrl = '';
+      if (productUrl) {
+        // Try to find the image URL that appears before or after the product link
+        var imgMatch = html.match(/<img[^>]+src="([^"]+)"[^>]*class="[^\"]*product-card-image[^\"]*"/i);
+        if (imgMatch) {
+          imageUrl = imgMatch[1];
+        }
+      }
+      Logger.log(`[fetchBambuStoreProduct] code='${code}', productUrl='${productUrl}', imageUrl='${imageUrl}'`);
+      return { productUrl: productUrl, imageUrl: imageUrl };
+  } catch (e) {
+    Logger.log(`[fetchBambuStoreProduct] error for code '${code}': ${e}`);
+    return { productUrl: '', imageUrl: '' };
+  }
 }
 
 function findFirstEmptyRow(sheet) {
@@ -338,7 +537,7 @@ function importStoreIndexFromDrive(fileId) {
 
 /**
  * Handle direct Store Index uploads from the scraper via POST.
- * Expects: { action: 'uploadStoreIndex', token: '<shared token>', records: [ { code, name, color, imageUrl, productUrl } ] }
+ * Expects lowercase keys: { action: 'uploadStoreIndex', records: [ { code, name, color, variantId, imageUrl, productUrl } ] }
  */
 function handleStoreIndexUpload(payload) {
   const records = Array.isArray(payload.records) ? payload.records : [];
@@ -428,4 +627,20 @@ function getArgSeparator(spreadsheet) {
 function jsonResponse(_status, body) {
   return ContentService.createTextOutput(JSON.stringify(body))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// Extract URL from =HYPERLINK("url","text") or =HYPERLINK("url";"text")
+function extractHyperlinkUrl(cellVal) {
+  if (!cellVal) return '';
+  const str = String(cellVal);
+  if (!str.toUpperCase().startsWith('=HYPERLINK')) return '';
+  const match = str.match(/=HYPERLINK\(["']([^"']+)["']/i);
+  return match ? match[1] : '';
+}
+
+// Apply hyperlink formula and enforce visible hyperlink styling
+function setHyperlink(cell, url, text, sep) {
+  cell.setFormula(`=HYPERLINK("${url}"${sep}"${text}")`);
+  cell.setFontColor('#1155cc');
+  cell.setFontLine('underline');
 }

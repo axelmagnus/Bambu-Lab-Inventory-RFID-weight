@@ -1,0 +1,261 @@
+code	name	color	material	variantId	imageUrl	productUrl
+10100	PLA Basic	Jade White	PLA	A00-W1	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10101	PLA Basic	Black	PLA	A00-K0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10102	PLA Basic	Silver	PLA	A00-D1	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10103	PLA Basic	Gray	PLA	A00-D0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10104	PLA Basic	Light Gray	PLA	A00-D2	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10105	PLA Basic	Dark Gray	PLA	A00-D3	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10200	PLA Basic	Red	PLA	A00-R0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10201	PLA Basic	Beige	PLA	A00-P0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10202	PLA Basic	Magenta	PLA	A00-P6	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10203	PLA Basic	Pink	PLA	A00-A0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10204	PLA Basic	Hot Pink	PLA	A00-R3	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10205	PLA Basic	Maroon Red	PLA	A00-R2	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10300	PLA Basic	Orange	PLA	A00-A0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10301	PLA Basic	Pumpkin Orange	PLA	A00-A1	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10400	PLA Basic	Yellow	PLA	A00-Y0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10401	PLA Basic	Gold	PLA	A00-Y4	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10402	PLA Basic	Sunflower Yellow	PLA	A00-Y2	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10501	PLA Basic	Bambu Green	PLA	A00-G1/G6	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10502	PLA Basic	Mistletoe Green	PLA	A00-G2	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10503	PLA Basic	Bright Green	PLA	A00-G3	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10601	PLA Basic	Blue	PLA	A09-B4	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10602	PLA Basic	Blue Grey	PLA	A00-B1	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10603	PLA Basic	Cyan	PLA	A00-B8	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10604	PLA Basic	Cobalt Blue	PLA	A00-B3	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10605	PLA Basic	Turquoise	PLA	A00-B5	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10700	PLA Basic	Purple	PLA	A00-P5	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10701	PLA Basic	Indigo Purple	PLA	A00-P2	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10800	PLA Basic	Brown	PLA	A00-N0	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10801	PLA Basic	Bronze	PLA	A00-Y3	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10802	PLA Basic	Cocoa Brown	PLA	A00-N1	https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg	https://eu.store.bambulab.com/products/pla-basic-filament
+10900	PLA Basic Gradient	Arctic Whisper	PLA	A00-M0	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10901	PLA Basic Gradient	Solar Breeze	PLA	A00-M1	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10902	PLA Basic Gradient	Ocean to Meadow	PLA	A00-M2	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10903	PLA Basic Gradient	Pink Citrus	PLA	A00-M3	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10904	PLA Basic Gradient	Mint Lime	PLA	A00-M4	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10905	PLA Basic Gradient	Blueberry Bubblegum	PLA	A00-M5	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10906	PLA Basic Gradient	Dusk Glare	PLA	A00-M6	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+10907	PLA Basic Gradient	Cotton Candy Cloud	PLA	A00-M7	https://store.bblcdn.eu/s8/default/9c7b5bb7e49a42749b500490e1cbe948/pink_blue.jpg	https://eu.store.bambulab.com/products/pla-basic-gradient
+11100	PLA Matte	Matte Ivory White	PLA	A01-W2	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11101	PLA Matte	Matte Charcoal	PLA	A01-K1	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11102	PLA Matte	Matte Ash Gray	PLA	A01-D3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11103	PLA Matte	Matte Bone White	PLA	A01-W3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11104	PLA Matte	Matte Nardo Gray	PLA	A01-D0	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11200	PLA Matte	Matte Scarlet Red	PLA	A01-R1	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11201	PLA Matte	Matte Sakura Pink	PLA	A01-P3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11202	PLA Matte	Matte Dark Red	PLA	A01-R4	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11203	PLA Matte	Matte Terracotta	PLA	A01-R2	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11204	PLA Matte	Matte Plum	PLA	A01-R3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11300	PLA Matte	Matte Mandarin Orange	PLA	A01-A2	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11400	PLA Matte	Matte Lemon Yellow	PLA	A01-Y2	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11401	PLA Matte	Matte Desert Tan	PLA	A01-Y3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11500	PLA Matte	Matte Grass Green	PLA	A01-G1	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11501	PLA Matte	Matte Dark Green	PLA	A01-G7	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11502	PLA Matte	Matte Apple Green	PLA	A01-G0	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11600	PLA Matte	Matte Marine Blue	PLA	A01-B3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11601	PLA Matte	Matte Ice Blue	PLA	A01-B4	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11602	PLA Matte	Matte Dark Blue	PLA	A01-B6	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11603	PLA Matte	Matte Sky Blue	PLA	A01-B0	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11700	PLA Matte	Matte Lilac purple	PLA	A01-P4	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11800	PLA Matte	Matte Latte Brown	PLA	A01-N1	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11801	PLA Matte	Matte Dark Brown	PLA	A01-N2	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11802	PLA Matte	Matte Dark Chocolate	PLA	A01-N0	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+11803	PLA Matte	Matte Caramel	PLA	A01-N3	https://store.bblcdn.eu/s8/default/7021f0243b4948b88c27db7028831dac/Matte-Ivory-White-.png	https://eu.store.bambulab.com/products/pla-matte
+12000	PLA Tough	Yellow	PLA Tough	A09-Y0		
+12001	PLA Tough	Silver	PLA Tough	A09-D1		
+12002	PLA Tough	Orange	PLA Tough	A09-A0		
+12003	PLA Tough	Vermilion Red	PLA Tough	A09-R3		
+12004	PLA Tough	Light Blue	PLA Tough	A09-B4		
+12005	PLA Tough	Lavender Blue	PLA Tough	A09-B5		
+12104	PLA Tough+	Black	PLA	A10-K0	https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+12105	PLA Tough+	Gray	PLA	A10-D0	https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+12106	PLA Tough+	Silver	PLA		https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+12107	PLA Tough+	White	PLA	A10-W0	https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+12301	PLA Tough+	Orange	PLA		https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+12401	PLA Tough+	Yellow	PLA		https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+12601	PLA Tough+	Cyan	PLA		https://store.bblcdn.eu/s8/default/76a53975eaab4238ab610612c4efdc5f/PLA_Tough_(3).jpg	https://eu.store.bambulab.com/products/pla-tough-upgrade
+13100	PLA Metal	Iron Gray Metallic	PLA	A02-D2	https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png	https://eu.store.bambulab.com/products/pla-metal
+13101	PLA Sparkle	Onyx Black Sparkle	PLA	A08-K2	https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png	https://eu.store.bambulab.com/products/pla-sparkle
+13102	PLA Sparkle	Slate Gray Sparkle	PLA	A08-D5	https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png	https://eu.store.bambulab.com/products/pla-sparkle
+13103	PLA Marble	White Marble	PLA	A07-D4	https://store.bblcdn.eu/s8/default/403434f58f2e4ba8a72159a24315dd2b/A07-R5-1.75-1000-spl.jpg	https://eu.store.bambulab.com/products/pla-marble
+13106	PLA Wood	White Oak	PLA	A16-W0	https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg	https://eu.store.bambulab.com/products/pla-wood
+13107	PLA Wood	Black Walnut	PLA	A16-K0	https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg	https://eu.store.bambulab.com/products/pla-wood
+13108	PLA Silk+	Titan Gray	PLA	A06-D0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13109	PLA Silk+	Silver	PLA	A06-D1	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13110	PLA Silk+	White	PLA	A06-W0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13200	PLA Sparkle	Crimson Red Sparkle	PLA	A08-R2	https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png	https://eu.store.bambulab.com/products/pla-sparkle
+13201	PLA Marble	Red Granite	PLA	A07-R5	https://store.bblcdn.eu/s8/default/403434f58f2e4ba8a72159a24315dd2b/A07-R5-1.75-1000-spl.jpg	https://eu.store.bambulab.com/products/pla-marble
+13203	PLA Galaxy	Brown	PLA	A15-R0	https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg	https://eu.store.bambulab.com/products/pla-galaxy
+13204	PLA Wood	Rosewood	PLA	A16-R0	https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg	https://eu.store.bambulab.com/products/pla-wood
+13205	PLA Silk+	Candy Red	PLA	A06-R0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13206	PLA Silk+	Rose Gold	PLA	A06-R1	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13207	PLA Silk+	Pink	PLA	A06-R2	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13210	PLA Translucent	Red	PLA	A17-R0	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13211	PLA Translucent	Cherry Pink	PLA	A17-R1	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13301	PLA Translucent	Orange	PLA	A17-A0	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13400	PLA Metal	Iridium Gold Metallic	PLA	A02-Y1	https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png	https://eu.store.bambulab.com/products/pla-metal
+13402	PLA Sparkle	Classic Gold Sparkle	PLA	A08-Y1	https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png	https://eu.store.bambulab.com/products/pla-sparkle
+13403	PLA Wood	Ochre Yellow	PLA	A16-Y0	https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg	https://eu.store.bambulab.com/products/pla-wood
+13404	PLA Silk+	Champagne	PLA	A06-Y0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13405	PLA Silk+	Gold	PLA	A06-Y1	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13410	PLA Translucent	Mellow Yellow	PLA	A17-Y0	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13500	PLA Metal	Oxide Green Metallic	PLA	A02-G2	https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png	https://eu.store.bambulab.com/products/pla-metal
+13501	PLA Sparkle	Alpine Green Sparkle	PLA	A08-G3	https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png	https://eu.store.bambulab.com/products/pla-sparkle
+13503	PLA Galaxy	Green	PLA	A15-G0	https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg	https://eu.store.bambulab.com/products/pla-galaxy
+13504	PLA Galaxy	Nebulae	PLA	A15-G1	https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg	https://eu.store.bambulab.com/products/pla-galaxy
+13505	PLA Wood	Classic Birch	PLA	A16-G0	https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg	https://eu.store.bambulab.com/products/pla-wood
+13506	PLA Silk+	Candy Green	PLA	A06-G0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13507	PLA Silk+	Mint	PLA	A06-G1	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13510	PLA Translucent	Light Jade	PLA	A17-G0	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13600	PLA Metal	Cobalt Blue Metallic	PLA	A02-B2	https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png	https://eu.store.bambulab.com/products/pla-metal
+13602	PLA Galaxy	Purple	PLA	A15-B0	https://store.bblcdn.eu/s8/default/5a46d227df6e4ed4bbe44dd87d31d069/purle.jpg	https://eu.store.bambulab.com/products/pla-galaxy
+13603	PLA Silk+	Baby Blue	PLA	A06-B0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13604	PLA Silk+	Blue	PLA	A06-B1	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13610	PLA Translucent	Ice Blue	PLA		https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13611	PLA Translucent	Blue	PLA	A17-B1	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13612	PLA Translucent	Teal	PLA		https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13700	PLA Sparkle	Royal Purple Sparkle	PLA	A08-B7	https://store.bblcdn.eu/s8/default/7407fc887147448bbbf89189c9539952/Sparklegreen.png	https://eu.store.bambulab.com/products/pla-sparkle
+13702	PLA Silk+	Purple	PLA	A06-P0	https://store.bblcdn.eu/s8/default/9aaebe748b88497387f3c159307aa5bf/cf2723db072c4371b3606938b8cccdb9.jpg	https://eu.store.bambulab.com/products/pla-silk-upgrade
+13710	PLA Translucent	Purple	PLA	A17-P0	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13711	PLA Translucent	Lavender	PLA	A17-P1	https://store.bblcdn.eu/s8/default/18aacd2b879441cd80c2cd067b2ad0a1/teal_4dc29df4-13e2-4c00-9e6a-7dbf9183952a.jpg	https://eu.store.bambulab.com/products/pla-translucent
+13800	PLA Metal	Copper Brown Metallic	PLA	A02-N3	https://store.bblcdn.eu/s8/default/a8cb6b37d9d8430b88743d1784093c1a/A02-B2-1.75-1000-spl.png	https://eu.store.bambulab.com/products/pla-metal
+13801	PLA Wood	Clay Brown	PLA	A16-N0	https://store.bblcdn.eu/s8/default/11c1ab483b664ebbbfcf7414c1ec0167/4_4f1d41bd-761c-4ac8-bea1-540852b7334d.jpg	https://eu.store.bambulab.com/products/pla-wood
+13901	PLA Silk Multi-Color	Gilded Rose	PLA	A05-T1	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13902	PLA Silk Multi-Color	Midnight Blaze	PLA	A05-T2	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13903	PLA Silk Multi-Color	Neon City	PLA	A05-T3	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13904	PLA Silk Multi-Color	Blue Hawaii	PLA	A05-T4	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13905	PLA Silk Multi-Color	Velvet Eclipse	PLA	A05-T5	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13906	PLA Silk Multi-Color	South Beach	PLA	A05-M1	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13909	PLA Silk Multi-Color	Aurora Purple	PLA	A05-M4	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13912	PLA Silk Multi-Color	Dawn Radiance	PLA	A05-M8	https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13913	PLA Silk Multi-Color	Mystic Magenta	PLA		https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+13916	PLA Silk Multi-Color	Phantom Blue	PLA		https://store.bblcdn.eu/s8/default/f4c5a0fd47624f1bb4f8a55ab30f70e8/Dawn_Radiance.jpg	https://eu.store.bambulab.com/products/pla-silk-multi-color
+14100	PLA-CF	Black	PLA	A50-K0	https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+14101	PLA-CF	Lava Gray	PLA	A50-D6	https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+14102	PLA Aero	White	PLA	A11-W0	https://store.bblcdn.eu/s8/default/c2e94607bb684af49bcaa25ec9dac8da/AERO_bc503e27-6fed-4b8e-a505-342f6050dc27.png	https://eu.store.bambulab.com/products/pla-aero
+14103	PLA Aero	Black	PLA Aero	A11-K0		
+14104	PLA Aero	Gray	PLA		https://store.bblcdn.eu/s8/default/c2e94607bb684af49bcaa25ec9dac8da/AERO_bc503e27-6fed-4b8e-a505-342f6050dc27.png	https://eu.store.bambulab.com/products/pla-aero
+14200	PLA-CF	Burgundy Red	PLA		https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+14500	PLA-CF	Matcha Green	PLA		https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+14600	PLA-CF	Jeans Blue	PLA		https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+14601	PLA-CF	Royal Blue	PLA	A50-B6	https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+14700	PLA-CF	Iris Purple	PLA		https://store.bblcdn.eu/s8/default/6c62179718bc473c94f3e629543e001b/c0f99c4f6c04f5422dcd8db2da060392.png	https://eu.store.bambulab.com/products/pla-cf
+15200	PLA Glow	Glow Pink	PLA	A12-R0	https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png	https://eu.store.bambulab.com/products/pla-glow
+15300	PLA Glow	Glow Orange	PLA	A12-A0	https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png	https://eu.store.bambulab.com/products/pla-glow
+15400	PLA Glow	Glow Yellow	PLA	A12-Y0	https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png	https://eu.store.bambulab.com/products/pla-glow
+15500	PLA Glow	Glow Green	PLA	A12-G0	https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png	https://eu.store.bambulab.com/products/pla-glow
+15600	PLA Glow	Glow Blue	PLA	A12-B0	https://store.bblcdn.eu/s8/default/4cffb4e77bab4384b32fc327a60bc1f2/4fefbcd44633bcd5e4f4663eafb78c3c_cb3f9dbb-235b-4e7d-83ab-6cbecb7aa5bf.png	https://eu.store.bambulab.com/products/pla-glow
+16100	PLA Lite	Black	PLA Lite	A18-K0		
+16101	PLA Lite	Gray	PLA Lite	A18-D0		
+16103	PLA Lite	White	PLA Lite	A18-W0		
+16200	PLA Lite	Red	PLA Lite	A18-R0		
+16400	PLA Lite	Yellow	PLA Lite	A18-Y0		
+16600	PLA Lite	Cyan	PLA Lite	A18-B0		
+16601	PLA Lite	Blue	PLA Lite	A18-B1		
+16602	PLA Lite	Matte Beige	PLA Lite	A18-P0		
+31100	PETG-CF	Black	PETG	G50-K0	https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png	https://eu.store.bambulab.com/products/petg-cf
+31101	PETG-CF	Titan Gray	PETG	G50-D6	https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png	https://eu.store.bambulab.com/products/petg-cf
+31200	PETG-CF	Brick Red	PETG		https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png	https://eu.store.bambulab.com/products/petg-cf
+31500	PETG-CF	Malachite Green	PETG	G50-G7	https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png	https://eu.store.bambulab.com/products/petg-cf
+31600	PETG-CF	Indigo Blue	PETG		https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png	https://eu.store.bambulab.com/products/petg-cf
+31700	PETG-CF	Violet Purple	PETG	G50-P7	https://store.bblcdn.eu/s8/default/7e67cea6705a4709a7452e1b0fb113e4/PETG-CFpurp_37ad5532-5d64-4eb9-90b0-d183f2511e9e.png	https://eu.store.bambulab.com/products/petg-cf
+32100	PETG Translucent	Translucent Gray	PETG	G01-D0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32101	PETG Translucent	Clear	PETG	G01-C0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32200	PETG Translucent	Translucent Pink	PETG	G01-P1	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32300	PETG Translucent	Translucent Orange	PETG	G01-A0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32500	PETG Translucent	Translucent Olive	PETG	G01-G0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32501	PETG Translucent	Translucent Teal	PETG	G01-G1	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32600	PETG Translucent	Translucent Light Blue	PETG	G01-B0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32700	PETG Translucent	Translucent Purple	PETG	G01-P0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+32800	PETG Translucent	Translucent Brown	PETG	G01-N0	https://store.bblcdn.eu/s8/default/e39842a1bdb243a2bbb809444d83ad94/JP34951_dfb10fec-368d-47a7-8bd8-bb506498a9bd.jpg	https://eu.store.bambulab.com/products/petg-translucent
+33100	PETG HF	White	PETG	G02-W0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33101	PETG HF	Gray	PETG	G02-D0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33102	PETG HF	Black	PETG	G02-K0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33103	PETG HF	Dark Gray	PETG	G02-D1	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33200	PETG HF	Red	PETG	G02-R0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33300	PETG HF	Orange	PETG	G02-A0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33400	PETG HF	Yellow	PETG	G02-Y0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33401	PETG HF	Cream	PETG	G02-Y1	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33500	PETG HF	Green	PETG	G02-G0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33501	PETG HF	Lime Green	PETG	G02-G1	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33502	PETG HF	Forest Green	PETG	G02-G2	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33600	PETG HF	Blue	PETG	G02-B0	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33601	PETG HF	Lake Blue	PETG	G02-B1	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+33801	PETG HF	Peanut Brown	PETG	G02-N1	https://store.bblcdn.eu/s8/default/588e1afe37284baaa4ee09fbff15a66d/5_87e53b22-3a47-4e93-adce-7f40106815c0.jpg	https://eu.store.bambulab.com/products/petg-hf
+40100	ABS	ABS White	ABS	B00-W0	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40101	ABS	ABS Black	ABS	B00-K0	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40102	ABS	ABS Silver	ABS	B00-D1	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40200	ABS	ABS Red	ABS	B00-R0	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40300	ABS	ABS Orange	ABS	B00-A0	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40402	ABS	ABS Tangerine Yellow	ABS	B00-Y1	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40500	ABS	ABS Bambu Green	ABS	B00-G6	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40502	ABS	ABS Olive	ABS	B00-G7	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40600	ABS	ABS Blue	ABS	B00-B0	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40601	ABS	ABS Azure	ABS	B00-B4	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+40602	ABS	ABS Navy Blue	ABS	B00-B6	https://store.bblcdn.eu/s8/default/5d297742b7744e58a742421ec967a0ea/ABSsilver.png	https://eu.store.bambulab.com/products/abs-filament
+41100	ABS-GF	White	ABS	B50-W0	https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png	https://eu.store.bambulab.com/products/abs-gf
+41101	ABS-GF	Black	ABS	B50-K0	https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png	https://eu.store.bambulab.com/products/abs-gf
+41102	ABS-GF	Gray	ABS		https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png	https://eu.store.bambulab.com/products/abs-gf
+41200	ABS-GF	Red	ABS	B50-R0	https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png	https://eu.store.bambulab.com/products/abs-gf
+41300	ABS-GF	Orange	ABS	B50-A0	https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png	https://eu.store.bambulab.com/products/abs-gf
+41400	ABS-GF	Yellow	ABS-GF			
+41500	ABS-GF	Green	ABS-GF	B50-G0		
+41600	ABS-GF	Blue	ABS		https://store.bblcdn.eu/s8/default/f10c8381233a457abfd61dd3c8bf5554/JP36183.png	https://eu.store.bambulab.com/products/abs-gf
+45100	ASA	White	ASA	B01-W0		
+45101	ASA	Black	ASA	B01-K0		
+45102	ASA	Gray	ASA	B01-D0		
+45200	ASA	Red	ASA	B01-R0		
+45500	ASA	Green	ASA			
+45600	ASA	Blue	ASA			
+46100	ASA Aero	White	ASA Aero	B02-W0		
+46101	ASA-CF	Black	ASA-CF	B51-K0		
+51100	TPU 95A HF	Black	TPU		https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png	https://eu.store.bambulab.com/products/tpu-95a-hf
+51101	TPU 95A HF	Gray	TPU		https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png	https://eu.store.bambulab.com/products/tpu-95a-hf
+51102	TPU 95A HF	White	TPU		https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png	https://eu.store.bambulab.com/products/tpu-95a-hf
+51103	TPU 85A / TPU 90A	Black	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51105	TPU 85A / TPU 90A	White	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51107	TPU 85A / TPU 90A	Black	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51200	TPU 95A HF	Red	TPU		https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png	https://eu.store.bambulab.com/products/tpu-95a-hf
+51201	TPU 85A / TPU 90A	Flesh	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51305	TPU 85A / TPU 90A	Neon Orange	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51400	TPU 95A HF	Yellow	TPU		https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png	https://eu.store.bambulab.com/products/tpu-95a-hf
+51500	TPU 85A / TPU 90A	Light Cyan	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51501	TPU 85A / TPU 90A	Lime Green	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51600	TPU 95A HF	Blue	TPU		https://store.bblcdn.eu/s8/default/59379e6c40124c21bc7dd55245fb1ebe/TPUHF_1.png	https://eu.store.bambulab.com/products/tpu-95a-hf
+51601	TPU 85A / TPU 90A	Crystal Blue	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51700	TPU 85A / TPU 90A	Grape Jelly	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51800	TPU 85A / TPU 90A	Cocoa Brown	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51900	TPU 85A / TPU 90A	Frozen	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+51901	TPU 85A / TPU 90A	Blaze	TPU		https://store.bblcdn.eu/s8/default/999f503b431747fd8ab2d2f3548301cf/sliver.jpg	https://eu.store.bambulab.com/products/tpu-85a-tpu-90a
+53100	TPU for AMS	White	TPU		https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+53101	TPU for AMS	Black	TPU	U02-K0	https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+53102	TPU for AMS	Gray	TPU	U02-D0	https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+53200	TPU for AMS	Red	TPU		https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+53400	TPU for AMS	Yellow	TPU		https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+53500	TPU for AMS	Neon Green	TPU		https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+53600	TPU for AMS	Blue	TPU	U02-B0	https://store.bblcdn.eu/s8/default/5b848554718b444faa29355ce6f54264/d4fb1dd751904e1ea09d142c68d7ec36.jpg	https://eu.store.bambulab.com/products/tpu-for-ams
+60100	PC	White	PC	C00-W0		
+60101	PC	Black	PC	C00-K0		
+60102	PC	Clear Black	PC	C00-C0		
+60103	PC	Transparent	PC	C00-C1		
+63100	PC FR	Black	PC FR	C01-K0		
+63101	PC FR	White	PC FR	C01-W0		
+63102	PC FR	Gray	PC FR	C01-D0		
+65102	Support for PLA/PETG	Nature	Support for PLA/PETG	S02-W0 (Old: S00-W0)		
+65103	Support for PLA/PETG	Black	Support for PLA/PETG	S05-C0		
+65104	Support for PLA (New Version)	White	Support for PLA (New Version)	S02-W1		
+65500	Support for PA/PET	Green	Support for PA/PET	S03-G1		
+66100	Support for ABS	White	Support for ABS	S06-W0		
+66400	PVA	Clear	PVA	S04-Y0		
+70100	PAHT-CF	Black	PAHT	N04-K0	https://store.bblcdn.eu/s8/default/1adca385b4fd4502b492ed2651908f51/PAHTCFORIGINAL.png	https://eu.store.bambulab.com/products/paht-cf
+71100	PET-CF	Black	PET-CF		https://store.bblcdn.eu/s8/default/c69a75229e824ec2a92b2e37f8510b01/pet-cr.png	https://eu.store.bambulab.com/products/pet-cf
+72100	PA6-CF	Black	PA6-CF		https://store.bblcdn.eu/s8/default/a73fe23577b84ea58c333a714eae4cad/PA6-CF.png	https://eu.store.bambulab.com/products/pa6-cf
+72102	PA6-GF	White	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72103	PA6-GF	Gray	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72104	PA6-GF	Black	PA6-GF	N08-K0	https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72200	PA6-GF	Orange	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72400	PA6-GF	Yellow	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72500	PA6-GF	Lime	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72600	PA6-GF	Blue	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf
+72800	PA6-GF	Brown	PA6-GF		https://store.bblcdn.eu/s8/default/206b1f9df0a64848becdf721b2541936/JP35952.jpg	https://eu.store.bambulab.com/products/pa6-gf

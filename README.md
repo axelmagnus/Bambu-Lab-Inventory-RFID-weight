@@ -33,11 +33,10 @@ Response should be `{"ok":true,"duplicate":false}`; a repeat with the same uid r
 
 ## Populate Store Index and Arduino material files
 
-- Quick, no-scrape option (recommended): use the bundled [data/store_index.json](data/store_index.json).
-  - Fastest: run `python scripts/push_store_index.py` after setting `WEB_APP_URL` in `scripts/secret.env`; it uploads the bundled JSON (`data/store_index.json`) via `action:"uploadStoreIndex"`.
+- To sync all sources, merge, and push missing codes to the tab, run `python scripts/sync_all_data.py` after setting `WEB_APP_URL` in `scripts/secret.env`. This script replaces both `push_store_index.py` and `scrape_store&community.py`.
   - Regenerate Arduino lookup snippets without scraping the store: run `python scripts/generate_material_snippets.py` (uses the same `data/store_index.json` to rewrite `arduino/**/generated/materials_snippet.h`).
 
-- Scrape-and-push option: set environment variables (see below), then run `scripts/scrape_store.py`. It scrapes the store in current state, writes `data/store_index.{json,csv,tsv}`, and, if `WEB_APP_URL` is set, POSTs records to that same Web App using `action:"uploadStoreIndex"` (same endpoint, different action field). Run sparingly and respect store rate limits to avoid hammering the site. The bundled JSON already covers most filaments; if a new one appears, you can also add manually to the JSON/CSV/TSV and import without re-scraping. To create a virtual environment in order to run the scripts, see below.
+If you only want to scrape the store and not push, use `python scripts/scrape_store.py`. The bundled JSON already covers most filaments; if a new one appears, you can also add manually to the JSON/CSV/TSV and import without re-scraping. To create a virtual environment in order to run the scripts, see below.
 
 - Manual POST example to check your apps script without the ESP32 (same Web App URL):
     ```bash

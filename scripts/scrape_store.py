@@ -1,176 +1,95 @@
-#!/usr/bin/env python3
-"""
-Scrape the Bambu US filament storefront for code/name/color/material/variantId/imageUrl.
-Outputs:
-- data/store_index.json (array of objects)
-- data/store_index.csv (Code,Name,Color,Material,VariantId,ImageUrl)
-
-Usage:
-    python scripts/scrape_store.py
-    STORE_BASE=https://us.store.bambulab.com python scripts/scrape_store.py
-"""
-import csv
 import json
 import os
-import re
 import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional
 from urllib.parse import urlparse, urlunparse
 
 import requests
 from bs4 import BeautifulSoup
-# Add import for queengooborg fetch
-import subprocess
+from dotenv import load_dotenv
 
+
+# Load environment variables from secrets.env
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / "scripts" / "secret.env")
+
+
+# --- Globals and config ---
 ROOT = Path(__file__).resolve().parents[1]
-FAILED_429_PATH = ROOT / "data" / "failed_429_urls.json"
-OUT_JSON = ROOT / "data" / "store_index.json"
-SECRETS_ENV = ROOT / "scripts" / "secret.env"
-
-
-def load_local_env(env_path: Path) -> None:
-    """Load simple KEY=VALUE lines into os.environ if not already set."""
-    if not env_path.exists():
-        return
-    for line in env_path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if "=" not in line:
-            continue
-        key, val = line.split("=", 1)
-        key = key.strip()
-        val = val.strip().strip('"').strip("'")
-        if key and key not in os.environ:
-            os.environ[key] = val
-
-
-load_local_env(SECRETS_ENV)
-BASE_STORE = os.environ.get("STORE_BASE", "https://us.store.bambulab.com")
+STORE_BASE = os.environ.get("STORE_BASE", "https://store.bambulab.com")
 COLLECTION_PATH = "/collections/bambu-lab-3d-printer-filament"
 PUSH_URL = os.environ.get("WEB_APP_URL")
+TAB_JSON = ROOT / "data" / "store_index_tab.json"
+OUT_JSON = ROOT / "data" / "store_index.json"
+QUEEN_JSON = ROOT / "data" / "queengooborg.json"
+MISSING_JSON = ROOT / "data" / "collection_missing_urls.json"
 
 
-def normalize_product_url(url: Optional[str]) -> str:
-    """Ensure productUrl uses BASE_STORE host; handle relative paths gracefully."""
-    if not url:
-        return ""
-    base = urlparse(BASE_STORE)
-    parsed = urlparse(url)
-    if not parsed.netloc:
-        # Relative or path-only
-        return f"{BASE_STORE.rstrip('/')}/{url.lstrip('/')}"
-    return urlunparse((base.scheme or parsed.scheme or "https", base.netloc, parsed.path, parsed.params, parsed.query, parsed.fragment))
-
-
-@dataclass
-class Product:
-    name: str
-    slug: str
-    color_list: List[dict]
-    media_files: List[str]
-    product_url: str
-
-
-@dataclass
-class ColorOption:
-    color: str
-    code: str
-    index: int
-
-
-def fetch(url: str, retries: int = 3, backoff: float = 1.5) -> str:
-    """HTTP GET, logs 429, no retry or delay."""
-    import sys
-    resp = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
-    if resp.status_code == 429:
-        print(f"[WARN] Rate limited (429) on {url}. Not retrying.", file=sys.stderr)
-        # Save failed 429 URL for later retry
-        try:
-            failed = []
-            if FAILED_429_PATH.exists():
-                failed = json.loads(FAILED_429_PATH.read_text(encoding="utf-8"))
-            if url not in failed:
-                failed.append(url)
-                FAILED_429_PATH.write_text(json.dumps(failed, indent=2), encoding="utf-8")
-        except Exception as e:
-            print(f"[ERROR] Could not save failed 429 URL: {e}", file=sys.stderr)
-        resp.raise_for_status()
-    elif resp.status_code in (500, 502, 503, 504):
-        print(f"[WARN] Server error {resp.status_code} on {url}. Not retrying.", file=sys.stderr)
-        resp.raise_for_status()
+# --- HTTP helpers ---
+def fetch(url: str) -> str:
+    resp = requests.get(url, timeout=30)
     resp.raise_for_status()
     return resp.text
 
 
-def parse_product_list(html: str) -> List[Product]:
-    idx = html.find("productList")
-    if idx == -1:
-        raise RuntimeError("productList not found in collection page")
-    start = html.find("[", idx)
-    level = 0
-    in_str = False
-    esc = False
-    end = None
-    for pos, ch in enumerate(html[start:], start):
-        if esc:
-            esc = False
-            continue
-        if ch == "\\":
-            esc = True
-            continue
-        if ch == '"':
-            in_str = not in_str
-            continue
-        if in_str:
-            continue
-        if ch == "[":
-            level += 1
-        elif ch == "]":
-            level -= 1
-            if level == 0:
-                end = pos
-                break
-    if end is None:
-        raise RuntimeError("could not bracket-match productList array")
-    arr = html[start : end + 1]
-    data = json.loads(bytes(arr, "utf-8").decode("unicode_escape"))
+def normalize_product_url(url: Optional[str]) -> str:
+    if not url:
+        return ""
+    base = urlparse(STORE_BASE)
+    parsed = urlparse(url)
+    if not parsed.netloc:
+        return f"{STORE_BASE.rstrip('/')}/{url.lstrip('/')}"
+    return urlunparse((base.scheme or parsed.scheme or "https", base.netloc, parsed.path, parsed.params, parsed.query, parsed.fragment))
+
+
+# --- Parsing helpers ---
+def parse_colors_from_page(page_html: str) -> List[Any]:
+    """Parse color options from a Bambu Lab product page."""
+    soup = BeautifulSoup(page_html, "html.parser")
+    options: List[Any] = []
+    for swatch in soup.select('[data-variant-code]'):
+        code = swatch.get('data-variant-code', '').strip()
+        color = swatch.get('title', '').strip() or swatch.text.strip()
+        Option = type('Option', (), {})
+        opt = Option()
+        opt.code = code
+        opt.color = color
+        options.append(opt)
+    return options
+
+
+def parse_product_list(html: str) -> List["Product"]:
+    """Parse the filament collection page into Product entries."""
+    soup = BeautifulSoup(html, "html.parser")
     products: List[Product] = []
-    for item in data:
-        slug = item.get("seoCode", "")
-        products.append(
-            Product(
-                name=item.get("name", ""),
-                slug=slug,
-                color_list=sorted(item.get("colorList", []), key=lambda c: c.get("colorPosition", 0)),
-                media_files=item.get("mediaFiles", []) or [],
-                product_url=f"{BASE_STORE}/products/{slug}" if slug else "",
-            )
-        )
+    for prod in soup.select('a.product-item'):
+        name = prod.get('title', '').strip() or prod.select_one('.product-title').text.strip() if prod.select_one('.product-title') else ''
+        slug = prod.get('href', '').split('/')[-1]
+        product_url = prod.get('href', '')
+        media_files: List[str] = []
+        img = prod.select_one('img')
+        if img and img.get('src'):
+            media_files.append(img['src'])
+        products.append(Product(name=name, slug=slug, color_list=None, product_url=product_url, media_files=media_files))
     return products
 
 
-def parse_colors_from_page(html: str) -> List[ColorOption]:
-    soup = BeautifulSoup(html, "html.parser")
-    opts: List[ColorOption] = []
-    idx = 0
-    for li in soup.find_all("li"):
-        val = li.get("value")
-        if not val:
-            continue
-        m = re.match(r"^(.*) \((\d{5})\)$", val.strip())
-        if not m:
-            continue
-        opts.append(ColorOption(color=m.group(1).strip(), code=m.group(2), index=idx))
-        idx += 1
-    return opts
+# --- Product dataclass ---
+@dataclass
+class Product:
+    name: str = ""
+    slug: str = ""
+    color_list: Optional[List[dict]] = None
+    product_url: str = ""
+    media_files: Optional[List[str]] = None
 
 
+# --- Material guessing logic ---
 def guess_material(name: str, slug: str) -> str:
-    target = slug.lower() or name.lower()
+    target = (name or "") + " " + (slug or "")
+    target = target.lower()
     if "pla" in target:
         return "PLA"
     if "pet-cf" in target or "petcf" in target:
@@ -190,68 +109,163 @@ def guess_material(name: str, slug: str) -> str:
     return name.split(" ")[0] if name else ""
 
 
+# --- Targeted scraping ---
+def scrape_product_pages(urls: List[str], variant_hints: Dict[str, Dict[str, str]]) -> List[dict]:
+    """Fetch only the requested product pages and build records; minimizes scraping to avoid throttling."""
+    records: List[dict] = []
+    seen: set[str] = set()
+    for raw_url in urls:
+        url = normalize_product_url(raw_url)
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        hint = variant_hints.get(url, {})
+        try:
+            page_html = fetch(url)
+            time.sleep(0.3)
+        except Exception as exc:  # noqa: BLE001
+            print(f"WARN: failed to fetch product page {url}: {exc}", file=sys.stderr)
+            if hint:
+                records.append({
+                    "code": hint.get("code", ""),
+                    "name": hint.get("name", ""),
+                    "color": "",
+                    "material": guess_material(hint.get("name", ""), urlparse(url).path),
+                    "variantId": hint.get("variantId", ""),
+                    "imageUrl": "",
+                    "productUrl": url,
+                })
+            continue
+
+        options = parse_colors_from_page(page_html)
+        if options:
+            for opt in options:
+                records.append({
+                    "code": getattr(opt, "code", "") or hint.get("code", ""),
+                    "name": hint.get("name", ""),
+                    "color": getattr(opt, "color", ""),
+                    "material": guess_material(hint.get("name", ""), urlparse(url).path),
+                    "variantId": hint.get("variantId", ""),
+                    "imageUrl": "",
+                    "productUrl": url,
+                })
+        else:
+            records.append({
+                "code": hint.get("code", ""),
+                "name": hint.get("name", ""),
+                "color": "",
+                "material": guess_material(hint.get("name", ""), urlparse(url).path),
+                "variantId": hint.get("variantId", ""),
+                "imageUrl": "",
+                "productUrl": url,
+            })
+    return records
+
+
+# --- Tab and queen helpers ---
+def normalize_tab_row(row: dict) -> dict:
+    out: dict = {}
+    for k, v in row.items():
+        lk = k.lower()
+        if lk == "image":
+            continue
+        out[lk] = v if not isinstance(v, dict) else ""
+    for f in ["code", "name", "color", "material", "variantid", "imageurl", "producturl"]:
+        out.setdefault(f, "")
+    return out
+
+
+def load_tab_data(tab_path: Path) -> dict:
+    if not tab_path.exists():
+        print(f"[WARN] {tab_path} not found. Run fetch_store_index_tab.py first.")
+        return {}
+    tab_data = json.loads(tab_path.read_text(encoding="utf-8"))
+    return {str(normalize_tab_row(entry)["code"]): normalize_tab_row(entry) for entry in tab_data}
+
+
+def load_queen_data(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {str(e.get("filamentCode")): e for e in data}
+
+
+def load_missing_data() -> dict:
+    if not MISSING_JSON.exists():
+        return {"missingProductUrls": [], "missingReferenceVariants": [], "missingQueenCodes": []}
+    try:
+        data = json.loads(MISSING_JSON.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return {"missingProductUrls": [], "missingReferenceVariants": [], "missingQueenCodes": []}
+    for key in ["missingProductUrls", "missingReferenceVariants", "missingQueenCodes"]:
+        data.setdefault(key, [])
+    return data
+
+
+def find_missing_variantids(tab_lookup: dict) -> List[str]:
+    return [code for code, entry in tab_lookup.items() if not entry.get("variantid")]
+
+
+def warn(msg: str) -> None:
+    print(f"[WARN] {msg}")
+
+
+# --- Fallback full scraping (unused in main) ---
 def build_records(products: Iterable[Product]) -> List[dict]:
     records: List[dict] = []
     for product in products:
         if not product.slug:
             continue
-        url = normalize_product_url(product.product_url) or f"{BASE_STORE}/products/{product.slug}"
+        url = normalize_product_url(product.product_url) or f"{STORE_BASE}/products/{product.slug}"
         try:
             page_html = fetch(url)
             time.sleep(0.25)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             print(f"WARN: failed to fetch product page {url}: {exc}", file=sys.stderr)
             continue
         options = parse_colors_from_page(page_html)
         if not options:
             print(f"WARN: no color options found in {url}", file=sys.stderr)
             continue
-        color_entries = product.color_list
+        color_entries = product.color_list or []
         if len(color_entries) != len(options):
             print(f"WARN: color count mismatch for {product.name} ({len(options)} options vs {len(color_entries)} feed)", file=sys.stderr)
-        # Extract imageUrl from product.media_files if available
         image_url = ""
         if product.media_files:
-            # Use first image file as default
             image_url = product.media_files[0]
             if not image_url.startswith("http"):
-                image_url = f"{BASE_STORE.rstrip('/')}/{image_url.lstrip('/')}"
-        # Build records for each color option
+                image_url = f"{STORE_BASE.rstrip('/')}/{image_url.lstrip('/')}"
         for idx, opt in enumerate(options):
             color_entry = color_entries[idx] if idx < len(color_entries) else {}
             records.append({
-                "code": opt.code,
+                "code": getattr(opt, "code", ""),
                 "name": product.name,
-                "color": opt.color,
+                "color": getattr(opt, "color", ""),
                 "material": guess_material(product.name, product.slug),
                 "variantId": color_entry.get("variantId", ""),
                 "imageUrl": image_url,
-                "productUrl": url
+                "productUrl": url,
             })
     return records
 
 
+# --- Output helpers ---
 def write_json(records: List[dict]) -> None:
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with OUT_JSON.open("w", encoding="utf-8") as fh:
         json.dump(records, fh, ensure_ascii=False, indent=2)
 
 
-
-
 def push_store_index(records: List[dict]) -> None:
-    """Send the scraped records directly to the Apps Script webhook to populate Store Index."""
     payload = {"action": "uploadStoreIndex", "records": []}
     for rec in records:
-        payload["records"].append(
-            {
-                "code": rec.get("code") or "",
-                "name": rec.get("name") or "",
-                "color": rec.get("color") or "",
-                "imageUrl": rec.get("imageUrl") or "",
-                "productUrl": rec.get("productUrl") or "",
-            }
-        )
+        payload["records"].append({
+            "code": rec.get("code") or "",
+            "name": rec.get("name") or "",
+            "color": rec.get("color") or "",
+            "imageUrl": rec.get("imageUrl") or "",
+            "productUrl": rec.get("productUrl") or "",
+        })
     try:
         resp = requests.post(PUSH_URL, json=payload, timeout=30)
         resp.raise_for_status()
@@ -260,70 +274,103 @@ def push_store_index(records: List[dict]) -> None:
         print(f"WARN: failed to push Store Index to webhook: {exc}", file=sys.stderr)
 
 
+def save_missing_data(data: dict) -> None:
+    try:
+        MISSING_JSON.parent.mkdir(parents=True, exist_ok=True)
+        MISSING_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as exc:  # noqa: BLE001
+        print(f"WARN: failed to write missing data: {exc}", file=sys.stderr)
+
+
+# --- Main flow ---
 def main() -> int:
-    # Download and parse latest queengooborg README
-    subprocess.run([
-        "python3",
-        str(ROOT / "scripts" / "fetch_queengooborg_readme.py")
-    ], check=True)
-    # Load queengooborg.json for supplementing store index
-    queengooborg_path = ROOT / "data" / "queengooborg.json"
-    if queengooborg_path.exists():
-        with queengooborg_path.open("r", encoding="utf-8") as fh:
-            queengooborg_materials = json.load(fh)
-        print(f"Loaded {len(queengooborg_materials)} entries from queengooborg.json")
-    else:
-        queengooborg_materials = []
-        print("No queengooborg.json found!")
-    collection_url = f"{BASE_STORE}{COLLECTION_PATH}"
-    try:
-        html = fetch(collection_url)
-    except Exception as exc:
-        print(f"ERROR: Failed to fetch collection page: {exc}", file=sys.stderr)
-        html = ""
-    try:
-        products = parse_product_list(html)
-        print(f"Parsed {len(products)} products from store collection page.")
-    except Exception as exc:
-        print(f"ERROR: Failed to parse product list: {exc}", file=sys.stderr)
-        products = []
-    try:
-        records = build_records(products)
-        print(f"Built {len(records)} records from store products.")
-    except Exception as exc:
-        print(f"ERROR: Failed to build records from products: {exc}", file=sys.stderr)
-        records = []
-    # --- PATCH: Merge variantId from queengooborg.json into store records ---
-    codes_in_store = {r.get("code"): r for r in records}
-    for m in queengooborg_materials:
-        code = m["filamentCode"]
-        variant_id = m.get("variantId", "")
-        if code in codes_in_store:
-            store_rec = codes_in_store[code]
-            # Only update if store record is missing or has empty variantId
-            if not store_rec.get("variantId") and variant_id:
-                store_rec["variantId"] = variant_id
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "fetch_queengooborg_readme.py")], check=True)
+
+    tab_lookup = load_tab_data(TAB_JSON)
+    queen_lookup = load_queen_data(QUEEN_JSON)
+    missing_variantids = find_missing_variantids(tab_lookup)
+    if missing_variantids:
+        print(f"[INFO] Filaments missing VariantId in tab: {missing_variantids}")
+
+    missing_data = load_missing_data()
+    missing_refs = missing_data.get("missingReferenceVariants", [])
+    missing_urls = missing_data.get("missingProductUrls", [])
+
+    variant_hints: Dict[str, Dict[str, str]] = {}
+    for ref in missing_refs:
+        url = normalize_product_url(ref.get("productUrl", ""))
+        if not url:
+            continue
+        variant_hints[url] = {
+            "code": str(ref.get("code", "")),
+            "name": ref.get("name", ""),
+            "variantId": ref.get("variantId", ""),
+        }
+    target_urls = {normalize_product_url(u) for u in missing_urls if u}
+    target_urls.update(variant_hints.keys())
+
+    scraped: List[dict] = scrape_product_pages(list(target_urls), variant_hints)
+    print(f"Scraped {len(scraped)} records from {len(target_urls)} targeted product pages.")
+
+    merged = dict(tab_lookup)
+    for rec in scraped:
+        code = str(rec.get("code", ""))
+        if not code:
+            continue
+        if code in merged:
+            for k, v in rec.items():
+                key = k.lower()
+                if not merged[code].get(key) and v:
+                    merged[code][key] = v
+                elif merged[code].get(key) and v and merged[code][key] != v:
+                    warn(f"Tab and scraped mismatch for {code} field '{key}': tab='{merged[code][key]}' scraped='{v}' (keeping tab)")
         else:
-            warn_msgs = []
-            if not variant_id or str(variant_id).strip() == "":
-                warn_msgs.append(f"[WARN] Fallback entry for code {code} is missing variantId.")
-            if not m.get("imageUrl") or not m.get("productUrl"):
-                warn_msgs.append(f"[WARN] Fallback entry for code {code} is missing imageUrl/productUrl.")
-            for msg in warn_msgs:
-                print(msg, file=sys.stderr)
-            records.append({
+            merged[code] = {k.lower(): v for k, v in rec.items()}
+
+    for code, q in queen_lookup.items():
+        if code in merged:
+            if not merged[code].get("variantid") and q.get("variantId"):
+                merged[code]["variantid"] = q["variantId"]
+        else:
+            merged[code] = {
                 "code": code,
-                "name": m.get("category", ""),
-                "color": m["color"],
-                "material": m.get("category", ""),
-                "variantId": variant_id,
-                "imageUrl": m.get("imageUrl", ""),
-                "productUrl": m.get("productUrl", "")
-            })
-    write_json(records)
+                "name": q.get("category", ""),
+                "color": q.get("color", ""),
+                "material": q.get("category", ""),
+                "variantid": q.get("variantId", ""),
+                "imageurl": q.get("imageUrl", ""),
+                "producturl": q.get("productUrl", ""),
+            }
+
+    for ref in missing_refs:
+        code = str(ref.get("code", "")).strip()
+        if not code:
+            continue
+        if code not in merged:
+            merged[code] = {
+                "code": code,
+                "name": ref.get("name", ""),
+                "color": ref.get("color", ""),
+                "material": "",
+                "variantid": ref.get("variantId", ""),
+                "imageurl": ref.get("imageUrl", ""),
+                "producturl": ref.get("productUrl", ""),
+            }
+        else:
+            if not merged[code].get("variantid") and ref.get("variantId"):
+                merged[code]["variantid"] = ref.get("variantId")
+            if not merged[code].get("producturl") and ref.get("productUrl"):
+                merged[code]["producturl"] = ref.get("productUrl")
+
+    missing_queen_codes = [code for code in queen_lookup if code not in tab_lookup]
+    missing_data["missingQueenCodes"] = missing_queen_codes
+    save_missing_data(missing_data)
+
+    merged_list = list(merged.values())
+    write_json(merged_list)
     if PUSH_URL:
-        push_store_index(records)
-    print(f"Wrote {len(records)} records to {OUT_JSON}")
+        push_store_index(merged_list)
+    print(f"Wrote {len(merged_list)} records to {OUT_JSON}")
     return 0
 
 

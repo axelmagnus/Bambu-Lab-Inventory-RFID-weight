@@ -18,7 +18,7 @@
                 "args": [
                     "compile",
                     "--fqbn",
-                    "esp32:esp32:adafruit_feather_esp32s2_reversetft",
+                    "esp32:esp32:adafruit_feather_esp32s2_reversetft:PartitionScheme=no_ota",
                     "arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
                 ],
                 "options": {
@@ -35,7 +35,7 @@
                 "command": "bash",
                 "args": [
                     "-lc",
-                    "PORT=${input:serialPort}; echo Using port $PORT; arduino-cli compile --fqbn esp32:esp32:adafruit_feather_esp32s2_reversetft arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino && arduino-cli upload -p \"$PORT\" --fqbn esp32:esp32:adafruit_feather_esp32s2_reversetft arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
+                    "PORT=${input:serialPort}; echo Using port $PORT; arduino-cli compile --fqbn esp32:esp32:adafruit_feather_esp32s2_reversetft:PartitionScheme=no_ota arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino && arduino-cli upload -p \"$PORT\" --fqbn esp32:esp32:adafruit_feather_esp32s2_reversetft:PartitionScheme=no_ota arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
                 ],
                 "options": {
                     "cwd": "${workspaceFolder}"
@@ -56,7 +56,7 @@
             "-p",
             "${input:serialPort}",
             "--fqbn",
-            "esp32:esp32:adafruit_feather_esp32s2_reversetft",
+            "esp32:esp32:adafruit_feather_esp32s2_reversetft:PartitionScheme=no_ota",
             "arduino/RFID_Bambu_reader_TFT_weight/RFID_Bambu_reader_TFT_weight.ino"
         ],
         "options": {

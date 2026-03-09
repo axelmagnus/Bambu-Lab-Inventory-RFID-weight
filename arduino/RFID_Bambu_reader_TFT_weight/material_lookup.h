@@ -1,99 +1,87 @@
 #pragma once
 
 #include <stddef.h>
+#include <SPIFFS.h>
+#include <ArduinoJson.h>
+#include <FS.h>
+#include <vector>
 
 struct MaterialInfo
 {
-    const char *materialId;   // e.g., "GFA50"
-    const char *variantId;    // e.g., "A00-K0"
-    const char *filamentCode; // 5-digit code as string, e.g., "10100"
-    const char *name;         // material name/category, e.g., "PLA Basic"
-    const char *color;        // human color name
-    const char *productUrl;   // product page URL (when known)
+    String materialId;
+    String variantId;
+    String filamentCode;
+    String name;
+    String color;
+    String productUrl;
 };
 
-// Curated entries first, then auto-included generated list from Bambu-Lab-RFID-Library README (materialId may be blank). Extend if needed; sketch prints a fallback when missing.
-static const MaterialInfo MATERIALS[] = {
-// Optionally add custom overrides above (rarely needed)
-#include "generated/materials_snippet.h"
-};
+// Holds all loaded materials
+static std::vector<MaterialInfo> loadedMaterials;
 
-static const size_t MATERIAL_COUNT = sizeof(MATERIALS) / sizeof(MATERIALS[0]);
+// Load materials.json from SPIFFS into loadedMaterials
+inline bool loadMaterialsFromSPIFFS(const char *jsonPath = "/materials.json")
+{
+    loadedMaterials.clear();
+    File file = SPIFFS.open(jsonPath, "r");
+    if (!file)
+    {
+        Serial.println("Failed to open materials.json from SPIFFS");
+        return false;
+    }
+    DynamicJsonDocument doc(128 * 1024); // Adjust size as needed
+    DeserializationError err = deserializeJson(doc, file);
+    file.close();
+    if (err)
+    {
+        Serial.print("Failed to parse materials.json: ");
+        Serial.println(err.c_str());
+        return false;
+    }
+    for (JsonObject obj : doc.as<JsonArray>())
+    {
+        MaterialInfo info;
+        info.materialId = obj["materialId"].as<String>();
+        info.variantId = obj["variantId"].as<String>();
+        info.filamentCode = obj["filamentCode"].as<String>();
+        info.name = obj["material"].as<String>();
+        info.color = obj["color"].as<String>();
+        info.productUrl = obj["productUrl"].as<String>();
+        loadedMaterials.push_back(info);
+    }
+    Serial.printf("Loaded %d materials from SPIFFS\n", loadedMaterials.size());
+    return true;
+}
 
-// Lookup MaterialInfo by filament code (returns nullptr if not found)
+// Lookup by filament code
 inline const MaterialInfo *lookupMaterial(const char *filamentCode)
 {
-    for (size_t i = 0; i < MATERIAL_COUNT; ++i)
+    for (const auto &mat : loadedMaterials)
     {
-        if (MATERIALS[i].filamentCode && filamentCode && strcmp(MATERIALS[i].filamentCode, filamentCode) == 0)
+        if (mat.filamentCode == filamentCode)
         {
-            return &MATERIALS[i];
+            return &mat;
         }
     }
     return nullptr;
 }
 
-// Overload: lookup by materialId and variantId, with fallback to blank variantId
+// Lookup by materialId and variantId
 inline const MaterialInfo *lookupMaterial(const char *materialId, const char *variantId)
 {
-    // Debug: print what is being searched
-    Serial.print("lookupMaterial: materialId=");
-    Serial.print(materialId ? materialId : "(null)");
-    Serial.print(" variantId=");
-    Serial.println(variantId ? variantId : "(null)");
-
-    // Normalize materialId: strip 'GF' prefix if present (e.g., 'GFS04' -> 'S04')
-    char normId[16];
-    if (materialId && strncmp(materialId, "GF", 2) == 0 && strlen(materialId) < sizeof(normId) - 1)
+    for (const auto &mat : loadedMaterials)
     {
-        strncpy(normId, materialId + 2, sizeof(normId) - 1);
-        normId[sizeof(normId) - 1] = '\0';
-        materialId = normId;
-        Serial.print("lookupMaterial: normalized materialId to ");
-        Serial.println(materialId);
-    }
-
-    // First, try to match both materialId and variantId
-    for (size_t i = 0; i < MATERIAL_COUNT; ++i)
-    {
-        if (MATERIALS[i].materialId && MATERIALS[i].variantId && materialId && variantId &&
-            strcmp(MATERIALS[i].materialId, materialId) == 0 && strcmp(MATERIALS[i].variantId, variantId) == 0)
+        if (mat.materialId == materialId && mat.variantId == variantId)
         {
-            Serial.println("lookupMaterial: found exact match");
-            return &MATERIALS[i];
+            return &mat;
         }
     }
-    // Fallback: try to match materialId with blank variantId
-    for (size_t i = 0; i < MATERIAL_COUNT; ++i)
+    // Fallback: match materialId with blank variantId
+    for (const auto &mat : loadedMaterials)
     {
-        if (MATERIALS[i].materialId && materialId &&
-            strcmp(MATERIALS[i].materialId, materialId) == 0 &&
-            (!MATERIALS[i].variantId || MATERIALS[i].variantId[0] == '\0'))
+        if (mat.materialId == materialId && mat.variantId.length() == 0)
         {
-            Serial.println("lookupMaterial: found fallback blank variantId");
-            return &MATERIALS[i];
-        }
-    }
-    // Debug: print all S04 and S04-Y0 entries for troubleshooting
-    Serial.println("lookupMaterial: not found, dumping S04/S04-Y0 entries:");
-    for (size_t i = 0; i < MATERIAL_COUNT; ++i)
-    {
-        if ((MATERIALS[i].materialId && strstr(MATERIALS[i].materialId, "S04")) ||
-            (MATERIALS[i].variantId && strstr(MATERIALS[i].variantId, "S04")) ||
-            (MATERIALS[i].variantId && strstr(MATERIALS[i].variantId, "S04-Y0")))
-        {
-            Serial.print("  [");
-            Serial.print(i);
-            Serial.print("] materialId=");
-            Serial.print(MATERIALS[i].materialId ? MATERIALS[i].materialId : "(null)");
-            Serial.print(" variantId=");
-            Serial.print(MATERIALS[i].variantId ? MATERIALS[i].variantId : "(null)");
-            Serial.print(" code=");
-            Serial.print(MATERIALS[i].filamentCode ? MATERIALS[i].filamentCode : "(null)");
-            Serial.print(" name=");
-            Serial.print(MATERIALS[i].name ? MATERIALS[i].name : "(null)");
-            Serial.print(" color=");
-            Serial.println(MATERIALS[i].color ? MATERIALS[i].color : "(null)");
+            return &mat;
         }
     }
     return nullptr;

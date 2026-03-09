@@ -1,0 +1,29 @@
+[
+  {
+    "code": "10100",
+    "name": "PLA Basic",
+    "color": "Jade White",
+    "variantid": "A00-W1",
+    "imageurl": "https://store.bblcdn.eu/s8/default/2b4a62ed4c044e8f9353a6ca8f93caea/White.jpg",
+    "producturl": "https://eu.store.bambulab.com/products/pla-basic-filament?variant=593611223076515843",
+    "material": ""
+  },
+  {
+    "code": "10201",
+    "name": "PLA Basic",
+    "color": "Beige",
+    "variantid": "A00-P0",
+    "imageurl": "https://store.bblcdn.eu/s8/default/e1860649e4074090a480646e0c58a7bb/Beige.jpg",
+    "producturl": "https://eu.store.bambulab.com/products/pla-basic-filament?variant=593611223076515844",
+    "material": ""
+  },
+  {
+    "code": "10104",
+    "name": "PLA Basic",
+    "color": "Light Gray",
+    "variantid": "A00-D2",
+    "imageurl": "https://store.bblcdn.eu/s8/default/b4f66db9ca704f19b120ccccd0f41a85/plalightgray.jpg",
+    "producturl": "https://eu.store.bambulab.com/products/pla-basic-filament?variant=593611223076515845",
+    "material": ""
+  }
+]

@@ -17,11 +17,7 @@ size_t materialCount = 0;
 
 bool loadMaterialsJson(const char *path = "/materials.json")
 {
-    if (!SPIFFS.begin(true))
-    {
-        Serial.println("SPIFFS mount failed");
-        return false;
-    }
+    // SPIFFS.begin(true) is called in setup(), no need to call it here
     File file = SPIFFS.open(path, "r");
     if (!file)
     {

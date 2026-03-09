@@ -51,6 +51,8 @@ MFRC522 rfid(RFID_SS, RFID_RST);
 
 // --- State ---
 bool wifi_connected = false;
+// --- Global for variant_id (for lookup and update)
+char variant_id[9] = "";
 
 // --- Decoded filament info ---
 char last_uid[16] = "";
@@ -62,10 +64,10 @@ char tray_uid_short[7] = "";
 float last_weight = 0;
 
 // --- Weight constants ---
-static constexpr float CAL_SLOPE = 1.750685f;
-static constexpr float CAL_INTERCEPT = -1006.87f;
+static constexpr float CAL_SLOPE = 3.250685f;
+static constexpr float CAL_INTERCEPT = -1755.87f;
 // EMPTY_SPOOL_WEIGHT removed: calibration now uses empty spool as zero
-static constexpr float TARE_MV = 575.14f;
+static constexpr float TARE_MV = 524.14f;
 
 // --- Function prototypes ---
 // void scanRFID();
@@ -170,12 +172,26 @@ void handleSend()
     HTTPClient http;
     http.begin(WEB_APP_URL);
     http.addHeader("Content-Type", "application/json");
-    String payload = String("{\"code\":\"") + filament_code +
-                     "\",\"type\":\"" + filament_type +
-                     "\",\"name\":\"" + filament_color +
-                     "\",\"weight\":" + String((int)last_weight) +
-                     ",\"trayUid\":\"" + tray_uid +
-                     "\",\"uid\":\"" + last_uid + "\"}";
+    String payload;
+    if (strcmp(filament_code, "?") == 0)
+    {
+        // Unknown filament: only send variantId, weight, trayUid, uid
+        payload = String("{\"variantId\":\"") + variant_id +
+                  "\",\"weight\":" + String((int)last_weight) +
+                  ",\"trayUid\":\"" + tray_uid +
+                  "\",\"uid\":\"" + last_uid + "\"}";
+    }
+    else
+    {
+        // Known filament: send all fields
+        payload = String("{\"code\":\"") + filament_code +
+                  "\",\"type\":\"" + filament_type +
+                  "\",\"name\":\"" + filament_color +
+                  "\",\"variantId\":\"" + variant_id +
+                  "\",\"weight\":" + String((int)last_weight) +
+                  ",\"trayUid\":\"" + tray_uid +
+                  "\",\"uid\":\"" + last_uid + "\"}";
+    }
     int httpCode = http.POST(payload);
     tft.setTextColor((httpCode > 0 && httpCode < 400) ? ST77XX_GREEN : ST77XX_RED, ST77XX_BLACK);
     tft.setTextSize(2);
@@ -204,6 +220,11 @@ void handleSend()
 
 void setup()
 {
+    // Mount SPIFFS once at startup
+    if (!SPIFFS.begin(true))
+    {
+        Serial.println("SPIFFS mount failed at startup!");
+    }
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
 
@@ -223,7 +244,8 @@ void setup()
     rfid.PCD_Init(); // Initialize RFID reader
 
     // Mount SPIFFS and load materials.json
-    if (!loadMaterialsJson()) {
+    if (!loadMaterialsJson())
+    {
         Serial.println("Failed to load materials.json from SPIFFS");
     }
 
@@ -244,73 +266,118 @@ void loop()
     Serial.printf("UID: %s  Code: %s  Type: %s  Color: %s  TrayUID: %s  Weight: %d g\n",
                   last_uid, filament_code, filament_type, filament_color, tray_uid, (int)last_weight);
 
-    // Check if variantId is missing from local materials.json
-    bool variant_missing = false;
-    if (strlen(filament_code) > 0 && strlen(variant_id) > 0) {
-        const MaterialInfo *mat = lookupMaterial(filament_code, variant_id);
-        if (!mat) {
-            variant_missing = true;
+    // Lookup by variantId in materials.json
+    bool variant_found = false;
+    if (strlen(variant_id) > 0)
+    {
+        // Search for entry with this variantId
+        for (size_t i = 0; i < materialCount; ++i)
+        {
+            const MaterialEntry *entry = &materials[i];
+            if (entry && entry->variantId == String(variant_id))
+            {
+                variant_found = true;
+                break;
+            }
         }
     }
 
     // Wait for D2 press to send (no WiFi in loop)
-    if (digitalRead(BUTTON_SEND) == HIGH && strlen(filament_code) > 0) // Only send if RFID scanned
+    if (digitalRead(BUTTON_SEND) == HIGH)
     {
         Serial.printf("Send button pressed %s\n", filament_code);
-        if (variant_missing) {
-            // Negative buzzer sound for missing variantid
+        if (!variant_found)
+        {
+            // Show warning and send anyway
+            tft.setTextColor(ST77XX_YELLOW, ST77XX_BLACK);
+            tft.setTextSize(2);
+            tft.setCursor(0, 118);
+            tft.printf("Unknown variant, sent");
+            // Negative buzzer sound
             tone(BUZZER_PIN, 1200, 120);
             delay(150);
             tone(BUZZER_PIN, 900, 120);
             delay(150);
             noTone(BUZZER_PIN);
-            Serial.println("VariantId missing, updating materials.json from web...");
-            if (updateMaterialsJsonFromWeb()) {
-                Serial.println("materials.json updated, retrying lookup...");
-                if (lookupMaterial(filament_code, variant_id)) {
-                    handleSend();
-                } else {
-                    Serial.println("VariantId still not found after update.");
-                }
-            } else {
-                Serial.println("Failed to update materials.json from web.");
-            }
-        } else {
             handleSend();
-        }
-    // --- Download materials.json from web and save to SPIFFS ---
-    bool updateMaterialsJsonFromWeb() {
-        if (!wifi_connected) {
-            connectWiFi();
-        }
-        if (!wifi_connected) {
-            Serial.println("WiFi not connected, cannot update materials.json");
-            return false;
-        }
-        HTTPClient http;
-        http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
-        http.begin(MATERIALS_JSON_URL); // Define MATERIALS_JSON_URL in secrets.h or config
-        int httpCode = http.GET();
-        if (httpCode == 200) {
-            String payload = http.getString();
-            File file = SPIFFS.open("/materials.json", "w");
-            if (file) {
-                file.print(payload);
-                file.close();
-                Serial.println("materials.json updated from web.");
-                http.end();
-                // Reload materials.json into memory
-                return loadMaterialsJson();
-            } else {
-                Serial.println("Failed to open /materials.json for writing!");
+            // After sending, try to update materials.json
+            tft.setTextColor(ST77XX_YELLOW, ST77XX_BLACK);
+            tft.setTextSize(2);
+            tft.setCursor(0, 118);
+            tft.printf("Updating materials...");
+            if (updateMaterialsJsonFromWeb())
+            {
+                tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
+                tft.setTextSize(2);
+                tft.setCursor(0, 118);
+                tft.printf("Materials updated");
             }
-        } else {
-            Serial.printf("HTTP GET failed, code: %d\n", httpCode);
+            else
+            {
+                tft.setTextColor(ST77XX_RED, ST77XX_BLACK);
+                tft.setTextSize(2);
+                tft.setCursor(0, 118);
+                tft.printf("Update failed");
+            }
+            delay(1000);
         }
-        http.end();
+        else
+        {
+            // Success feedback
+            handleSend();
+            tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
+            tft.setTextSize(2);
+            tft.setCursor(0, 118);
+            tft.printf("Sent! Inventory ok");
+            delay(1000);
+        }
+        // Restore prompt
+        tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
+        tft.setTextSize(2);
+        tft.setCursor(0, 118);
+        tft.printf("<- Update inventory");
+    }
+}
+// --- Download materials.json from web and save to SPIFFS ---
+bool updateMaterialsJsonFromWeb()
+{
+    if (!wifi_connected)
+    {
+        connectWiFi();
+    }
+    if (!wifi_connected)
+    {
+        Serial.println("WiFi not connected, cannot update materials.json");
         return false;
     }
+    HTTPClient http;
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
+    http.begin(WEB_APP_URL); // Use the same Apps Script Web App URL for materials.json fetch
+    int httpCode = http.GET();
+    if (httpCode == 200)
+    {
+        String payload = http.getString();
+        File file = SPIFFS.open("/materials.json", "w");
+        if (file)
+        {
+            file.print(payload);
+            file.close();
+            Serial.println("materials.json updated from web.");
+            http.end();
+            // Reload materials.json into memory
+            return loadMaterialsJson();
+        }
+        else
+        {
+            Serial.println("Failed to open /materials.json for writing!");
+        }
     }
+    else
+    {
+        Serial.printf("HTTP GET failed, code: %d\n", httpCode);
+    }
+    http.end();
+    return false;
 }
 
 void readLoadCell()
@@ -414,13 +481,19 @@ void scanRFID()
             variant[8] = '\0';
             strncpy(material, (char *)buffer + 8, 8);
             material[8] = '\0';
+            // Set global variant_id for use in lookups
+            strncpy(variant_id, variant, sizeof(variant_id) - 1);
+            variant_id[sizeof(variant_id) - 1] = '\0';
             // Use runtime JSON lookup
             const MaterialEntry *entry = findMaterialByCode(String(material));
-            if (entry) {
+            if (entry)
+            {
                 strncpy(filament_code, entry->filamentCode.c_str(), sizeof(filament_code) - 1);
                 strncpy(filament_type, entry->material.c_str(), sizeof(filament_type) - 1);
                 strncpy(filament_color, entry->color.c_str(), sizeof(filament_color) - 1);
-            } else {
+            }
+            else
+            {
                 strncpy(filament_code, "?", sizeof(filament_code) - 1);
                 strncpy(filament_type, material, sizeof(filament_type) - 1);
                 strncpy(filament_color, variant, sizeof(filament_color) - 1);

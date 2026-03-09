@@ -11,10 +11,11 @@
 static constexpr int LOAD_CELL_PIN = A0;
 
 // Simple moving average to smooth readings
-static constexpr int AVG_WINDOW = 8;
+static constexpr int AVG_WINDOW = 30;
 int32_t acc = 0;
 int idx = 0;
 int samples[AVG_WINDOW] = {0};
+bool measurements_done;
 
 // Latest values cached so we can print them when a weight is entered.
 static int latest_raw = 0;
@@ -24,10 +25,10 @@ static float latest_avg_mv = 0;
 
 // Calibration (using avg mV): weight_g ≈ slope * mV + intercept
 // Calibration now uses empty spool as zero (TARE_MV)
-static constexpr float CAL_SLOPE = 1.750685f;
-static constexpr float CAL_INTERCEPT = -1006.87f;
+static constexpr float CAL_SLOPE = 3.25f;
+static constexpr float CAL_INTERCEPT = -1755.87f;
 // Tare assumes empty spool ~247 g → mV_tare ≈ (247 - intercept) / slope ≈ 549 mV
-static constexpr float TARE_MV = 575.14f;
+static constexpr float TARE_MV = 524.14f;
 
 // Store calibration points
 struct CalPoint
@@ -52,7 +53,7 @@ void handleSerialInput()
         return;
     if (line.equalsIgnoreCase("x"))
     {
-        // Output all calibration points as a list of lists
+        // Output all calibration points as a list of lists (Python)
         Serial.println(F("\nCalibration points for Python script (copy/paste):"));
         Serial.print("[");
         for (int i = 0; i < cal_count; ++i)
@@ -72,38 +73,62 @@ void handleSerialInput()
                 Serial.print(", ");
         }
         Serial.println("]\n");
+
+        // Output all calibration points as CSV
+        Serial.println(F("Calibration points as CSV (weight_g,raw,mv,avg_raw,avg_mv):"));
+        Serial.println(F("weight_g,raw,mv,avg_raw,avg_mv"));
+        for (int i = 0; i < cal_count; ++i)
+        {
+            Serial.print(cal_points[i].weight_g, 3);
+            Serial.print(",");
+            Serial.print(cal_points[i].raw);
+            Serial.print(",");
+            Serial.print(cal_points[i].mv);
+            Serial.print(",");
+            Serial.print(cal_points[i].avg_raw, 2);
+            Serial.print(",");
+            Serial.println(cal_points[i].avg_mv, 2);
+        }
+
+        // Set a flag to end measurements
+        measurements_done = true;
         return;
     }
-    float weight = line.toFloat();
-    Serial.print(F("Tagging weight (g): "));
-    Serial.println(weight, 3);
-    Serial.print(F("Reading: raw="));
-    Serial.print(latest_raw);
-    Serial.print(F(", mV="));
-    Serial.print(latest_mv);
-    Serial.print(F(", avg_raw="));
-    Serial.print(latest_avg_raw, 2);
-    Serial.print(F(", avg_mV="));
-    Serial.println(latest_avg_mv, 2);
-
-    // Save calibration point
-    if (cal_count < MAX_POINTS)
+    if (!measurements_done)
     {
-        cal_points[cal_count].weight_g = weight;
-        cal_points[cal_count].raw = latest_raw;
-        cal_points[cal_count].mv = latest_mv;
-        cal_points[cal_count].avg_raw = latest_avg_raw;
-        cal_points[cal_count].avg_mv = latest_avg_mv;
-        cal_count++;
-    }
+        float weight = line.toFloat();
+        Serial.print(F("Tagging weight (g): "));
+        Serial.println(weight, 3);
+        Serial.print(F("Reading: raw="));
+        Serial.print(latest_raw);
+        Serial.print(F(", mV="));
+        Serial.print(latest_mv);
+        Serial.print(F(", avg_raw="));
+        Serial.print(latest_avg_raw, 2);
+        Serial.print(F(", avg_mV="));
+        Serial.println(latest_avg_mv, 2);
 
-    // Compute estimated gross and filament-only weights from avg mV
-    float est_gross = CAL_SLOPE * latest_avg_mv + CAL_INTERCEPT;
-    float est_filament = CAL_SLOPE * (latest_avg_mv - TARE_MV);
-    Serial.print(F("Est gross (g): "));
-    Serial.print(est_gross, 2);
-    Serial.print(F(", est filament (g): "));
-    Serial.println(est_filament, 2);
+        // Save calibration point
+        if (cal_count < MAX_POINTS)
+        {
+            cal_points[cal_count].weight_g = weight;
+            cal_points[cal_count].raw = latest_raw;
+            cal_points[cal_count].mv = latest_mv;
+            cal_points[cal_count].avg_raw = latest_avg_raw;
+            cal_points[cal_count].avg_mv = latest_avg_mv;
+            cal_count++;
+        }
+
+        // Compute estimated gross and filament-only weights from avg mV
+        float est_gross = CAL_SLOPE * latest_avg_mv + CAL_INTERCEPT;
+        float est_filament = CAL_SLOPE * (latest_avg_mv - TARE_MV);
+        Serial.print(F("Est gross (g): "));
+        Serial.print(est_gross, 2);
+        Serial.print(F(", est filament (g): "));
+        Serial.println(est_filament, 2);
+    }
+    // Add at the top of the file or before setup()
+    bool measurements_done = false;
 }
 
 void setup()

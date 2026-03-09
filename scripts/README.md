@@ -2,14 +2,9 @@
 
 ## Workflow Overview
 
-1. **Scrape Store**
-   - Run `scrape_store.py` to fetch product data from the Bambu Lab store (base URL in `secret.env`).
-   - The script looks up `variantid` using `readmequeen.md` (fetched from the reference repo).
-   - Output: `store_index.json` (in the data folder).
-
-2. **Push to Google Sheet**
-   - Run `push_store_index.py` to upload `store_index.json` to the "store index" tab in the Google Sheet.
-   - Sheet ID and credentials are set in `secret.env`.
+1. **Sync All Data**
+   - Run `sync_all_data.py` to fetch the tab, Queen README, and store (if needed), merge all sources, update outputs, and push any missing codes to the Google Sheet tab. Sheet ID and credentials are set in `secret.env`.
+   - This script replaces both `push_store_index.py` and `scrape_store.py`.
 
 3. **Calibrate Load Cell**
    - Upload and run `load_cell_adc_logger.ino` on your ESP32.
@@ -22,21 +17,19 @@
    - Run `calc_slope_from_calibration.py` to calculate the slope/intercept for weight conversion.
 
 ## Handling Missing VariantIDs
-- If a scanned filament's `variantid` is missing, update the Google Sheet's "store index" tab.
-- Press "Update inventory" on the device to fetch the latest data and retry lookup.
+ If a scanned filament's `variantid` is missing, run `sync_all_data.py` to update the Google Sheet's "store index" tab. Press "Update inventory" on the device to fetch the latest data and retry lookup.
 
 ## Script Details
-- `scrape_store.py`: Scrapes store, matches variantid, writes `store_index.json`.
-- `push_store_index.py`: Pushes JSON to Google Sheet tab.
-- `calc_slope_from_calibration.py`: Calculates calibration slope/intercept from pasted data.
+ `sync_all_data.py`: Syncs, merges, and pushes all sources to the Google Sheet tab.
+ `scrape_store.py`: Scrapes store, matches variantid, writes `store_index.json`.
+ `calc_slope_from_calibration.py`: Calculates calibration slope/intercept from pasted data.
 
 ## Secrets
 - Store base URL, Sheet ID, and credentials are set in `scripts/secret.env` (never commit real secrets).
 
 ## Example Usage
 ```bash
-python scripts/scrape_store.py
-python scripts/push_store_index.py
+python scripts/sync_all_data.py
 python scripts/calc_slope_from_calibration.py
 ```
 
