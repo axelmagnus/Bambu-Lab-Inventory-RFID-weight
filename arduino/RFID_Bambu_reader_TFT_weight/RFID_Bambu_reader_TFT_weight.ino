@@ -13,6 +13,7 @@
 // ...existing code...
 #include <Arduino.h>
 #include <WiFi.h>
+#include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 // #include <Wire.h>
 //  #include <MFRC522.h>
@@ -23,8 +24,7 @@
 #include "material_lookup.h"
 #include <mbedtls/md.h>
 #include <secrets.h>
-// Add runtime JSON loader
-#include "materials_json_loader.h"
+#include <time.h>
 // --- HKDF constants and sector key array ---
 static const uint8_t HKDF_SALT[16] = {0x9a, 0x75, 0x9c, 0xf2, 0xc4, 0xf7, 0xca, 0xff, 0x22, 0x2c, 0xb9, 0x76, 0x9b, 0x41, 0xbc, 0x96};
 static const uint8_t HKDF_INFO[7] = {'R', 'F', 'I', 'D', '-', 'A', 0x00};
@@ -51,6 +51,9 @@ MFRC522 rfid(RFID_SS, RFID_RST);
 
 // --- State ---
 bool wifi_connected = false;
+bool scan_print_pending = false;              // Only log once per scan for readability
+static unsigned long lastMaterialsUpdate = 0; // For throttling materials.json fetches
+bool loadcell_print_pending = false;          // Only log load cell once per scan
 // --- Global for variant_id (for lookup and update)
 char variant_id[9] = "";
 
@@ -64,10 +67,11 @@ char tray_uid_short[7] = "";
 float last_weight = 0;
 
 // --- Weight constants ---
-static constexpr float CAL_SLOPE = 3.250685f;
-static constexpr float CAL_INTERCEPT = -1755.87f;
-// EMPTY_SPOOL_WEIGHT removed: calibration now uses empty spool as zero
-static constexpr float TARE_MV = 524.14f;
+static constexpr float CAL_SLOPE = 1.725510f;
+static constexpr float CAL_INTERCEPT = -1004.43f;
+// Tare assumes empty spool ~247 g → mV_tare ≈ (247 - intercept) / slope ≈ 624.6 mV
+static constexpr float TARE_MV = 725.25f;
+static constexpr unsigned long MATERIALS_UPDATE_COOLDOWN_MS = 5UL * 60UL * 1000UL; // 5 minutes
 
 // --- Function prototypes ---
 // void scanRFID();
@@ -129,6 +133,7 @@ void deriveKeysFromUid(const byte *uid, byte uidLen)
 // --- WiFi connect ---
 void connectWiFi()
 {
+    Serial.printf("WiFi: connecting to SSID '%s'...\n", WIFI_SSID);
     WiFi.mode(WIFI_STA);
     WiFi.begin(WIFI_SSID, WIFI_PASS);
     unsigned long start = millis();
@@ -148,6 +153,9 @@ void connectWiFi()
         delay(200);
     }
     wifi_connected = (WiFi.status() == WL_CONNECTED);
+    Serial.printf("WiFi: %s (status=%d, elapsed=%lu ms, RSSI=%d)\n",
+                  wifi_connected ? "connected" : "failed",
+                  WiFi.status(), millis() - start, wifi_connected ? WiFi.RSSI() : 0);
     tft.fillScreen(ST77XX_BLACK);
     tft.setCursor(0, 0);
     tft.setTextColor(wifi_connected ? ST77XX_GREEN : ST77XX_RED);
@@ -160,39 +168,148 @@ void connectWiFi()
 void handleSend()
 {
     // Placeholder for future webhook logic
+    wifi_connected = (WiFi.status() == WL_CONNECTED);
     if (!wifi_connected)
         connectWiFi();
     if (!wifi_connected)
+    {
+        Serial.println("Send aborted: WiFi not connected");
         return;
+    }
+    // --- NTP Time Sync (after WiFi) ---
+    configTime(0, 0, "pool.ntp.org", "time.nist.gov");
+    Serial.print("Waiting for NTP time sync");
+    time_t now = time(nullptr);
+    int ntp_wait = 0;
+    while (now < 1672531200 && ntp_wait < 20)
+    { // 2023-01-01 epoch, max 20s
+        delay(1000);
+        Serial.print(".");
+        now = time(nullptr);
+        ntp_wait++;
+    }
+    Serial.println();
+    if (now >= 1672531200)
+    {
+        Serial.printf("NTP time set: %s\n", ctime(&now));
+    }
+    else
+    {
+        Serial.println("NTP time sync failed!");
+    }
+    Serial.printf("Send: code='%s' type='%s' name='%s' variant='%s' tray='%s' uid='%s' weight=%d g\n",
+                  filament_code, filament_type, filament_color, variant_id, tray_uid, last_uid, (int)last_weight);
     // Update only last row with 'Sending...'
     tft.setTextColor(ST77XX_YELLOW, ST77XX_BLACK);
     tft.setTextSize(2);
     tft.setCursor(0, 118);
     tft.printf("Sending....         ");
+    WiFiClientSecure client;
+    client.setInsecure(); // Allow HTTPS without bundling root certs
     HTTPClient http;
-    http.begin(WEB_APP_URL);
-    http.addHeader("Content-Type", "application/json");
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS); // Follow Apps Script redirects
+    http.setConnectTimeout(10000);
+    http.setTimeout(10000);
+    http.setReuse(false);
     String payload;
-    if (strcmp(filament_code, "?") == 0)
+    // Always send code field, even if unknown
+    payload = String("{\"code\":\"") + filament_code +
+              "\",\"type\":\"" + filament_type +
+              "\",\"name\":\"" + filament_color +
+              "\",\"variantId\":\"" + variant_id +
+              "\",\"weight\":" + String((int)last_weight) +
+              ",\"trayUid\":\"" + tray_uid +
+              "\",\"uid\":\"" + last_uid + "\"}";
+
+    // Debug: print payload before sending
+    Serial.println("--- HTTP Payload ---");
+    Serial.println(payload);
+    // Check for non-printable characters
+    bool hasNonPrintable = false;
+    for (size_t i = 0; i < payload.length(); ++i)
     {
-        // Unknown filament: only send variantId, weight, trayUid, uid
-        payload = String("{\"variantId\":\"") + variant_id +
-                  "\",\"weight\":" + String((int)last_weight) +
-                  ",\"trayUid\":\"" + tray_uid +
-                  "\",\"uid\":\"" + last_uid + "\"}";
+        char c = payload[i];
+        if ((c < 32 && c != '\n' && c != '\r' && c != '\t') || c > 126)
+        {
+            hasNonPrintable = true;
+            Serial.printf("Non-printable char at %d: 0x%02X\n", (int)i, (unsigned char)c);
+        }
+    }
+    if (!hasNonPrintable)
+    {
+        Serial.println("No non-printable characters in payload.");
+    }
+    Serial.println("--------------------");
+    int httpCode = -1;
+    bool success = false;
+    String lastResp = "";
+    for (int attempt = 0; attempt < 3 && !success; ++attempt)
+    {
+        String url = WEB_APP_URL;
+        bool useHttp10 = false;
+        if (attempt == 1)
+        {
+            useHttp10 = true; // Retry with HTTP/1.0 (sometimes needed for proxies)
+        }
+        else if (attempt == 2 && url.startsWith("https://"))
+        {
+            url.replace("https://", "http://"); // Last resort: plain HTTP
+        }
+        http.begin(client, url);
+        http.useHTTP10(useHttp10);
+        http.addHeader("Content-Type", "application/json");
+        http.addHeader("User-Agent", "ESP32-RFID-Inventory/1.0");
+        httpCode = http.POST(payload);
+        Serial.printf("Send attempt %d: url=%s http10=%d code=%d wifiStatus=%d\n",
+                      attempt + 1, url.c_str(), useHttp10, httpCode, WiFi.status());
+        if (httpCode > 0)
+        {
+            success = (httpCode < 400);
+            String resp = http.getString();
+            lastResp = resp;
+            Serial.printf("Send response: %s\n", resp.c_str());
+            if (!success)
+            {
+                Serial.printf("Send error: HTTP %d, response: %s\n", httpCode, resp.c_str());
+            }
+        }
+        else
+        {
+            lastResp = http.errorToString(httpCode);
+            Serial.printf("Send error: %s\n", lastResp.c_str());
+        }
+        http.end();
+    }
+    Serial.printf("Send final: len=%d httpCode=%d success=%d\n", payload.length(), httpCode, success);
+
+    // Show HTTP result on TFT for user feedback
+    tft.setTextColor((httpCode > 0 && httpCode < 400) ? ST77XX_GREEN : ST77XX_RED, ST77XX_BLACK);
+    tft.setTextSize(2);
+    tft.setCursor(0, 118);
+    if (httpCode > 0 && httpCode < 400)
+    {
+        tft.printf("Sent! (%d)         ", httpCode);
     }
     else
     {
-        // Known filament: send all fields
-        payload = String("{\"code\":\"") + filament_code +
-                  "\",\"type\":\"" + filament_type +
-                  "\",\"name\":\"" + filament_color +
-                  "\",\"variantId\":\"" + variant_id +
-                  "\",\"weight\":" + String((int)last_weight) +
-                  ",\"trayUid\":\"" + tray_uid +
-                  "\",\"uid\":\"" + last_uid + "\"}";
+        tft.printf("FAIL %d           ", httpCode);
+        // Show first 16 chars of error/response on next line
+        tft.setCursor(0, 140);
+        String shortErr = lastResp.substring(0, 16);
+        tft.setTextColor(ST77XX_YELLOW, ST77XX_BLACK);
+        tft.printf("%s", shortErr.c_str());
     }
-    int httpCode = http.POST(payload);
+    delay(1200);
+    // Clear the sent/sent fail message by overwriting at the same position
+    tft.setCursor(0, 118);
+    tft.setTextColor(ST77XX_BLACK, ST77XX_BLACK);
+    tft.setTextSize(2);
+    tft.printf("                    ");
+    tft.setCursor(0, 140);
+    tft.printf("                    ");
+    // Immediately restore the green prompt
+    tft.setCursor(0, 118);
+    tft.setTextColor(ST77XX_GREEN, ST77XX_BLACK);
     tft.setTextColor((httpCode > 0 && httpCode < 400) ? ST77XX_GREEN : ST77XX_RED, ST77XX_BLACK);
     tft.setTextSize(2);
     tft.setCursor(0, 118);
@@ -204,7 +321,6 @@ void handleSend()
     {
         tft.printf("Send FAIL          ");
     }
-    http.end();
     delay(800);
     // Clear the sent/sent fail message by overwriting at the same position
     tft.setCursor(0, 118);
@@ -244,7 +360,7 @@ void setup()
     rfid.PCD_Init(); // Initialize RFID reader
 
     // Mount SPIFFS and load materials.json
-    if (!loadMaterialsJson())
+    if (!loadMaterialsFromSPIFFS())
     {
         Serial.println("Failed to load materials.json from SPIFFS");
     }
@@ -263,18 +379,20 @@ void loop()
     scanRFID();
     readLoadCell();
     showOnTFT();
-    Serial.printf("UID: %s  Code: %s  Type: %s  Color: %s  TrayUID: %s  Weight: %d g\n",
-                  last_uid, filament_code, filament_type, filament_color, tray_uid, (int)last_weight);
+    if (scan_print_pending)
+    {
+        Serial.printf("UID: %s  Code: %s  Type: %s  Color: %s  TrayUID: %s  Weight: %d g\n",
+                      last_uid, filament_code, filament_type, filament_color, tray_uid, (int)last_weight);
+        scan_print_pending = false;
+    }
 
     // Lookup by variantId in materials.json
     bool variant_found = false;
     if (strlen(variant_id) > 0)
     {
-        // Search for entry with this variantId
-        for (size_t i = 0; i < materialCount; ++i)
+        for (const auto &mat : loadedMaterials)
         {
-            const MaterialEntry *entry = &materials[i];
-            if (entry && entry->variantId == String(variant_id))
+            if (mat.variantId == String(variant_id))
             {
                 variant_found = true;
                 break;
@@ -341,6 +459,13 @@ void loop()
 // --- Download materials.json from web and save to SPIFFS ---
 bool updateMaterialsJsonFromWeb()
 {
+    // Skip if we refreshed recently
+    if (lastMaterialsUpdate && millis() - lastMaterialsUpdate < MATERIALS_UPDATE_COOLDOWN_MS)
+    {
+        Serial.printf("materials.json: skipped (cooldown %lu ms remaining)\n",
+                      MATERIALS_UPDATE_COOLDOWN_MS - (millis() - lastMaterialsUpdate));
+        return true; // treat as success to avoid blocking UI
+    }
     if (!wifi_connected)
     {
         connectWiFi();
@@ -350,34 +475,101 @@ bool updateMaterialsJsonFromWeb()
         Serial.println("WiFi not connected, cannot update materials.json");
         return false;
     }
+    wifi_connected = (WiFi.status() == WL_CONNECTED);
+    if (!wifi_connected)
+    {
+        Serial.println("Update materials aborted: WiFi not connected");
+        return false;
+    }
+    Serial.println("materials.json: fetching from web app...");
+    WiFiClientSecure client;
+    client.setInsecure();
     HTTPClient http;
     http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
-    http.begin(WEB_APP_URL); // Use the same Apps Script Web App URL for materials.json fetch
-    int httpCode = http.GET();
-    if (httpCode == 200)
+    http.setConnectTimeout(6000);
+    http.setTimeout(6000);
+    http.setReuse(false);
+    int httpCode = -1;
+    bool success = false;
+    for (int attempt = 0; attempt < 3 && !success; ++attempt)
     {
-        String payload = http.getString();
-        File file = SPIFFS.open("/materials.json", "w");
-        if (file)
+        String url = WEB_APP_URL;
+        bool useHttp10 = false;
+        if (attempt == 1)
         {
-            file.print(payload);
-            file.close();
-            Serial.println("materials.json updated from web.");
-            http.end();
-            // Reload materials.json into memory
-            return loadMaterialsJson();
+            useHttp10 = true;
+        }
+        else if (attempt == 2 && url.startsWith("https://"))
+        {
+            url.replace("https://", "http://");
+        }
+        http.begin(client, url);
+        http.useHTTP10(useHttp10);
+        http.addHeader("User-Agent", "ESP32-RFID-Inventory/1.0");
+        httpCode = http.GET();
+        Serial.printf("materials.json attempt %d: url=%s http10=%d code=%d\n",
+                      attempt + 1, url.c_str(), useHttp10, httpCode);
+        if (httpCode > 0 && httpCode < 400)
+        {
+            success = true;
+            String resp = http.getString();
+            Serial.printf("materials.json response: %s\n", resp.c_str());
+        }
+        else if (httpCode <= 0)
+        {
+            Serial.printf("materials.json error: %s\n", http.errorToString(httpCode).c_str());
         }
         else
         {
-            Serial.println("Failed to open /materials.json for writing!");
+            String resp = http.getString();
+            Serial.printf("materials.json HTTP error %d, response: %s\n", httpCode, resp.c_str());
         }
+        http.end();
+    }
+    if (!success)
+    {
+        http.end();
+        // Do not hammer: set timestamp even on failure to avoid repeated long fetches in quick succession
+        lastMaterialsUpdate = millis();
+        return false;
+    }
+    // Successful code is in httpCode from last attempt; reopen to read payload
+    WiFiClientSecure client2;
+    client2.setInsecure();
+    HTTPClient http2;
+    http2.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
+    http2.setConnectTimeout(6000);
+    http2.setTimeout(6000);
+    http2.setReuse(false);
+    http2.begin(client2, WEB_APP_URL);
+    http2.useHTTP10(false);
+    http2.addHeader("User-Agent", "ESP32-RFID-Inventory/1.0");
+    int httpCode2 = http2.GET();
+    Serial.printf("materials.json final fetch: code=%d\n", httpCode2);
+    if (httpCode2 != 200)
+    {
+        http2.end();
+        lastMaterialsUpdate = millis();
+        return false;
+    }
+    String payload = http2.getString();
+    http2.end();
+    Serial.println("materials.json: payload fetched");
+    File file = SPIFFS.open("/materials.json", "w");
+    if (file)
+    {
+        file.print(payload);
+        file.close();
+        Serial.println("materials.json updated from web.");
+        lastMaterialsUpdate = millis();
+        return loadMaterialsFromSPIFFS();
     }
     else
     {
-        Serial.printf("HTTP GET failed, code: %d\n", httpCode);
+        Serial.println("Failed to open /materials.json for writing!");
+        lastMaterialsUpdate = millis();
+        return false;
     }
-    http.end();
-    return false;
 }
 
 void readLoadCell()
@@ -391,9 +583,13 @@ void readLoadCell()
         delay(5); // Short delay between samples
     }
     int mv = mv_sum / samples;
-    float gross_weight = CAL_SLOPE * mv + CAL_INTERCEPT;
-    float net_weight = CAL_SLOPE * (mv - TARE_MV);
-    last_weight = (int)net_weight;
+    float filament_weight = CAL_SLOPE * mv + CAL_INTERCEPT;
+    last_weight = (int)filament_weight;
+    if (loadcell_print_pending)
+    {
+        Serial.printf("LoadCell: mv=%d filament=%.1f stored=%d\n", mv, filament_weight, (int)last_weight);
+        loadcell_print_pending = false;
+    }
 }
 
 void showOnTFT()
@@ -401,7 +597,7 @@ void showOnTFT()
     tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); // White text, black background
     tft.setTextSize(3);
     tft.setCursor(0, 0);
-    tft.printf("Net weight,g:");
+    tft.printf("Filament,g:");
     tft.setCursor(0, 26);
     tft.printf("    ");
     tft.setCursor(0, 26);
@@ -448,6 +644,8 @@ void scanRFID()
     {
         scanned = true;
         Serial.println(F("RFID Scanned"));
+        scan_print_pending = true;
+        loadcell_print_pending = true;
         digitalWrite(LED_BUILTIN, HIGH);
         tft.fillScreen(ST77XX_BLACK);
 
@@ -484,13 +682,13 @@ void scanRFID()
             // Set global variant_id for use in lookups
             strncpy(variant_id, variant, sizeof(variant_id) - 1);
             variant_id[sizeof(variant_id) - 1] = '\0';
-            // Use runtime JSON lookup
-            const MaterialEntry *entry = findMaterialByCode(String(material));
-            if (entry)
+            // Use unified material lookup
+            const MaterialInfo *info = lookupMaterial(nullptr, variant);
+            if (info)
             {
-                strncpy(filament_code, entry->filamentCode.c_str(), sizeof(filament_code) - 1);
-                strncpy(filament_type, entry->material.c_str(), sizeof(filament_type) - 1);
-                strncpy(filament_color, entry->color.c_str(), sizeof(filament_color) - 1);
+                strncpy(filament_code, info->filamentCode.c_str(), sizeof(filament_code) - 1);
+                strncpy(filament_type, info->name.c_str(), sizeof(filament_type) - 1);
+                strncpy(filament_color, info->color.c_str(), sizeof(filament_color) - 1);
             }
             else
             {
@@ -498,6 +696,8 @@ void scanRFID()
                 strncpy(filament_type, material, sizeof(filament_type) - 1);
                 strncpy(filament_color, variant, sizeof(filament_color) - 1);
             }
+            Serial.printf("RFID block1 material='%s' variant='%s' code='%s' type='%s' color='%s'\n",
+                          material, variant, filament_code, filament_type, filament_color);
         }
         // --- Block 9: Use HKDF-derived Key A for sector 2 ---
         bool block9_ok = false;
@@ -516,6 +716,7 @@ void scanRFID()
             strncpy(tray_uid_short, tray_uid, 6);
             tray_uid_short[6] = '\0';
             tray_missing = false;
+            Serial.printf("RFID tray UID=%s\n", tray_uid);
         }
 
         // --- Buzzer feedback: two-tone ---

@@ -41,12 +41,57 @@ inline bool loadMaterialsFromSPIFFS(const char *jsonPath = "/materials.json")
     for (JsonObject obj : doc.as<JsonArray>())
     {
         MaterialInfo info;
-        info.materialId = obj["materialId"].as<String>();
-        info.variantId = obj["variantId"].as<String>();
-        info.filamentCode = obj["filamentCode"].as<String>();
-        info.name = obj["material"].as<String>();
-        info.color = obj["color"].as<String>();
-        info.productUrl = obj["productUrl"].as<String>();
+        // Name/material
+        if (obj.containsKey("material"))
+            info.materialId = obj["material"].as<String>();
+        else if (obj.containsKey("Name"))
+            info.materialId = obj["Name"].as<String>();
+        else
+            info.materialId = "";
+
+        // VariantId/variantId
+        String rawVariantId = "";
+        if (obj.containsKey("variantId"))
+            rawVariantId = obj["variantId"].as<String>();
+        else if (obj.containsKey("VariantId"))
+            rawVariantId = obj["VariantId"].as<String>();
+        rawVariantId.toLowerCase();
+        info.variantId = rawVariantId;
+
+        // Filament code: filamentCode, Code, code
+        if (obj.containsKey("filamentCode"))
+            info.filamentCode = obj["filamentCode"].as<String>();
+        else if (obj.containsKey("Code"))
+            info.filamentCode = String(obj["Code"].as<int>()); // handle int code
+        else if (obj.containsKey("code"))
+            info.filamentCode = obj["code"].as<String>();
+        else
+            info.filamentCode = "";
+
+        // Name (again, for display)
+        if (obj.containsKey("material"))
+            info.name = obj["material"].as<String>();
+        else if (obj.containsKey("Name"))
+            info.name = obj["Name"].as<String>();
+        else
+            info.name = "";
+
+        // Color
+        if (obj.containsKey("color"))
+            info.color = obj["color"].as<String>();
+        else if (obj.containsKey("Color"))
+            info.color = obj["Color"].as<String>();
+        else
+            info.color = "";
+
+        // ProductUrl
+        if (obj.containsKey("productUrl"))
+            info.productUrl = obj["productUrl"].as<String>();
+        else if (obj.containsKey("ProductUrl"))
+            info.productUrl = obj["ProductUrl"].as<String>();
+        else
+            info.productUrl = "";
+
         loadedMaterials.push_back(info);
     }
     Serial.printf("Loaded %d materials from SPIFFS\n", loadedMaterials.size());
@@ -69,17 +114,11 @@ inline const MaterialInfo *lookupMaterial(const char *filamentCode)
 // Lookup by materialId and variantId
 inline const MaterialInfo *lookupMaterial(const char *materialId, const char *variantId)
 {
+    String searchVariant = variantId ? String(variantId) : "";
+    searchVariant.toLowerCase();
     for (const auto &mat : loadedMaterials)
     {
-        if (mat.materialId == materialId && mat.variantId == variantId)
-        {
-            return &mat;
-        }
-    }
-    // Fallback: match materialId with blank variantId
-    for (const auto &mat : loadedMaterials)
-    {
-        if (mat.materialId == materialId && mat.variantId.length() == 0)
+        if (mat.variantId == searchVariant)
         {
             return &mat;
         }

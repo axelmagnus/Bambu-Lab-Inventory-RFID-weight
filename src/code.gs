@@ -629,6 +629,14 @@ function jsonResponse(_status, body) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+// Add top-level menu in Sheets
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Inventory')
+    .addItem('Update links', 'updateInventoryHyperlinksAndStoreIndex')
+    .addToUi();
+}
+
 // Extract URL from =HYPERLINK("url","text") or =HYPERLINK("url";"text")
 function extractHyperlinkUrl(cellVal) {
   if (!cellVal) return '';
